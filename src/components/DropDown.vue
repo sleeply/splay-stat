@@ -4,28 +4,48 @@
     }" @click.stop="handleDropDown">
         <div class="active"
             style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; width: 100%;">
-            <slot></slot>
+            <slot name="active" :active="'awda'"></slot>
         </div>
 
         <div class="choices">
-            <div class="choice" v-for="(item, index) in items" :key="index">
-                {{ $t(`interval_date.${item}`) }}
+            <div class="choice" :class="{
+                selected: index === active
+            }" v-for="(item, index) in items" :key="index" @click="emits('setActive', index)">
+                <slot name="list" :item="item" :index="index"></slot>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { defineProps, ref } from 'vue'
+/* eslint-disable */
+import { defineProps, ref, defineEmits, onMounted, onBeforeUnmount } from 'vue'
+import Icon from './Icon.vue'
 defineProps({
-    items: Array
+    items: Array,
+    active: Number
 })
+
+const emits = defineEmits(['setActive'])
+
 const isDrop = ref(false)
+const target = ref(null)
 
 const handleDropDown = () => {
     isDrop.value = !isDrop.value
-
 }
+const close = (e) => {
+    if (target.value && !target.value.contains(e.target)) {
+        isDrop.value = false
+    }
+};
+onMounted(() => {
+    document.addEventListener("click", close, true);
+})
+
+onBeforeUnmount(() => {
+    document.removeEventListener("click", close);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -33,13 +53,13 @@ const handleDropDown = () => {
     display: flex;
     align-items: center;
     position: relative;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     transition: all 0.4s ease-in-out;
 
     .active {
-        font-size: 14px;
-        line-height: 19px;
-        padding: 11px 8px 10px 17px;
+        font-size: 0.875rem;
+        line-height: 1.1875rem;
+        padding: 0.6875rem 0.5rem 0.625rem 1.0625rem;
         transition: all 0s ease-in-out 0.1s;
     }
 
@@ -49,24 +69,25 @@ const handleDropDown = () => {
         width: 100%;
         left: 0;
         background: var(--basic-light);
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        // 
+        border-bottom-left-radius: 0.625rem;
+        border-bottom-right-radius: 0.625rem;
         transition: all 0.4s ease-in-out;
         max-height: 0;
         overflow: hidden;
+        z-index: 2;
 
         .choice {
-            padding-left: 17px;
-            padding-right: 8px;
-            // padding-top: 2px;
-            // padding-bottom: 2px;
-            padding-bottom: 4px;
-            padding-top: 4px;
+            padding-left: 1.0625rem;
+            padding-right: 0.5rem;
+            padding-bottom: 0.25rem;
+            padding-top: 0.25rem;
             vertical-align: middle;
-            font-size: 14px;
-            line-height: 19px;
+            font-size: 0.875rem;
+            line-height: 1.1875rem;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
 
             &:hover {
@@ -75,10 +96,23 @@ const handleDropDown = () => {
             }
 
             &:last-child {
-                margin-bottom: 16px;
+                margin-bottom: 1rem;
             }
 
+            .ico-size {
+                width: 1rem;
+                height: 1rem;
+                opacity: 0;
+            }
 
+            &.selected {
+                background: var(--highlight);
+                color: var(--basic-light);
+
+                .ico-size {
+                    opacity: 1;
+                }
+            }
         }
     }
 
@@ -87,13 +121,12 @@ const handleDropDown = () => {
         transition: all 0.4s ease-in;
 
         .active {
-            padding-bottom: 4px;
+            padding-bottom: 0.25rem;
             transition: all 0s ease-in 0.1s;
         }
 
         .choices {
             max-height: 999px;
-
             transition: all 0.4s ease-in;
         }
     }

@@ -3,3 +3,4 @@
 export const SUPPORT_LOCALES = ["en", "ru", "uz"];
 
 export const interval_date = ["day", "year", "month"];
+export const visit = ["country-visitis", "visits-device", "registrated", "region-visits"];
