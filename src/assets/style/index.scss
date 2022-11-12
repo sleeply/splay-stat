@@ -5,8 +5,11 @@
   --basic-light: #ffffff;
 
   --darkness: #030229;
+  --darkness-opacity-07: rgba(3, 2, 41, 0.7);
+  --darkness-opacity-05: rgba(3, 2, 41, 0.5);
   --highlight: #605bff;
   --basic-grey: #dadada;
+  --secondary-light: #f7f7f8;
 
   --secondary-highlight: #346dc4;
   --basic-blue: #28487b;
@@ -25,11 +28,24 @@
   line-height: 1.375rem;
 }
 
+.s-container {
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
 .page-title {
   font-size: 20px;
   line-height: 27px;
   font-weight: 700;
   color: var(--darkness);
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 html {

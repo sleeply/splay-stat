@@ -20,6 +20,11 @@ const childRoutes = [
     name: "MainWrapper",
     component: () => import("@/views/MainWrapper.vue"),
   },
+  {
+    path: "auth",
+    name: "Auth",
+    component: () => import("@/views/Auth.vue"),
+  },
 ];
 
 const routeNames = [];
