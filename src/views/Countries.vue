@@ -1,5 +1,5 @@
 <template>
-    <div class="stats-countries">
+<div class="stats-countries">
         <div class="page-title">
             {{ $t("countries.title") }}
         </div>
@@ -8,6 +8,7 @@
             <div class="filter-title  bold">
                 {{ $t("countries.filter-title") }}
             </div>
+            <calendar />
 
             <div class="filters">
                 <DropDown class="interval-days-drop" :items="interval_date" @setActive="getDay"
@@ -34,7 +35,8 @@
                         </Icon>
                     </template>
                 </DropDown>
-                <DropDown class="interval-visits-drop" :items="interval_visits" @setActive="getVisits" :active="activeVisit">
+                <DropDown class="interval-visits-drop" :items="interval_visits" @setActive="getVisits"
+                    :active="activeVisit">
                     <template #active="{ active }">
                         <p> {{ $t(`interval_visits.${active}`) }} </p>
                         <Icon class="drop-ico">
@@ -59,6 +61,24 @@
                         </Icon>
                     </template>
                 </DropDown>
+                <div class="date-at interval-days-drop" @click="handleShowCalendar">
+                    <span>10-06-2020</span>
+                    <Icon class="drop-ico">
+                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.5" d="M0.905273 1.12866L4.94824 5.04761L8.99121 1.12866" stroke="black"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </Icon>
+                </div>
+                <div class="date-at interval-days-drop" @click="handleShowCalendar">
+                    <span>10-06-2020</span>
+                    <Icon class="drop-ico">
+                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.5" d="M0.905273 1.12866L4.94824 5.04761L8.99121 1.12866" stroke="black"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </Icon>
+                </div>
             </div>
         </div>
 
@@ -71,6 +91,7 @@ import DropDown from '@/components/DropDown.vue';
 import { interval_date, interval_visits } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
 import { ref } from 'vue';
+import Calendar from './Calendar.vue';
 
 const activeDayInterval = ref(0)
 const activeVisit = ref(0)
@@ -110,13 +131,28 @@ const getVisits = (prop) => {
         }
 
         .filters {
+            margin-top: 20px;
             .interval-days-drop {
                 width: 130px;
                 background: var(--basic-light);
             }
-            .interval-visits-drop{
+
+            .interval-visits-drop {
                 width: 195px;
                 background: var(--basic-light);
+            }
+
+            .date-at {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.6875rem 0.5rem 0.625rem 1.0625rem;
+                border-radius: 0.625rem;
+
+                span {
+                    font-size: 14px;
+                    line-height: 19px;
+                }
             }
 
             .drop-ico {

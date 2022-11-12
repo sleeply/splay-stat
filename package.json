@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "date-fns": "^2.29.3",
     "node-fetch": "^2.6.1",
     "vue": "^3.0.0",
     "vue-i18n": "^9.1.7",
