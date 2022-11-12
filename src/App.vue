@@ -12,10 +12,11 @@ import Menu from '@/components/Menu.vue';
 </script>
 
 <style lang="scss">
-.stats-root{
+.stats-root {
   display: flex;
-  
 }
+
+
 img[alt] {
   color: transparent;
 }

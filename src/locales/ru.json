@@ -14,14 +14,24 @@
     "november": "Ноябрь",
     "december": "Декабрь"
   },
+  "interval_date": {
+    "day": "За день",
+    "year": "За год",
+    "month": "За месяц"
+  },
   "top": {
     "search": "Поиск по сайту"
   },
+
   "auth": {
     "enter": "Вход",
     "login": "Логин",
     "password": "Пароль",
     "save": "Запомнить",
     "signIn": "Войти"
+  },
+  "countries": {
+    "title": "Статистика Посещения с Стран",
+    "filter-title": "Фильтр:"
   }
 }
