@@ -14,6 +14,20 @@
     "november": "Ноябрь",
     "december": "Декабрь"
   },
+  "shortMonths": {
+    "january": "Январь",
+    "february": "Февраль",
+    "march": "Март",
+    "april": "Апрель",
+    "may": "Май",
+    "june": "Июнь",
+    "july": "Июль",
+    "august": "Август",
+    "september": "Сентябрь",
+    "october": "Октябрь",
+    "november": "Ноябрь",
+    "december": "Декабрь"
+  },
   "interval_date": {
     "days": "За дни",
     "day": "За день",

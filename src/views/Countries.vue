@@ -34,7 +34,7 @@
                         </Icon>
                     </template>
                 </DropDown>
-                <DropDown class="interval-days" :items="interval_visits" @setActive="getVisits" :active="activeVisit">
+                <DropDown class="interval-visits-drop" :items="interval_visits" @setActive="getVisits" :active="activeVisit">
                     <template #active="{ active }">
                         <p> {{ $t(`interval_visits.${active}`) }} </p>
                         <Icon class="drop-ico">
@@ -112,6 +112,10 @@ const getVisits = (prop) => {
         .filters {
             .interval-days-drop {
                 width: 130px;
+                background: var(--basic-light);
+            }
+            .interval-visits-drop{
+                width: 195px;
                 background: var(--basic-light);
             }
 
