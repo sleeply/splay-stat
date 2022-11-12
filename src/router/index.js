@@ -25,6 +25,14 @@ const childRoutes = [
     name: "Auth",
     component: () => import("@/views/Auth.vue"),
   },
+  {
+    path: "countries",
+    name: "Countries",
+    component: () => import("@/views/Countries.vue"),
+    meta: {
+      isMenu: true,
+    },
+  },
 ];
 
 const routeNames = [];

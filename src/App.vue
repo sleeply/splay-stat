@@ -1,13 +1,21 @@
 <template>
-  <main>
-    <router-view />
-  </main>
+  <div class="stats-root">
+    <Menu />
+    <main>
+      <router-view />
+    </main>
+  </div>
 </template>
 
 <script setup>
+import Menu from '@/components/Menu.vue';
 </script>
 
 <style lang="scss">
+.stats-root{
+  display: flex;
+  
+}
 img[alt] {
   color: transparent;
 }

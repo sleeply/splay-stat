@@ -21,7 +21,6 @@ import SignIn from '../components/pages/SignIn.vue';
     width: 100%;
     min-height: 100vh;
     display: flex;
-    background: #FAFAFA;
 
 
     .left-collar {
