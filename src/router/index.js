@@ -1,22 +1,26 @@
-import { createRouter, createWebHistory, createMemoryHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHistory,
+  createMemoryHistory,
+} from "vue-router";
 import {
   getBrowserLocale,
   DEFAULT_LOCALE,
   i18n,
   loadLocaleMessages,
-  setI18nLanguage
-} from '../i18n'
-import { SUPPORT_LOCALES } from '@/utils/constants'
+  setI18nLanguage,
+} from "../i18n";
+import { SUPPORT_LOCALES } from "@/utils/constants";
 
-const routes = []
+const routes = [];
 
 const childRoutes = [
   {
-    path: '',
-    name: 'Home',
-    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue')
+    path: "",
+    name: "MainWrapper",
+    component: () => import("@/views/MainWrapper.vue"),
   },
-]
+];
 
 const routeNames = [];
 
@@ -87,7 +91,7 @@ const beforeEach = async (to, from, next) => {
   // use locale if paramsLocale is not in SUPPORT_LOCALES
 
   if (!SUPPORT_LOCALES.includes(paramsLocale)) {
-    return next({ name: `${newLocale}_Home` });
+    return next({ name: `${newLocale}_MainWrapper` });
   }
 
   // load locale messages
@@ -100,7 +104,7 @@ const beforeEach = async (to, from, next) => {
   return next();
 };
 
-export default function () {
+export default function() {
   const router = createRouter({
     history,
     routes,
