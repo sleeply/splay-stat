@@ -15,15 +15,16 @@
     "december": "Декабрь"
   },
   "interval_date": {
+    "days": "За дни",
     "day": "За день",
     "year": "За год",
     "month": "За месяц"
   },
   "interval_visits": {
     "country-visitis": "Посещения с Стран",
-    "visitis-device": "Посещения с Девайс.",
+    "visits-device": "Посещения с Девайс.",
     "registrated": "Зарегистрированных",
-    "region-visitis": "Посещения платформы по регионам"
+    "region-visits": "Посещения платформы по регионам"
   },
   "top": {
     "search": "Поиск по сайту"

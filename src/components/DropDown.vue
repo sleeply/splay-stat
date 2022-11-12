@@ -4,15 +4,17 @@
     }" @click.stop="handleDropDown">
         <div class="active"
             style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; width: 100%;">
-            <slot name="active" :active="'awda'"></slot>
+            <slot name="active" :active="items[active]"></slot>
         </div>
 
         <div class="choices">
-            <div class="choice" :class="{
-                selected: index === active
-            }" v-for="(item, index) in items" :key="index" @click="emits('setActive', index)">
-                <slot name="list" :item="item" :index="index"></slot>
-            </div>
+            <template v-for="(item, index) in items" :key="index">
+                <div class="choice" :class="{
+                    selected: index === active
+                }" v-if="item !== items[active]"  @click="emits('setActive', index)">
+                    <slot name="list" :item="item" :index="index"></slot>
+                </div>
+            </template>
         </div>
     </div>
 </template>
