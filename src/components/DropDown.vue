@@ -4,7 +4,7 @@
     }" @click.stop="handleDropDown">
         <div class="active"
             style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; width: 100%;">
-            <slot name="active" :active="items[active]"></slot>
+            <slot name="active" :active="items[active]" :activeIndex="active"></slot>
         </div>
 
         <div class="choices">

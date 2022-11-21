@@ -12,8 +12,8 @@
             <div class="filters">
                 <DropDown class="interval-days-drop" :items="interval_date" @setActive="getDay"
                     :active="activeDayInterval">
-                    <template #active="{ active }">
-                        <p class="text-small semi-bold"> {{ $t(`interval_date.${active}`) }} </p>
+                    <template #active="{ active, activeIndex }">
+                        <p class="text-small semi-bold"> {{ activeIndex }}{{ $t(`interval_date.${active}`) }} </p>
                         <Icon class="drop-ico">
                             <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -22,8 +22,8 @@
                             </svg>
                         </Icon>
                     </template>
-                    <template #list="{ item }">
-                        <span class="text-small semi-bold">{{ $t(`interval_date.${item}`) }}</span>
+                    <template #list="{ item, index }">
+                        <span class="text-small semi-bold">{{ index }} {{ $t(`interval_date.${item}`) }}</span>
                         <Icon class="ico-size">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -34,6 +34,19 @@
                         </Icon>
                     </template>
                 </DropDown>
+                <div class="date-at" style="position: relative;">
+                    <Datepicker ref="picker" v-model="date" :year-picker="isYear" :month-picker="isMonth"
+                        :enableTimePicker="false" autoApply locale="ru-Ru">
+                        <!-- <template #action-select>
+
+                            <p class="custom-select" @click="selectDate">awdawd</p>
+                        </template> -->
+                    </Datepicker>
+                </div>
+                <div class="date-at" style="position: relative;" v-if="interval_date[activeDayInterval] !== 'day'">
+                    <Datepicker v-model="date" :year-picker="isYear" :month-picker="isMonth" :enableTimePicker="false"
+                        autoApply locale="ru-Ru" :clearable="false" />
+                </div>
                 <DropDown class="interval-visits-drop" :items="interval_visits" @setActive="getVisits"
                     :active="activeVisit">
                     <template #active="{ active }">
@@ -60,23 +73,9 @@
                         </Icon>
                     </template>
                 </DropDown>
-
-                <div class="date-at" style="position: relative;">
-                    <Datepicker ref="picker" v-model="date" :year-picker="isYear" :month-picker="isMonth"
-                        :enableTimePicker="false" autoApply locale="ru-Ru">
-                        <!-- <template #action-select>
-
-                            <p class="custom-select" @click="selectDate">awdawd</p>
-                        </template> -->
-                    </Datepicker>
-                </div>
-                <div class="date-at" style="position: relative;">
-                    <Datepicker v-model="date" :year-picker="isYear" :month-picker="isMonth" :enableTimePicker="false"
-                        autoApply locale="ru-Ru" :clearable="false" />
-                </div>
             </div>
         </div>
-        <table cellspacing="0" cellpadding="0">
+        <table cellspacing="0" cellpadding="20">
             <tr>
                 <th>Страна</th>
                 <th>Регион</th>
@@ -86,7 +85,7 @@
                 <th>Девайсы</th>
             </tr>
             <tr v-for="(item, index) in fakeList" :key="index">
-                <td> {{ item.country }} </td>
+                <td colspan="1"> {{ item.country }} </td>
                 <td> {{ item.region }} </td>
                 <td> {{ item.city }} </td>
                 <td> {{ item.sessions }} </td>
@@ -102,6 +101,38 @@
                 <td>Ios</td>
             </tr>
         </table>
+
+        <div class="footer">
+            <div class="count">
+                <Icon class="count-icon">
+                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="50" height="50" rx="25" fill="#EFF5FF" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M16 16H34C35.1046 16 36 16.8954 36 18V32C36 33.1046 35.1046 34 34 34H16C14.8954 34 14 33.1046 14 32V18C14 16.8954 14.8954 16 16 16ZM16 18V32H34V18H16ZM20 30H22V24H20V30ZM26 30H24V20H26V30ZM28 30H30V23H28V30Z"
+                            fill="#5B93FF" />
+                    </svg>
+                </Icon>
+                <div class="content">
+                    <h1 class="text12 ">{{ $t("countries.count_of_visits") }}</h1>
+                    <span class="text18 extra-bold">122 648</span>
+                </div>
+            </div>
+            <div class="count">
+                <Icon class="count-icon">
+                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="50" height="50" rx="25" fill="#FFF7E1" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M21 19H19V18H17V21H33V18H31V19H29V18H21V19ZM33 23H17V33H33V23ZM29 16H21V15H19V16H17C15.8954 16 15 16.8954 15 18V33C15 34.1046 15.8954 35 17 35H33C34.1046 35 35 34.1046 35 33V18C35 16.8954 34.1046 16 33 16H31V15H29V16ZM20 27V25H22V27H20ZM24 27H26V25H24V27ZM28 27V25H30V27H28ZM20 29V31H22V29H20ZM26 31H24V29H26V31Z"
+                            fill="#FFC327" />
+                    </svg>
+                </Icon>
+                <div class="content">
+                    <h1 class="text12 ">{{ $t("countries.selectedTimeVisits") }}</h1>
+                    <span class="text18 extra-bold">122 648</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -111,9 +142,9 @@ import DropDown from '@/components/DropDown.vue';
 import { interval_date, interval_visits } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
 import { ref } from 'vue';
-
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+
 // yearPicker, monthPicker, disabled ,yearRange, autoApply
 
 const activeDayInterval = ref(0)
@@ -125,18 +156,17 @@ const isDays = ref(false)
 const picker = ref()
 
 const getDay = (prop) => {
+    console.log(interval_date[prop])
     activeDayInterval.value = prop
-    console.log(prop)
     isYear.value = false
     isMonth.value = false
-    if (activeDayInterval.value === 2) {
-        return isYear.value = true
+    if (activeDayInterval.value == 2) {
+        isYear.value = true
     }
 
-    if (activeDayInterval.value = 3) {
-        return isMonth.value = true
+    if (activeDayInterval.value == 3) {
+        isMonth.value = true
     }
-
 }
 
 const getVisits = (prop) => {
@@ -224,7 +254,14 @@ const fakeList = [
 .ico-size {
     width: 1rem;
     height: 1rem;
+    flex: 0 0 1rem;
     // opacity: 0;
+}
+
+.count-icon {
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
 }
 
 .stats-countries {
@@ -318,6 +355,27 @@ const fakeList = [
             }
         }
     }
+
+    .footer {
+        display: flex;
+        align-items: flex-start;
+        gap: 17px;
+
+        .count {
+            display: flex;
+            align-items: center;
+            max-width: 286px;
+            height: 100%;
+            background: var(--basic-light);
+            padding: 19px 10px 19px 25px;
+            border-radius: 10px;
+            margin-top: 19px;
+
+            .content {
+                margin-left: 12px;
+            }
+        }
+    }
 }
 
 
@@ -325,7 +383,8 @@ table {
     width: 55.8125rem;
     margin: 0 auto;
     border: none;
-
+    border-collapse: separate;
+    border-spacing: 0 10px;
 }
 
 th,
@@ -334,6 +393,13 @@ td {
     color: var(--darkness);
     padding: 1.25rem 0.8125rem;
 
+}
+
+tr {
+    // margin-block: 10px;
+    // display: block;
+    // width: 100%;
+    border: 2px solid red;
 }
 
 th {
@@ -346,6 +412,16 @@ th {
 td {
     font-size: 0.875rem;
     line-height: 1.1875rem;
+    background: var(--basic-light);
+
+    &:first-child {
+        border-radius: 0.625rem 0 0 0.625rem;
+    }
+
+    &:last-child {
+        border-radius: 0 0.625rem 0.625rem 0;
+    }
+
 }
 
 tr {

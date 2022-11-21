@@ -33,6 +33,14 @@ const childRoutes = [
       isMenu: true,
     },
   },
+  {
+    path: "device",
+    name: "Device",
+    component: () => import("@/views/Device.vue"),
+    meta: {
+      isMenu: true,
+    },
+  },
 ];
 
 const routeNames = [];
