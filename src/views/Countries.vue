@@ -13,7 +13,7 @@
                 <DropDown class="interval-days-drop" :items="interval_date" @setActive="getDay"
                     :active="activeDayInterval">
                     <template #active="{ active }">
-                        <p> {{ $t(`interval_date.${active}`) }} </p>
+                        <p class="text-small semi-bold"> {{ $t(`interval_date.${active}`) }} </p>
                         <Icon class="drop-ico">
                             <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +23,7 @@
                         </Icon>
                     </template>
                     <template #list="{ item }">
-                        <span>{{ $t(`interval_date.${item}`) }}</span>
+                        <span class="text-small semi-bold">{{ $t(`interval_date.${item}`) }}</span>
                         <Icon class="ico-size">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -37,7 +37,7 @@
                 <DropDown class="interval-visits-drop" :items="interval_visits" @setActive="getVisits"
                     :active="activeVisit">
                     <template #active="{ active }">
-                        <p> {{ $t(`interval_visits.${active}`) }} </p>
+                        <p class="text-small semi-bold"> {{ $t(`interval_visits.${active}`) }} </p>
                         <Icon class="drop-ico">
                             <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +47,7 @@
                         </Icon>
                     </template>
                     <template #list="{ item }">
-                        <span>{{ $t(`interval_visits.${item}`) }}</span>
+                        <span class="text-small semi-bold">{{ $t(`interval_visits.${item}`) }}</span>
                         <Icon class="ico-size" :style="{
                         
                         }">
@@ -62,12 +62,17 @@
                 </DropDown>
 
                 <div class="date-at" style="position: relative;">
-                    <Datepicker v-model="date" :year-picker="isYear" :month-picker="isMonth" :enableTimePicker="false"
-                        autoApply locale="ru-Ru" :clearable="false"/>
+                    <Datepicker ref="picker" v-model="date" :year-picker="isYear" :month-picker="isMonth"
+                        :enableTimePicker="false" autoApply locale="ru-Ru">
+                        <!-- <template #action-select>
+
+                            <p class="custom-select" @click="selectDate">awdawd</p>
+                        </template> -->
+                    </Datepicker>
                 </div>
                 <div class="date-at" style="position: relative;">
                     <Datepicker v-model="date" :year-picker="isYear" :month-picker="isMonth" :enableTimePicker="false"
-                        autoApply locale="ru-Ru" :clearable="false"/>
+                        autoApply locale="ru-Ru" :clearable="false" />
                 </div>
             </div>
         </div>
@@ -92,6 +97,11 @@ const date = ref(new Date())
 const isYear = ref(false)
 const isMonth = ref(false)
 const isDays = ref(false)
+const picker = ref()
+
+const aler = () => {
+
+}
 
 const getDay = (prop) => {
     activeDayInterval.value = prop
@@ -114,7 +124,19 @@ const getVisits = (prop) => {
 </script>
 
 <style lang="scss">
+.dp__icon {
+    display: none;
+}
 
+.dp__pointer {
+    // padding: 0 !important;
+    border: none;
+    width: 130px;
+    padding: 0.6875rem 0.5rem 0.625rem 1.0625rem;
+    border-radius: .625rem;
+
+
+}
 </style>
 
 <style lang="scss" scoped>
@@ -153,23 +175,55 @@ const getVisits = (prop) => {
         .filters {
             margin-top: 20px;
             display: flex;
+            gap: 15px;
+
+            P {
+                color: var(--darkness-opacity-07);
+            }
+
+            span {
+                color: var(--darkness-opacity-07);
+
+            }
 
             .interval-days-drop {
                 width: 130px;
                 background: var(--basic-light);
+
+                .choice {
+
+                    &:hover,
+                    &:focus {
+                        span {
+                            color: var(--basic-light);
+                        }
+                    }
+
+                }
             }
 
             .interval-visits-drop {
                 width: 195px;
                 background: var(--basic-light);
+
+                .choice {
+
+                    &:hover,
+                    &:focus {
+                        span {
+                            color: var(--basic-light);
+                        }
+                    }
+
+                }
             }
 
             .date-at {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: 0.6875rem 0.5rem 0.625rem 1.0625rem;
-                border-radius: 0.625rem;
+                // padding: 0.6875rem 0.5rem 0.625rem 1.0625rem;
+                // border-radius: 0.625rem;
 
                 span {
                     font-size: 14px;
