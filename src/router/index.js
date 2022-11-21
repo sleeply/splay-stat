@@ -41,6 +41,14 @@ const childRoutes = [
       isMenu: true,
     },
   },
+  {
+    path: "chart",
+    name: "chart",
+    component: () => import("@/views/chart-test.vue"),
+    meta: {
+      isMenu: true,
+    },
+  },
 ];
 
 const routeNames = [];
