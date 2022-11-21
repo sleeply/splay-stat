@@ -1,5 +1,5 @@
 <template>
-<div class="stats-countries">
+    <div class="stats-countries">
         <div class="page-title">
             {{ $t("countries.title") }}
         </div>
@@ -8,7 +8,6 @@
             <div class="filter-title  bold">
                 {{ $t("countries.filter-title") }}
             </div>
-            <calendar />
 
             <div class="filters">
                 <DropDown class="interval-days-drop" :items="interval_date" @setActive="getDay"
@@ -61,23 +60,14 @@
                         </Icon>
                     </template>
                 </DropDown>
-                <div class="date-at interval-days-drop" @click="handleShowCalendar">
-                    <span>10-06-2020</span>
-                    <Icon class="drop-ico">
-                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path opacity="0.5" d="M0.905273 1.12866L4.94824 5.04761L8.99121 1.12866" stroke="black"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </Icon>
+
+                <div class="date-at" style="position: relative;">
+                    <Datepicker v-model="date" :year-picker="isYear" :month-picker="isMonth" :enableTimePicker="false"
+                        autoApply locale="ru-Ru" :clearable="false"/>
                 </div>
-                <div class="date-at interval-days-drop" @click="handleShowCalendar">
-                    <span>10-06-2020</span>
-                    <Icon class="drop-ico">
-                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path opacity="0.5" d="M0.905273 1.12866L4.94824 5.04761L8.99121 1.12866" stroke="black"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </Icon>
+                <div class="date-at" style="position: relative;">
+                    <Datepicker v-model="date" :year-picker="isYear" :month-picker="isMonth" :enableTimePicker="false"
+                        autoApply locale="ru-Ru" :clearable="false"/>
                 </div>
             </div>
         </div>
@@ -91,19 +81,41 @@ import DropDown from '@/components/DropDown.vue';
 import { interval_date, interval_visits } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
 import { ref } from 'vue';
-import Calendar from './Calendar.vue';
+
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+// yearPicker, monthPicker, disabled ,yearRange, autoApply
 
 const activeDayInterval = ref(0)
 const activeVisit = ref(0)
+const date = ref(new Date())
+const isYear = ref(false)
+const isMonth = ref(false)
+const isDays = ref(false)
 
 const getDay = (prop) => {
     activeDayInterval.value = prop
+    console.log(prop)
+    isYear.value = false
+    isMonth.value = false
+    if (activeDayInterval.value === 2) {
+        return isYear.value = true
+    }
+
+    if (activeDayInterval.value = 3) {
+        return isMonth.value = true
+    }
+
 }
 
 const getVisits = (prop) => {
     activeVisit.value = prop
 }
 </script>
+
+<style lang="scss">
+
+</style>
 
 <style lang="scss" scoped>
 .ico-size {
@@ -117,6 +129,14 @@ const getVisits = (prop) => {
     padding-top: 1.9375rem;
     padding-bottom: 3.125rem;
     margin-left: 1.5625rem;
+
+    svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 
     .page-title {
         margin-bottom: 2.4375rem;
@@ -132,6 +152,8 @@ const getVisits = (prop) => {
 
         .filters {
             margin-top: 20px;
+            display: flex;
+
             .interval-days-drop {
                 width: 130px;
                 background: var(--basic-light);
