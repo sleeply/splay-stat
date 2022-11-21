@@ -1,7 +1,6 @@
 <template>
   <div>
     <table cellspacing="0">
-      <tbody>
         <tr>
           <th>Страна</th>
           <th>Регион</th>
@@ -26,9 +25,6 @@
           <td>100 000 000</td>
           <td>Ios</td>
         </tr>
-      </tbody>
-    </table>
-    <table>
     </table>
   </div>
 </template>
