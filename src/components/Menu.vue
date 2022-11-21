@@ -5,7 +5,6 @@
         </div>
         <div class="mid">
             <div class="top">
-
                 <router-link to="">
                     <Icon class="ico-size">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,8 +87,8 @@ import Icon from '@/components/Icon.vue';
     min-height: 100vh;
     background: var(--basic-light);
     // width: 80px;
-    padding: 35px 19px 0 19px;
-    border-radius: 10px;
+    padding: 2.19rem 1.19rem 0 1.19rem;
+    border-radius: 0.63rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -101,16 +100,16 @@ import Icon from '@/components/Icon.vue';
     }
 
     .ico-size {
-        width: 24px;
-        height: 24px;
+        width: 1.5rem;
+        height: 1.5rem;
     }
 
     .logo {
-        width: 42px;
+        width: 2.63rem;
     }
 
     .mid {
-        padding-top: 42px;
+        padding-top: 2.63rem;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -119,7 +118,7 @@ import Icon from '@/components/Icon.vue';
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 31px;
+            gap: 1.94rem;
 
             a {
                 display: block;
@@ -127,7 +126,7 @@ import Icon from '@/components/Icon.vue';
         }
 
         .bottom {
-            margin-top: 62px;
+            margin-top: 3.88rem;
             display: flex;
             flex-direction: column;
             align-items: center;

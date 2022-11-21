@@ -209,14 +209,14 @@ const fakeList = [
     display: none;
 }
 
-.dp__pointer {
+.dp__input {
     // padding: 0 !important;
     border: none;
-    width: 130px;
+    width: 8.13rem;
     padding: 0.6875rem 0.5rem 0.625rem 1.0625rem;
     border-radius: .625rem;
-
-
+    font-size: 0.88rem;
+    line-height: 1.19rem;
 }
 </style>
 
@@ -254,9 +254,9 @@ const fakeList = [
         }
 
         .filters {
-            margin-top: 20px;
+            margin-top: 1.25rem;
             display: flex;
-            gap: 15px;
+            gap: 0.94rem;
 
             P {
                 color: var(--darkness-opacity-07);
@@ -268,7 +268,7 @@ const fakeList = [
             }
 
             .interval-days-drop {
-                width: 130px;
+                width: 8.13rem;
                 background: var(--basic-light);
 
                 .choice {
@@ -284,7 +284,7 @@ const fakeList = [
             }
 
             .interval-visits-drop {
-                width: 195px;
+                width: 12.19rem;
                 background: var(--basic-light);
 
                 .choice {
@@ -307,8 +307,8 @@ const fakeList = [
                 // border-radius: 0.625rem;
 
                 span {
-                    font-size: 14px;
-                    line-height: 19px;
+                    // font-size: 14.08px;
+                    // line-height: 19.04px;
                 }
             }
 

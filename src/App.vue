@@ -16,6 +16,12 @@ import Menu from '@/components/Menu.vue';
   display: flex;
 }
 
+main{
+  max-width: 57.44rem;
+  margin: 0 auto;
+}
+
+
 
 img[alt] {
   color: transparent;
