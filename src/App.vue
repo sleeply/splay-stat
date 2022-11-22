@@ -21,6 +21,8 @@ import Menu from '@/components/Menu.vue';
 main {
   // max-width: 57.44rem;
   // margin: 0 auto;
+  margin: 0 auto;
+  max-width: 1920px;
 }
 
 

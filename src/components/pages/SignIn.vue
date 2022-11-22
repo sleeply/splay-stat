@@ -112,11 +112,12 @@ const isPassword = ref(true)
 
                 .handleshow-ico {
                     position: relative;
-                    width: 28px;
-                    height: 28px;
+                    // width: 28px;
+                    // height: 28px;
                     // width: 15px;
-
                     // height: 15px;
+                    width: 21px;
+                    height: 21px;
                 }
             }
 

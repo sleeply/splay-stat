@@ -1,5 +1,5 @@
 <template>
-    <div class="auth-wrapper">
+    <div class="auth-wrapper s-container">
         <div class="left-collar">
             <SignIn />
         </div>
