@@ -1,7 +1,7 @@
 <template>
     <div class="stats-countries s-container">
         <div class="page-title">
-            {{ $t("countries.title") }}
+            {{ $t("device.title") }}
         </div>
 
         <div class="filters-container">
@@ -113,7 +113,7 @@
                     </svg>
                 </Icon>
                 <div class="content">
-                    <h1 class="text16">{{ $t("countries.count_of_visits") }}</h1>
+                    <h1 class="text16">{{ $t("device.count_of_visits") }}</h1>
                     <span class="text25 extra-bold">122 648</span>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                     </svg>
                 </Icon>
                 <div class="content">
-                    <h1 class="text16 ">{{ $t("countries.selectedTimeVisits") }}</h1>
+                    <h1 class="text16 ">{{ $t("device.selectedTimeVisits") }}</h1>
                     <span class="text25 extra-bold">122 648</span>
                 </div>
             </div>

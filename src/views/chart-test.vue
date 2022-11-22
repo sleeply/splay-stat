@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container s-container">
         <div class="chart-container">
             <canvas ref="myChart"></canvas>
         </div>
@@ -95,8 +95,8 @@ canvas {
 }
 
 .chart-container {
-    width: 55.81rem;
-    height: 20.75rem;
-    margin: auto;
+    // width: 55.81rem;
+    // height: 20.75rem;
+    // margin: auto;
 }
 </style>
