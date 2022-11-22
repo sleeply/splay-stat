@@ -1,6 +1,6 @@
 <template>
   <div class="stats-root">
-    <Menu v-if="$route.meta.isMenu" />
+    <Menu class="menu" v-if="$route.meta.isMenu" />
     <main>
       <router-view />
     </main>
@@ -14,15 +14,18 @@ import Menu from '@/components/Menu.vue';
 <style lang="scss">
 .stats-root {
   display: flex;
-  width: 100%;
-  flex-grow: 1;
+  justify-content: space-between;
+
 }
 
 main {
+  // max-width: 1440px;
+  // margin: 0 auto;
+  flex: 1;
   // max-width: 57.44rem;
   // margin: 0 auto;
-  margin: 0 auto;
-  max-width: 1920px;
+  // margin: 0 auto;
+  // max-width: 1920px;
 }
 
 

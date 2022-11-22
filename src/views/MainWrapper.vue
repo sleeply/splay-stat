@@ -1,34 +1,144 @@
 <template>
-  <div>
+  <div class="s-container">
     <table cellspacing="0">
       <tbody>
         <tr>
-          <th>Страна</th>
-          <th>Регион</th>
-          <th>Город</th>
-          <th>Сессии</th>
-          <th>Аккаунты</th>
-          <th>Девайсы</th>
+          <th class="text18">Страна</th>
+          <th class="text18">Регион</th>
+          <th class="text18">Город</th>
+          <th class="text18">Сессии</th>
+          <th class="text18">Аккаунты</th>
+          <th class="text18">Девайсы</th>
         </tr>
         <tr v-for="(item, index) in fakeList" :key="index">
-          <td> {{ item.country }} </td>
-          <td> {{ item.region }} </td>
-          <td> {{ item.city }} </td>
-          <td> {{ item.sessions }} </td>
-          <td> {{ item.Accounts }} </td>
-          <td> {{ item.devices }} </td>
+          <td class="text20"> {{ item.country }} </td>
+          <td class="text20"> {{ item.region }} </td>
+          <td class="text20"> {{ item.city }} </td>
+          <td class="text20"> {{ item.sessions }} </td>
+          <td class="text20"> {{ item.Accounts }} </td>
+          <td class="text20"> {{ item.devices }} </td>
         </tr>
         <tr class="total">
-          <td>Суммирование:</td>
-          <td>0</td>
-          <td>0</td>
-          <td>100 000 000</td>
-          <td>100 000 000</td>
-          <td>Ios</td>
+          <td class="text20">Суммирование:</td>
+          <td class="text20">0</td>
+          <td class="text20">0</td>
+          <td class="text20">100 000 000</td>
+          <td class="text20">100 000 000</td>
+          <td class="text20">Ios</td>
         </tr>
       </tbody>
     </table>
-    <table>
+    <table cellspacing="0">
+      <tbody>
+        <tr>
+          <th class="text18">Страна</th>
+          <th class="text18">Регион</th>
+          <th class="text18">Город</th>
+          <th class="text18">Сессии</th>
+          <th class="text18">Аккаунты</th>
+          <th class="text18">Девайсы</th>
+        </tr>
+        <tr v-for="(item, index) in fakeList" :key="index">
+          <td class="text20"> {{ item.country }} </td>
+          <td class="text20"> {{ item.region }} </td>
+          <td class="text20"> {{ item.city }} </td>
+          <td class="text20"> {{ item.sessions }} </td>
+          <td class="text20"> {{ item.Accounts }} </td>
+          <td class="text20"> {{ item.devices }} </td>
+        </tr>
+        <tr class="total">
+          <td class="text20">Суммирование:</td>
+          <td class="text20">0</td>
+          <td class="text20">0</td>
+          <td class="text20">100 000 000</td>
+          <td class="text20">100 000 000</td>
+          <td class="text20">Ios</td>
+        </tr>
+      </tbody>
+    </table>
+    <table cellspacing="0">
+      <tbody>
+        <tr>
+          <th class="text18">Страна</th>
+          <th class="text18">Регион</th>
+          <th class="text18">Город</th>
+          <th class="text18">Сессии</th>
+          <th class="text18">Аккаунты</th>
+          <th class="text18">Девайсы</th>
+        </tr>
+        <tr v-for="(item, index) in fakeList" :key="index">
+          <td class="text20"> {{ item.country }} </td>
+          <td class="text20"> {{ item.region }} </td>
+          <td class="text20"> {{ item.city }} </td>
+          <td class="text20"> {{ item.sessions }} </td>
+          <td class="text20"> {{ item.Accounts }} </td>
+          <td class="text20"> {{ item.devices }} </td>
+        </tr>
+        <tr class="total">
+          <td class="text20">Суммирование:</td>
+          <td class="text20">0</td>
+          <td class="text20">0</td>
+          <td class="text20">100 000 000</td>
+          <td class="text20">100 000 000</td>
+          <td class="text20">Ios</td>
+        </tr>
+      </tbody>
+    </table>
+    <table cellspacing="0">
+      <tbody>
+        <tr>
+          <th class="text18">Страна</th>
+          <th class="text18">Регион</th>
+          <th class="text18">Город</th>
+          <th class="text18">Сессии</th>
+          <th class="text18">Аккаунты</th>
+          <th class="text18">Девайсы</th>
+        </tr>
+        <tr v-for="(item, index) in fakeList" :key="index">
+          <td class="text20"> {{ item.country }} </td>
+          <td class="text20"> {{ item.region }} </td>
+          <td class="text20"> {{ item.city }} </td>
+          <td class="text20"> {{ item.sessions }} </td>
+          <td class="text20"> {{ item.Accounts }} </td>
+          <td class="text20"> {{ item.devices }} </td>
+        </tr>
+        <tr class="total">
+          <td class="text20">Суммирование:</td>
+          <td class="text20">0</td>
+          <td class="text20">0</td>
+          <td class="text20">100 000 000</td>
+          <td class="text20">100 000 000</td>
+          <td class="text20">Ios</td>
+        </tr>
+      </tbody>
+    </table>
+    <table cellspacing="0">
+      <tbody>
+        <tr>
+          <th class="text18">Страна</th>
+          <th class="text18">Регион</th>
+          <th class="text18">Город</th>
+          <th class="text18">Сессии</th>
+          <th class="text18">Аккаунты</th>
+          <th class="text18">Девайсы</th>
+        </tr>
+        <tr v-for="(item, index) in fakeList" :key="index">
+          <td class="text20"> {{ item.country }} </td>
+          <td class="text20"> {{ item.region }} </td>
+          <td class="text20"> {{ item.city }} </td>
+          <td class="text20"> {{ item.sessions }} </td>
+          <td class="text20"> {{ item.Accounts }} </td>
+          <td class="text20"> {{ item.devices }} </td>
+        </tr>
+        <tr class="total">
+          <td class="text20">Суммирование:</td>
+          <td class="text20">0</td>
+          <td class="text20">0</td>
+          <td class="text20">100 000 000</td>
+          <td class="text20">100 000 000</td>
+          <td class="text20">Ios</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>
@@ -96,28 +206,28 @@ const fakeList = [
 
 <style lang="scss" scoped>
 table {
-  width: 55.8125rem;
-  margin: 0 auto;
+  width: 100%;
+  // width: 55.8125rem;
+  // margin: 0 auto;
 
 }
 
 th,
 td {
-  // border: 1px solid var(--darkness);
   color: var(--darkness);
-  padding: 1.25rem 0.8125rem;
 }
 
 th {
   opacity: 0.7;
   text-align: left;
-  font-size: 0.75rem;
-  line-height: 1rem;
+  // font-size: 0.75rem;
+  // line-height: 1rem;
 }
 
-td{
-  font-size: 0.875rem;
-  line-height:  1.1875rem;
+td {
+  // font-size: 0.875rem;
+  padding: 28px 18px;
+  // line-height:  1.1875rem;
 }
 
 tr {
@@ -134,10 +244,11 @@ tr {
     color: var(--basic-light);
     font-weight: 600;
 
-    &:first-child{
+    &:first-child {
       border-radius: 0.625rem 0 0 0.625rem;
     }
-    &:last-child{
+
+    &:last-child {
       border-radius: 0 0.625rem 0.625rem 0;
     }
 

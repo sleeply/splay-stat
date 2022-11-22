@@ -92,6 +92,9 @@ import Icon from '@/components/Icon.vue';
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
 
     img {
         width: 100%;
@@ -100,16 +103,21 @@ import Icon from '@/components/Icon.vue';
     }
 
     .ico-size {
-        width: 1.5rem;
-        height: 1.5rem;
+        // width: 24px;
+        // height: 24px;
+        width: 30px;
+        height: 30px;
     }
 
     .logo {
-        width: 2.63rem;
+        // width: 2.63rem;
+        width: 60px;
+
     }
 
     .mid {
-        padding-top: 2.63rem;
+        // padding-top: 2.63rem;
+        margin-top: 116px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -118,7 +126,8 @@ import Icon from '@/components/Icon.vue';
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.94rem;
+            // gap: 1.94rem;
+            gap: 47px;
 
             a {
                 display: block;
@@ -126,17 +135,20 @@ import Icon from '@/components/Icon.vue';
         }
 
         .bottom {
-            margin-top: 3.88rem;
+            // margin-top: 3.88rem;
+            margin-top: 87px;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 25px;
 
             .avatar {
-                width: 45px;
+                // width: 45px;
+                width: 63px;
 
                 img {
-                    border-radius: 0.75rem;
+                    // border-radius: 0.75rem;
+                    border-radius: 17px;
                 }
             }
         }
