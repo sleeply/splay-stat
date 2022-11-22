@@ -12,44 +12,65 @@ import { ref, onMounted } from "vue";
 
 const myChart = ref(null)
 
-const data = ref({
+const data = {
     labels: ['10am', '11am', '12am', '01am', '02am', '03am', '04am', '05am', '06am', '07am'],
     datasets: [{
-        label: 'My First Dataset',
+        label: 'test',
         data: [65, 59, 80, 81, 56, 55, 20, 80, 78, 100],
-        borderColor: 'rgb(75, 192, 192)',
+        borderColor: 'rgba(255, 91, 239, 1)',
         pointRadius: 8,
         pointHoverRadius: 8,
         pointBackgroundColor: "transparent",
         pointBorderWidth: 4,
-        // pointBackgroundColor: "red"
-        // pointBorderWidth: 20,
-        // pointHoverBorderWidth: 20,
-        // pointBorderColor: "red",
-        // pointHoverBorderColor: "blue",
-        // pointStyle:"circle",
-        // pointBackgroundColor: "transparent"
+        tension: 0.1
 
     }]
-})
+}
+
+
+const plugins = {
+    tooltip: {
+        callbacks: {
+            title: (event) => {
+                console.log(event)
+
+            },
+
+        },
+        backgroundColor: "rgba(3, 2, 41, 1)",
+        padding: 15,
+    }
+    // tooltip: {
+    //     callbacks: {
+    //         // labelColor: function (context) {
+    //         //     console.log(context)
+    //         //     return {
+    //         //         borderColor: 'rgb(0, 0, 255)',
+    //         //         backgroundColor: 'rgb(255, 0, 0)',
+    //         //         borderWidth: 2,
+    //         //         borderDash: [2, 2],
+    //         //         borderRadius: 2,
+    //         //     };
+    //         // },
+    //     }
+    // }
+}
+
+const options = {
+    plugins: plugins,
+    interaction: {
+        mode: 'index',
+        intersect: false,
+    },
+    // stepped: false,
+}
 
 const loadChart = () => {
     /* eslint-disable */
     new Chart(myChart.value, {
         type: 'line',
-        data: data.value,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: false
-                }
-            },
-            tooltips: {
-                mode: 'nearest',
-                intersect: false
-            },
-            pointHitDetectionRadius: 1,
-        },
+        data: data,
+        options: options,
     });
 }
 
