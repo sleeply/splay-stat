@@ -19,11 +19,17 @@ const childRoutes = [
     path: "",
     name: "MainWrapper",
     component: () => import("@/views/MainWrapper.vue"),
+    meta: {
+      isMenu: true,
+    },
   },
   {
     path: "auth",
     name: "Auth",
     component: () => import("@/views/Auth.vue"),
+    meta: {
+      isMenu: false,
+    },
   },
   {
     path: "countries",
@@ -133,7 +139,7 @@ const beforeEach = async (to, from, next) => {
   return next();
 };
 
-export default function() {
+export default function () {
   const router = createRouter({
     history,
     routes,

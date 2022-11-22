@@ -1,5 +1,5 @@
 <template>
-    <div class="auth-wrapper s-container">
+    <div class="auth-wrapper">
         <div class="left-collar">
             <SignIn />
         </div>
@@ -18,15 +18,18 @@ import SignIn from '../components/pages/SignIn.vue';
 
 <style lang="scss" scoped>
 .auth-wrapper {
-    width: 100%;
-    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
     display: flex;
-
+    justify-content: space-between;
 
     .left-collar {
-        min-height: 100vh;
         background: var(--basic-light);
-        padding: 4.375rem 3.125rem 0 3.125rem;
+        width: 630px;
+        // flex: 0 0 630px;
+        height: 100%;
+        // padding: 131px 93px 0 93px;
+        padding: 0 70px;
     }
 
     .right-collar {
@@ -34,14 +37,19 @@ import SignIn from '../components/pages/SignIn.vue';
         display: flex;
         justify-content: center;
         align-items: center;
+        // padding: 142px;
+        // margin-left: 106px;
+
 
         .image-container {
-            width: 26.875rem;
-            height: 25.0625rem;
+            // width: 100%;
+            // width: 808px;
+            width: 630px;
+            // flex: 0 0 630px;
+            // height: 751px;
 
             img {
                 width: 100%;
-                height: 100%;
                 background: transparent;
             }
         }

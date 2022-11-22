@@ -3,20 +3,20 @@
         <div class="logo">
             <img :src="require('@/assets/Logo.png')" alt="">
         </div>
-        <div class="auth-title text25 semi-bold">
+        <div class="auth-title text35 semi-bold">
             Вход
         </div>
         <div class="fields">
             <div class="form-input">
-                <div class="input-title "> {{ $t("auth.login") }} </div>
+                <div class="input-title text22"> {{ $t("auth.login") }} </div>
                 <div class="input-field">
-                    <input type="text" class="text14" placeholder="example@gmail.com">
+                    <input type="text" class="text20" placeholder="example@gmail.com">
                 </div>
             </div>
             <div class="form-input">
-                <div class="input-title "> {{ $t("auth.password") }} </div>
+                <div class="input-title text22"> {{ $t("auth.password") }} </div>
                 <div class="input-field">
-                    <input :type="isPassword ? 'password' : 'text'" class="text14" placeholder="">
+                    <input :type="isPassword ? 'password' : 'text'" class="text20   " placeholder="">
                     <div class="handleshow-ico" @click="isPassword">
                         <svg v-if="isPassword" width="15" height="11" viewBox="0 0 15 11" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -44,9 +44,9 @@
         </div>
         <button class="save-me">
             <div class="checkbox"></div>
-            <p class="normal text14"> {{ $t("auth.save") }} </p>
+            <p class="normal text20"> {{ $t("auth.save") }} </p>
         </button>
-        <button class="signIn"> {{ $t("auth.signIn") }} </button>
+        <button class="signIn text22 semi-bold"> {{ $t("auth.signIn") }} </button>
     </div>
 </template>
 
@@ -58,11 +58,16 @@ const isPassword = ref(true)
 
 <style lang="scss" scoped>
 .splay-auth {
-    width: 21.75rem;
+    // width: 840px;
+    width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     .logo {
-        width: 5.75rem;
+        // width: 5.75rem;
+        width: 129px;
         margin: 0 auto;
 
         img {
@@ -74,11 +79,13 @@ const isPassword = ref(true)
     .fields {
         display: flex;
         flex-direction: column;
-        margin-top: 1.875rem;
+        // margin-top: 30px;
+        // margin-top: 56px;
+        margin-top: 42px;
 
         .form-input {
             .input-title {
-                margin-bottom: 0.5rem;
+                margin-bottom: 8px;
                 color: var(--drakness);
             }
 
@@ -86,10 +93,12 @@ const isPassword = ref(true)
                 display: flex;
                 align-items: center;
                 background: var(--secondary-light);
-                border-radius: 0.625rem;
                 color: var(--darkness-opacity-07);
                 width: 100%;
-                padding: 1rem;
+                padding: 22px 21px;
+                border-radius: 15px;
+                // padding: 1.875rem;
+                // border-radius: 18.75px;
 
                 input {
                     width: 100%;
@@ -103,13 +112,17 @@ const isPassword = ref(true)
 
                 .handleshow-ico {
                     position: relative;
-                    width: 0.9375rem;
-                    height: 0.9375rem;
+                    width: 28px;
+                    height: 28px;
+                    // width: 15px;
+
+                    // height: 15px;
                 }
             }
 
             &:nth-child(1) {
-                margin-bottom: 1.25rem;
+                // margin-bottom: 20px;
+                margin-bottom: 28px;
             }
         }
     }
@@ -117,35 +130,51 @@ const isPassword = ref(true)
     .save-me {
         display: flex;
         align-items: center;
-        margin-top: 1.6875rem;
+        // margin-top: 27px;
+        // margin-top: 50px;
+        margin-top: 38px;
+
         background: transparent;
 
         .checkbox {
-            width: 0.9375rem;
-            height: 0.9375rem;
-            border: 0.0625rem solid var(--darkness-opacity-05);
-            border-radius: 0.125rem;
+            // width: 15px;
+            // height: 15px;
+            // width: 28px;
+            // height: 28px;
+            width: 21px;
+            height: 21px;
+
+            // border: 1px solid var(--darkness-opacity-05);
+            // border: 2px solid var(--darkness-opacity-05);
+            border: 1.5px solid var(--darkness-opacity-05);
+            // border-radius: 2px;
+            // border-radius: 4px;
+            border-radius: 2.8px;
         }
 
         p {
             color: var(--darkness);
-            margin-left: 0.625rem;
+            margin-left: 10px;
         }
     }
 
     .auth-title {
-        margin-top: 2.5rem;
+        // margin-top: 40px;
+        // margin-top: 75px;
+        margin-top: 56px;
         text-align: center;
     }
 
     .signIn {
-        margin-top: 2.5rem;
+        // margin-top: 40px;
+        margin-top: 59px;
         background: var(--highlight);
         color: var(--basic-light);
         width: 100%;
-        padding: 0.875rem 0;
-        border-radius: 0.625rem;
-        font-weight: 600;
+        // padding: 14px 0;
+        // padding: 26px 0;
+        padding: 20px 0;
+        border-radius: 10px;
     }
 }
 </style>
