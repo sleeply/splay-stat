@@ -1,11 +1,11 @@
 <template>
-    <div class="stats-countries">
+    <div class="stats-countries s-container">
         <div class="page-title">
-            {{ $t("device.title") }}
+            {{ $t("countries.title") }}
         </div>
 
         <div class="filters-container">
-            <div class="filter-title  bold">
+            <div class="filter-title  bold text22">
                 {{ $t("countries.filter-title") }}
             </div>
 
@@ -13,7 +13,7 @@
                 <DropDown class="interval-days-drop" :items="interval_date" @setActive="getDay"
                     :active="activeDayInterval">
                     <template #active="{ active }">
-                        <p class="text-small semi-bold"> {{ $t(`interval_date.${active}`) }} </p>
+                        <p class="text20 semi-bold">{{ $t(`interval_date.${active}`) }} </p>
                         <Icon class="drop-ico">
                             <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +23,7 @@
                         </Icon>
                     </template>
                     <template #list="{ item }">
-                        <span class="text-small semi-bold">{{ $t(`interval_date.${item}`) }}</span>
+                        <span class=" semi-bold"> {{ $t(`interval_date.${item}`) }}</span>
                         <Icon class="ico-size">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -34,8 +34,6 @@
                         </Icon>
                     </template>
                 </DropDown>
-
-
                 <div class="date-at" style="position: relative;">
                     <Datepicker ref="picker" v-model="date" :year-picker="isYear" :month-picker="isMonth"
                         :enableTimePicker="false" autoApply locale="ru-Ru">
@@ -52,7 +50,7 @@
                 <DropDown class="interval-visits-drop" :items="interval_visits" @setActive="getVisits"
                     :active="activeVisit">
                     <template #active="{ active }">
-                        <p class="text-small semi-bold"> {{ $t(`interval_visits.${active}`) }} </p>
+                        <p class="text20 semi-bold"> {{ $t(`interval_visits.${active}`) }} </p>
                         <Icon class="drop-ico">
                             <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -62,7 +60,7 @@
                         </Icon>
                     </template>
                     <template #list="{ item }">
-                        <span class="text-small semi-bold">{{ $t(`interval_visits.${item}`) }}</span>
+                        <span class="semi-bold">{{ $t(`interval_visits.${item}`) }}</span>
                         <Icon class="ico-size" :style="{
                         
                         }">
@@ -79,28 +77,28 @@
         </div>
         <table cellspacing="0" cellpadding="20">
             <tr>
-                <th>Страна</th>
-                <th>Регион</th>
-                <th>Город</th>
-                <th>Сессии</th>
-                <th>Аккаунты</th>
-                <th>Девайсы</th>
+                <th class="text18">Страна</th>
+                <th class="text18">Регион</th>
+                <th class="text18">Город</th>
+                <th class="text18">Сессии</th>
+                <th class="text18">Аккаунты</th>
+                <th class="text18">Девайсы</th>
             </tr>
             <tr v-for="(item, index) in fakeList" :key="index">
-                <td colspan="1"> {{ item.country }} </td>
-                <td> {{ item.region }} </td>
-                <td> {{ item.city }} </td>
-                <td> {{ item.sessions }} </td>
-                <td> {{ item.Accounts }} </td>
-                <td> {{ item.devices }} </td>
+                <td class="text20"> {{ item.country }} </td>
+                <td class="text20"> {{ item.region }} </td>
+                <td class="text20"> {{ item.city }} </td>
+                <td class="text20"> {{ item.sessions }} </td>
+                <td class="text20"> {{ item.Accounts }} </td>
+                <td class="text20"> {{ item.devices }} </td>
             </tr>
             <tr class="total">
-                <td>Суммирование:</td>
-                <td>0</td>
-                <td>0</td>
-                <td>100 000 000</td>
-                <td>100 000 000</td>
-                <td>Ios</td>
+                <td class="text20">Суммирование:</td>
+                <td class="text20">0</td>
+                <td class="text20">0</td>
+                <td class="text20">100 000 000</td>
+                <td class="text20">100 000 000</td>
+                <td class="text20">Ios</td>
             </tr>
         </table>
 
@@ -115,8 +113,8 @@
                     </svg>
                 </Icon>
                 <div class="content">
-                    <h1 class="text12 ">{{ $t("device.count_of_visits") }}</h1>
-                    <span class="text18 extra-bold">122 648</span>
+                    <h1 class="text16">{{ $t("countries.count_of_visits") }}</h1>
+                    <span class="text25 extra-bold">122 648</span>
                 </div>
             </div>
             <div class="count">
@@ -129,8 +127,8 @@
                     </svg>
                 </Icon>
                 <div class="content">
-                    <h1 class="text12 ">{{ $t("device.selectedTimeVisits") }}</h1>
-                    <span class="text18 extra-bold">122 648</span>
+                    <h1 class="text16 ">{{ $t("countries.selectedTimeVisits") }}</h1>
+                    <span class="text25 extra-bold">122 648</span>
                 </div>
             </div>
         </div>
@@ -158,18 +156,17 @@ const isDays = ref(false)
 const picker = ref()
 
 const getDay = (prop) => {
-    activeDayInterval.value = prop
     console.log(interval_date[prop])
+    activeDayInterval.value = prop
     isYear.value = false
     isMonth.value = false
     if (activeDayInterval.value == 2) {
-        return isYear.value = true
+        isYear.value = true
     }
 
     if (activeDayInterval.value == 3) {
-        return isMonth.value = true
+        isMonth.value = true
     }
-
 }
 
 const getVisits = (prop) => {
@@ -245,11 +242,27 @@ const fakeList = [
 .dp__input {
     // padding: 0 !important;
     border: none;
-    width: 8.13rem;
-    padding: 0.6875rem 0.5rem 0.625rem 1.0625rem;
-    border-radius: .625rem;
-    font-size: 0.88rem;
-    line-height: 1.19rem;
+    width: 182px;
+    font-size: 20px !important;
+    line-height: 38px !important;
+    border-radius: 7px;
+    // width: 8.13rem;
+    // padding: 0.6875rem 0.5rem 0.625rem 1.0625rem;
+    // border-radius: .625rem;
+    // font-size: 0.88rem;
+    // line-height: 1.19rem;
+    // padding: 0 !important;
+    padding-left: 23px !important;
+    padding-right: 11px !important;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.dp__input_icon_pad {
+    // padding: 15px 11px 15px 23px !important;
+    // padding: 0 !important;
+    height: 56px;
+
 }
 </style>
 
@@ -262,9 +275,9 @@ const fakeList = [
 }
 
 .count-icon {
-    width: 50px;
-    height: 50px;
-    flex: 0 0 50px;
+    width: 70px;
+    height: 70px;
+    flex: 0 0 70px;
 }
 
 .stats-countries {
@@ -282,7 +295,8 @@ const fakeList = [
     }
 
     .page-title {
-        margin-bottom: 2.4375rem;
+        // margin-bottom: 39px;
+        margin-bottom: 54px;
     }
 
     .filters-container {
@@ -296,7 +310,9 @@ const fakeList = [
         .filters {
             margin-top: 1.25rem;
             display: flex;
-            gap: 0.94rem;
+            align-items: center;
+            // gap: 0.94rem;
+            gap: 21px;
 
             P {
                 color: var(--darkness-opacity-07);
@@ -308,7 +324,10 @@ const fakeList = [
             }
 
             .interval-days-drop {
-                width: 8.13rem;
+                // width: 8.13rem;
+                // height: 56px;
+
+                width: 182px;
                 background: var(--basic-light);
 
                 .choice {
@@ -324,7 +343,9 @@ const fakeList = [
             }
 
             .interval-visits-drop {
-                width: 12.19rem;
+                // width: 12.19rem;
+
+                width: 182px;
                 background: var(--basic-light);
 
                 .choice {
@@ -347,6 +368,7 @@ const fakeList = [
                 // border-radius: 0.625rem;
 
                 span {
+
                     // font-size: 14.08px;
                     // line-height: 19.04px;
                 }
@@ -367,11 +389,12 @@ const fakeList = [
         .count {
             display: flex;
             align-items: center;
-            max-width: 286px;
+            max-width: 402px;
             height: 100%;
             background: var(--basic-light);
-            padding: 19px 10px 19px 25px;
-            border-radius: 10px;
+            // padding: 19px 10px 19px 25px;
+            padding: 27px 11px 27px 35px;
+            border-radius: 14px;
             margin-top: 19px;
 
             .content {
@@ -383,63 +406,32 @@ const fakeList = [
 
 
 table {
-    width: 55.8125rem;
-    margin: 0 auto;
+    // width: 55.8125rem;
+    // margin: 0 auto;
+    width: 100%;
     border: none;
     border-collapse: separate;
-    border-spacing: 0 10px;
-}
+    border-spacing: 0 14px;
 
-th,
-td {
-    // border: 1px solid var(--darkness);
-    color: var(--darkness);
-    padding: 1.25rem 0.8125rem;
+    th,
+    td {
+        // border: 1px solid var(--darkness);
+        color: var(--darkness);
 
-}
-
-tr {
-    // margin-block: 10px;
-    // display: block;
-    // width: 100%;
-    border: 2px solid red;
-}
-
-th {
-    opacity: 0.7;
-    text-align: left;
-    font-size: 0.75rem;
-    line-height: 1rem;
-}
-
-td {
-    font-size: 0.875rem;
-    line-height: 1.1875rem;
-    background: var(--basic-light);
-
-    &:first-child {
-        border-radius: 0.625rem 0 0 0.625rem;
     }
 
-    &:last-child {
-        border-radius: 0 0.625rem 0.625rem 0;
+    th {
+        opacity: 0.7;
+        text-align: left;
+        font-size: 0.75rem;
+        line-height: 1rem;
     }
-
-}
-
-tr {
-    width: 100%;
-}
-
-.total {
-    text-align: left;
-    border-radius: 0.625rem;
 
     td {
-        vertical-align: middle;
-        color: var(--basic-light);
-        background: var(--highlight);
-        font-weight: 600;
+        // font-size: 0.875rem;
+        padding: 28px 18px;
+        // line-height: 1.1875rem;
+        background: var(--basic-light);
 
         &:first-child {
             border-radius: 0.625rem 0 0 0.625rem;
@@ -450,5 +442,31 @@ tr {
         }
 
     }
+
+    tr {
+        width: 100%;
+    }
+
+    .total {
+        text-align: left;
+        border-radius: 0.625rem;
+
+        td {
+            vertical-align: middle;
+            color: var(--basic-light);
+            background: var(--highlight);
+            font-weight: 600;
+
+            &:first-child {
+                border-radius: 14px 0 0 14px;
+            }
+
+            &:last-child {
+                border-radius: 0 14px 14px 0;
+            }
+
+        }
+    }
+
 }
 </style>
