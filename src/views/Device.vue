@@ -37,10 +37,6 @@
                 <div class="date-at" style="position: relative;">
                     <Datepicker ref="picker" v-model="date" :year-picker="isYear" :month-picker="isMonth"
                         :enableTimePicker="false" autoApply locale="ru-Ru">
-                        <!-- <template #action-select>
-
-                            <p class="custom-select" @click="selectDate">awdawd</p>
-                        </template> -->
                     </Datepicker>
                 </div>
                 <div class="date-at" style="position: relative;" v-if="interval_date[activeDayInterval] !== 'day'">
@@ -311,6 +307,7 @@ const fakeList = [
 
             }
 
+
             .interval-days-drop {
                 width: 182px;
                 background: var(--basic-light);
@@ -366,7 +363,6 @@ const fakeList = [
             display: block;
         }
 
-
         .count {
             display: flex;
             align-items: center;
@@ -409,11 +405,13 @@ table {
         background: var(--basic-light);
 
         &:first-child {
-            border-radius: 14px 0 0 14px;
+            border-radius: 0.625rem 0 0 0.625rem;
+            padding-left: 18px;
         }
 
         &:last-child {
-            border-radius: 0 14px 14px 0;
+            padding-right: 18px;
+            border-radius: 0 0.625rem 0.625rem 0;
         }
 
     }

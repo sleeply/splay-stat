@@ -160,6 +160,39 @@
             </div>
         </div>
 
+        <WatchesTable />
+
+        <div class="footer">
+            <div class="count">
+                <Icon class="count-icon">
+                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="50" height="50" rx="25" fill="#EFF5FF" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M16 16H34C35.1046 16 36 16.8954 36 18V32C36 33.1046 35.1046 34 34 34H16C14.8954 34 14 33.1046 14 32V18C14 16.8954 14.8954 16 16 16ZM16 18V32H34V18H16ZM20 30H22V24H20V30ZM26 30H24V20H26V30ZM28 30H30V23H28V30Z"
+                            fill="#5B93FF" />
+                    </svg>
+                </Icon>
+                <div class="content">
+                    <h1 class="text16">{{ $t("watches.count_all") }}</h1>
+                    <span class="text25 extra-bold">122 648</span>
+                </div>
+            </div>
+            <div class="count">
+                <Icon class="count-icon">
+                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="50" height="50" rx="25" fill="#FFF7E1" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M21 19H19V18H17V21H33V18H31V19H29V18H21V19ZM33 23H17V33H33V23ZM29 16H21V15H19V16H17C15.8954 16 15 16.8954 15 18V33C15 34.1046 15.8954 35 17 35H33C34.1046 35 35 34.1046 35 33V18C35 16.8954 34.1046 16 33 16H31V15H29V16ZM20 27V25H22V27H20ZM24 27H26V25H24V27ZM28 27V25H30V27H28ZM20 29V31H22V29H20ZM26 31H24V29H26V31Z"
+                            fill="#FFC327" />
+                    </svg>
+                </Icon>
+                <div class="content">
+                    <h1 class="text16 ">{{ $t("watches.count_selected") }}</h1>
+                    <span class="text25 extra-bold">122 648</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -167,6 +200,7 @@
 import DropDown from '@/components/DropDown.vue';
 import { interval_date } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
+import WatchesTable from '@/components/pages/WatchesTable.vue';
 import { ref } from 'vue';
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
@@ -316,6 +350,42 @@ const date = ref(new Date())
                     color: var(--darkness-opacity-07);
                 }
 
+            }
+        }
+    }
+
+
+    .footer {
+        display: flex;
+        align-items: flex-start;
+        gap: 17px;
+
+        span {
+            margin-top: 6px;
+            display: block;
+            opacity: 0.7;
+        }
+
+        .count-icon {
+            width: 70px;
+            height: 70px;
+            flex: 0 0 70px;
+        }
+
+
+        .count {
+            display: flex;
+            align-items: center;
+            max-width: 402px;
+            height: 100%;
+            background: var(--basic-light);
+            // padding: 19px 10px 19px 25px;
+            padding: 27px 11px 27px 35px;
+            border-radius: 14px;
+            margin-top: 19px;
+
+            .content {
+                margin-left: 12px;
             }
         }
     }

@@ -405,11 +405,13 @@ table {
         background: var(--basic-light);
 
         &:first-child {
-            border-radius: 14px 0 0 14px;
+            border-radius: 0.625rem 0 0 0.625rem;
+            padding-left: 18px;
         }
 
         &:last-child {
-            border-radius: 0 14px 14px 0;
+            padding-right: 18px;
+            border-radius: 0 0.625rem 0.625rem 0;
         }
 
     }
