@@ -1,7 +1,7 @@
 <template>
     <div class="stats-countries s-container">
         <div class="page-title">
-            {{ $t("device.title") }}
+            {{ $t("countries.title") }}
         </div>
 
         <div class="filters-container">
@@ -113,7 +113,7 @@
                     </svg>
                 </Icon>
                 <div class="content">
-                    <h1 class="text16">{{ $t("device.count_of_visits") }}</h1>
+                    <h1 class="text16">{{ $t("countries.count_of_visits") }}</h1>
                     <span class="text25 extra-bold">122 648</span>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                     </svg>
                 </Icon>
                 <div class="content">
-                    <h1 class="text16 ">{{ $t("device.selectedTimeVisits") }}</h1>
+                    <h1 class="text16 ">{{ $t("countries.selectedTimeVisits") }}</h1>
                     <span class="text25 extra-bold">122 648</span>
                 </div>
             </div>
@@ -246,12 +246,6 @@ const fakeList = [
     font-size: 20px !important;
     line-height: 38px !important;
     border-radius: 7px;
-    // width: 8.13rem;
-    // padding: 0.6875rem 0.5rem 0.625rem 1.0625rem;
-    // border-radius: .625rem;
-    // font-size: 0.88rem;
-    // line-height: 1.19rem;
-    // padding: 0 !important;
     padding-left: 23px !important;
     padding-right: 11px !important;
     padding-top: 0;
@@ -259,8 +253,6 @@ const fakeList = [
 }
 
 .dp__input_icon_pad {
-    // padding: 15px 11px 15px 23px !important;
-    // padding: 0 !important;
     height: 56px;
 
 }
@@ -268,9 +260,9 @@ const fakeList = [
 
 <style lang="scss" scoped>
 .ico-size {
-    width: 1rem;
-    height: 1rem;
-    flex: 0 0 1rem;
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
     // opacity: 0;
 }
 
@@ -281,10 +273,8 @@ const fakeList = [
 }
 
 .stats-countries {
-    width: 100%;
-    padding-top: 1.9375rem;
-    padding-bottom: 3.125rem;
-    margin-left: 1.5625rem;
+    padding-top: 31px;
+    padding-bottom: 31px;
 
     svg {
         position: absolute;
@@ -308,11 +298,11 @@ const fakeList = [
         }
 
         .filters {
-            margin-top: 1.25rem;
+            margin-top: 20px;
             display: flex;
             align-items: center;
-            // gap: 0.94rem;
             gap: 21px;
+            margin-bottom: 54px;
 
             P {
                 color: var(--darkness-opacity-07);
@@ -324,9 +314,6 @@ const fakeList = [
             }
 
             .interval-days-drop {
-                // width: 8.13rem;
-                // height: 56px;
-
                 width: 182px;
                 background: var(--basic-light);
 
@@ -343,8 +330,6 @@ const fakeList = [
             }
 
             .interval-visits-drop {
-                // width: 12.19rem;
-
                 width: 182px;
                 background: var(--basic-light);
 
@@ -364,19 +349,11 @@ const fakeList = [
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                // padding: 0.6875rem 0.5rem 0.625rem 1.0625rem;
-                // border-radius: 0.625rem;
-
-                span {
-
-                    // font-size: 14.08px;
-                    // line-height: 19.04px;
-                }
             }
 
             .drop-ico {
-                width: 0.625rem;
-                height: 0.625rem;
+                width: 10px;
+                height: 10px;
             }
         }
     }
@@ -406,12 +383,10 @@ const fakeList = [
 
 
 table {
-    // width: 55.8125rem;
-    // margin: 0 auto;
     width: 100%;
     border: none;
     border-collapse: separate;
-    border-spacing: 0 14px;
+    border-spacing: 0 20px;
 
     th,
     td {
@@ -423,22 +398,18 @@ table {
     th {
         opacity: 0.7;
         text-align: left;
-        font-size: 0.75rem;
-        line-height: 1rem;
     }
 
     td {
-        // font-size: 0.875rem;
         padding: 28px 18px;
-        // line-height: 1.1875rem;
         background: var(--basic-light);
 
         &:first-child {
-            border-radius: 0.625rem 0 0 0.625rem;
+            border-radius: 14px 0 0 14px;
         }
 
         &:last-child {
-            border-radius: 0 0.625rem 0.625rem 0;
+            border-radius: 0 14px 14px 0;
         }
 
     }
@@ -449,7 +420,7 @@ table {
 
     .total {
         text-align: left;
-        border-radius: 0.625rem;
+        border-radius: 14px;
 
         td {
             vertical-align: middle;
