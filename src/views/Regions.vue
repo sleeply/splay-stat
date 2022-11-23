@@ -67,6 +67,7 @@
                 </div>
             </div>
         </div>
+        <RegionsChart />
 
         <div class="regions">
             <div class="item" v-for="(item, index) in regions" :key="index">
@@ -74,6 +75,36 @@
                     background: item.color
                 }"></div>
                 <span class="text18 semi-bold"> {{ item[i18n.global.locale.value] }} </span>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="count">
+                <Icon class="count-icon">
+                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="50" height="50" rx="25" fill="#EFF5FF" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M16 16H34C35.1046 16 36 16.8954 36 18V32C36 33.1046 35.1046 34 34 34H16C14.8954 34 14 33.1046 14 32V18C14 16.8954 14.8954 16 16 16ZM16 18V32H34V18H16ZM20 30H22V24H20V30ZM26 30H24V20H26V30ZM28 30H30V23H28V30Z"
+                            fill="#5B93FF" />
+                    </svg>
+                </Icon>
+                <div class="content">
+                    <h1 class="text16">{{ $t("regions.count_visit_regions") }}</h1>
+                    <span class="text25 extra-bold">122 648</span>
+                </div>
+            </div>
+            <div class="count">
+                <Icon class="count-icon">
+                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="50" height="50" rx="25" fill="#FFF7E1" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M21 19H19V18H17V21H33V18H31V19H29V18H21V19ZM33 23H17V33H33V23ZM29 16H21V15H19V16H17C15.8954 16 15 16.8954 15 18V33C15 34.1046 15.8954 35 17 35H33C34.1046 35 35 34.1046 35 33V18C35 16.8954 34.1046 16 33 16H31V15H29V16ZM20 27V25H22V27H20ZM24 27H26V25H24V27ZM28 27V25H30V27H28ZM20 29V31H22V29H20ZM26 31H24V29H26V31Z"
+                            fill="#FFC327" />
+                    </svg>
+                </Icon>
+                <div class="content">
+                    <h1 class="text16 ">{{ $t("regions.count_visit_selected_regions") }}</h1>
+                    <span class="text25 extra-bold">122 648</span>
+                </div>
             </div>
         </div>
     </div>
@@ -88,11 +119,15 @@ import { ref } from 'vue';
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import { useLanguage } from "@/utils/language"
+import RegionsChart from "@/components/pages/RegionsChart.vue"
 
 const { i18n } = useLanguage()
 
 const activeDayInterval = ref(0)
 const date = ref(new Date())
+const isYear = ref()
+const isMonth = ref()
+const getDay  = () =>{}
 </script>
 
 <style lang="scss">

@@ -57,6 +57,44 @@ html {
   background: #fafafa;
 }
 
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   background: #fafafa;
+}
+
+.footer {
+  display: flex;
+  align-items: flex-start;
+  gap: 17px;
+
+  span {
+    margin-top: 6px;
+    display: block;
+    color: var(--darkness-opacity-07);
+  }
+  .count-icon {
+    width: 70px;
+    height: 70px;
+    flex: 0 0 70px;
+  }
+
+  .count {
+    display: flex;
+    align-items: center;
+    max-width: 402px;
+    height: 100%;
+    background: var(--basic-light);
+    // padding: 19px 10px 19px 25px;
+    padding: 27px 11px 27px 35px;
+    border-radius: 14px;
+    margin-top: 19px;
+
+    .content {
+      margin-left: 12px;
+    }
+  }
 }

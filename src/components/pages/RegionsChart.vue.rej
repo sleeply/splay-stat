@@ -1,0 +1,5 @@
+diff a/src/components/pages/RegionsChart.vue b/src/components/pages/RegionsChart.vue	(rejected hunks)
+@@ -92,2 +92 @@ const config = {
+-                backgroundColor: "#000",
+-                tension: 0.4
++                tension: 0.5
