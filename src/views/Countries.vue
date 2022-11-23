@@ -37,10 +37,6 @@
                 <div class="date-at" style="position: relative;">
                     <Datepicker ref="picker" v-model="date" :year-picker="isYear" :month-picker="isMonth"
                         :enableTimePicker="false" autoApply locale="ru-Ru">
-                        <!-- <template #action-select>
-
-                            <p class="custom-select" @click="selectDate">awdawd</p>
-                        </template> -->
                     </Datepicker>
                 </div>
                 <div class="date-at" style="position: relative;" v-if="interval_date[activeDayInterval] !== 'day'">
@@ -310,6 +306,7 @@ const fakeList = [
                 color: var(--darkness-opacity-07);
 
             }
+
 
             .interval-days-drop {
                 width: 182px;

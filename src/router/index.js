@@ -56,6 +56,14 @@ const childRoutes = [
     },
   },
   {
+    path: "watches",
+    name: "Watches",
+    component: () => import("@/views/Watches.vue"),
+    meta: {
+      isMenu: true,
+    },
+  },
+  {
     path: "chart",
     name: "chart",
     component: () => import("@/views/chart-test.vue"),
