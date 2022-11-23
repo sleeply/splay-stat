@@ -19,6 +19,41 @@ const childRoutes = [
     path: "",
     name: "MainWrapper",
     component: () => import("@/views/MainWrapper.vue"),
+    meta: {
+      isMenu: true,
+    },
+  },
+  {
+    path: "auth",
+    name: "Auth",
+    component: () => import("@/views/Auth.vue"),
+    meta: {
+      isMenu: false,
+    },
+  },
+  {
+    path: "countries",
+    name: "Countries",
+    component: () => import("@/views/Countries.vue"),
+    meta: {
+      isMenu: true,
+    },
+  },
+  {
+    path: "device",
+    name: "Device",
+    component: () => import("@/views/Device.vue"),
+    meta: {
+      isMenu: true,
+    },
+  },
+  {
+    path: "chart",
+    name: "chart",
+    component: () => import("@/views/chart-test.vue"),
+    meta: {
+      isMenu: true,
+    },
   },
 ];
 
@@ -104,7 +139,7 @@ const beforeEach = async (to, from, next) => {
   return next();
 };
 
-export default function() {
+export default function () {
   const router = createRouter({
     history,
     routes,

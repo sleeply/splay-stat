@@ -1,13 +1,35 @@
 <template>
-  <main>
-    <router-view />
-  </main>
+  <div class="stats-root">
+    <Menu class="menu" v-if="$route.meta.isMenu" />
+    <main>
+      <router-view />
+    </main>
+  </div>
 </template>
 
 <script setup>
+import Menu from '@/components/Menu.vue';
 </script>
 
 <style lang="scss">
+.stats-root {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+main {
+  // max-width: 1440px;
+  // margin: 0 auto;
+  flex: 1;
+  // max-width: 57.44rem;
+  // margin: 0 auto;
+  // margin: 0 auto;
+  // max-width: 1920px;
+}
+
+
+
 img[alt] {
   color: transparent;
 }
@@ -85,6 +107,7 @@ a {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  box-sizing: border-box;
 }
 
 img {

@@ -1,4 +1,3 @@
-@import "./colors.scss";
 @import "./fonts.scss";
 
 :root {
@@ -6,8 +5,11 @@
   --basic-light: #ffffff;
 
   --darkness: #030229;
+  --darkness-opacity-07: rgba(3, 2, 41, 0.7);
+  --darkness-opacity-05: rgba(3, 2, 41, 0.5);
   --highlight: #605bff;
   --basic-grey: #dadada;
+  --secondary-light: #f7f7f8;
 
   --secondary-highlight: #346dc4;
   --basic-blue: #28487b;
@@ -26,13 +28,35 @@
   line-height: 1.375rem;
 }
 
+.s-container {
+  // max-width: 64rem;
+  margin: 0 auto;
+  max-width: 1440px;
+
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .page-title {
-  font-size: 20px;
-  line-height: 27px;
+  // font-size: 20px;
+  // line-height: 27.04px;
+  font-size: 28px;
+  line-height: 38px;
   font-weight: 700;
   color: var(--darkness);
 }
 
 html {
   font-family: "Nunito", sans-serif;
+  background: #fafafa;
+}
+
+body {
+  background: #fafafa;
 }
