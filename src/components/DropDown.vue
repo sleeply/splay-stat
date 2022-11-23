@@ -72,8 +72,7 @@ onBeforeUnmount(() => {
     .choices {
         position: absolute;
         top: 100%;
-        // width: 100%;
-        width: max-content;
+        width: 100%;
         left: 0;
         background: var(--basic-light);
         border-bottom-left-radius: 0.625rem;
@@ -86,6 +85,7 @@ onBeforeUnmount(() => {
         .choice {
             // padding-left: 1.0625rem;
             padding: 4px 11px 4px 23px;
+            word-break: break-word;
             // padding-left: 23px;
             // padding-right: 11px;
             // padding-right: 0.5rem;

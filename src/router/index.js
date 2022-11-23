@@ -48,6 +48,14 @@ const childRoutes = [
     },
   },
   {
+    path: "authed",
+    name: "Authed",
+    component: () => import("@/views/Authed.vue"),
+    meta: {
+      isMenu: true,
+    },
+  },
+  {
     path: "chart",
     name: "chart",
     component: () => import("@/views/chart-test.vue"),

@@ -23,7 +23,7 @@
                         </Icon>
                     </template>
                     <template #list="{ item }">
-                        <span class=" semi-bold"> {{ $t(`interval_date.${item}`) }}</span>
+                        <span class=" semi-bold text20"> {{ $t(`interval_date.${item}`) }}</span>
                         <Icon class="ico-size">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +60,7 @@
                         </Icon>
                     </template>
                     <template #list="{ item }">
-                        <span class="semi-bold">{{ $t(`interval_visits.${item}`) }}</span>
+                        <span class="semi-bold text20">{{ $t(`interval_visits.${item}`) }}</span>
                         <Icon class="ico-size" :style="{
                         
                         }">
@@ -273,8 +273,6 @@ const fakeList = [
 }
 
 .stats-countries {
-    padding-top: 31px;
-    padding-bottom: 31px;
 
     svg {
         position: absolute;
@@ -362,6 +360,11 @@ const fakeList = [
         display: flex;
         align-items: flex-start;
         gap: 17px;
+
+        span {
+            margin-top: 6px;
+            display: block;
+        }
 
         .count {
             display: flex;
