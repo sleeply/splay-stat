@@ -12,9 +12,9 @@ let newCharTest;
 /* eslint-disable */
 
 const model = {
-    2015: [20, 12, 32, 8, 25, 14, 20, 12, 32, 8, 25, 14],
-    2016: [17, 26, 21, 41, 8, 23, 17, 26, 21, 41, 8, 23],
-    2017: [23, 15, 8, 24, 38, 20, 23, 15, 8, 24, 38, 20]
+    2015: [20, 12, 5,0,0,4],
+    // 2016: [17, 26, 21, 41, 8, 23, 17, 26, 21, 41, 8, 23],
+    // 2017: [23, 15, 8, 24, 38, 20, 23, 15, 8, 24, 38, 20]
 };
 
 const handleData = () => {
@@ -39,7 +39,7 @@ const handleData = () => {
 }
 
 const data = {
-    labels: ['10am', '11am', '12am', '01am', '02am', '03am', '04am', '05am', '06am', '07am'],
+    labels: ['00:00', '00:01', '00:02', '00:003', '00:04', '03am', '04am', '05am', '06am', '07am'],
     datasets: [],
     responsive: true,
 };
@@ -77,13 +77,12 @@ const config = {
     data,
     options: {
         animation: {
-            tension: {
-                duration: 200,
-                from: 0,
-                to: 1,
-                loop: true
-
-            }
+            // tension: {
+            //     duration: 500,
+            //     from: 0,
+            //     to: 1,
+            //     loop: true
+            // }
         },
         scales: {
             x: {
