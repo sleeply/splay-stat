@@ -9,6 +9,6 @@ import * as apiAuthed from "./Requests/Authed";
 export const API_V1 = "/api/v1";
 export const urlV1 = `${BASE_URL}/${API_V1}`;
 
-export const apo = {
+export const api = {
   apiAuthed,
 };

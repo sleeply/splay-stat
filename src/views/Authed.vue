@@ -31,9 +31,9 @@
                     autoApply locale="ru-Ru" :clearable="false" />
             </div>
         </div>
-
-        <authed-chart />
-
+        <template v-if="(users.length > 0)">
+            <Chart :data="users" />
+        </template>
         <div class="footer">
             <div class="count">
                 <Icon class="count-icon">
@@ -71,14 +71,23 @@
 import { interval_date } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
 import DropDown from '@/components/DropDown.vue';
+import Chart from "@/components/Chart.vue"
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-import { ref } from 'vue';
-import AuthedChart from "@/components/pages/AuthedChart.vue"
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
 
 const date = ref(new Date())
+const isMonth = ref(false)
+const isYear = ref(false)
+const getDay = () => { }
 
 const activeDayInterval = ref(0)
+
+const store = useStore()
+const users = computed(() => store.getters["authed/users"])
+
+store.dispatch("authed/getUsers", {})
 </script>
 
 <style lang="scss">

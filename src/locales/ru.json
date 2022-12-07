@@ -31,7 +31,7 @@
   "interval_date": {
     "days": "За дни",
     "day": "За день",
-    "year": "За год",
+    "hours": "За час",
     "month": "За месяц"
   },
   "interval_visits": {
