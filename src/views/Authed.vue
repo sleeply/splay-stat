@@ -26,13 +26,13 @@
                     </Icon>
                 </template>
             </DropDown>
-            <div class="date-at" style="position: relative;" v-show="interval_date[activeDayInterval] !== 'day'">
+            <div class="date-at" style="position: relative;" v-show="interval_date[activeDayInterval] !== 'hours'">
                 <Datepicker v-model="start_at" @update:modelValue="refresh" :enableTimePicker="false" autoApply
-                    locale="ru-Ru" :clearable="false" :disable-month-year-select="isDays" />
+                    locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" />
             </div>
-            <div class="date-at" v-show="interval_date[activeDayInterval] !== 'day'">
+            <div class="date-at" v-show="interval_date[activeDayInterval] !== 'hours'">
                 <Datepicker v-model="end_at" @update:modelValue="refresh" :enableTimePicker="false" autoApply
-                    locale="ru-Ru" :clearable="false" :disable-month-year-select="isHours" />
+                    locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" />
             </div>
         </div>
         <template v-if="(users.length > 0)">
@@ -171,9 +171,17 @@ const getData = () => {
 }
 
 const refresh = () => {
-    console.log(end_at.value.getDate())
-    // store.commit("authed/flushUsers")
-    // getData()
+    if (period.value === "months") {
+        console.log(end_at.value.getMonth())
+        startDate.month = end_at.value.getMonth() + 1
+    }
+    else if (period.value === "days") {
+        console.log(end_at.value.getDate())
+        startDate.day = end_at.value.getDate()
+        console.log(startDate)
+    }
+    store.commit("authed/flushUsers")
+    getData()
 }
 
 
