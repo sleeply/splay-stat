@@ -29,10 +29,9 @@
     "december": "Дек"
   },
   "interval_date": {
-    "days": "За дни",
-    "day": "За день",
-    "hours": "За час",
-    "month": "За месяц"
+    "hours": "За день",
+    "days": "За  месяц",
+    "month": "За год"
   },
   "interval_visits": {
     "country": "Страна",

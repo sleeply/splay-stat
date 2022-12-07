@@ -11,7 +11,7 @@
             <template v-for="(item, index) in items" :key="index">
                 <div class="choice" :class="{
                     selected: index === active
-                }" v-if="item !== items[active]" @click="emits('setActive', index)">
+                }" @click="emits('setActive', index)">
                     <slot name="list" :item="item" :index="index"></slot>
                 </div>
             </template>
@@ -99,7 +99,7 @@ onBeforeUnmount(() => {
             align-items: center;
             justify-content: space-between;
 
-
+            &.selected,
             &:hover {
                 background: var(--highlight);
                 color: var(--basic-light);

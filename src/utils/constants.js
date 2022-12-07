@@ -2,7 +2,7 @@
 
 export const SUPPORT_LOCALES = ["en", "ru", "uz"];
 
-export const interval_date = [ "day", "month"];
+export const interval_date = ["hours", "days", "month"];
 export const interval_visits = [
   "country",
   "country-visitis",
@@ -13,10 +13,6 @@ export const interval_visits = [
 
 export const weekStartNum = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 export const weekStartStr = "0" | "1" | "2" | "3" | "4" | "5" | "6";
-export const daysList = [
-1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-  23, 24, 25, 26, 27, 28, 29, 30, 31,
-];
 export const hours = [
   "00:00",
   "00:01",

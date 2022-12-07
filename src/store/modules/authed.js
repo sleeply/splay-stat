@@ -15,8 +15,9 @@ const actions = {
     { commit, state },
     {
       cb = () => {},
-      start_at = "",
-      end_at = "",
+      year = "",
+      month = "",
+      day = "",
       period = "days",
       pageSize,
       load = 1,
@@ -33,8 +34,9 @@ const actions = {
 
         cb();
       },
-      start_at,
-      end_at,
+      year,
+      month,
+      day,
       period,
       pageSize,
       state.usersPage * load
