@@ -15,18 +15,18 @@
     "december": "Декабрь"
   },
   "shortMonths": {
-    "january": "Январь",
-    "february": "Февраль",
+    "january": "Янв",
+    "february": "Фев",
     "march": "Март",
-    "april": "Апрель",
+    "april": "Апр",
     "may": "Май",
     "june": "Июнь",
     "july": "Июль",
-    "august": "Август",
-    "september": "Сентябрь",
-    "october": "Октябрь",
-    "november": "Ноябрь",
-    "december": "Декабрь"
+    "august": "Авг",
+    "september": "Сен",
+    "october": "Окт",
+    "november": "Ноя",
+    "december": "Дек"
   },
   "interval_date": {
     "days": "За дни",

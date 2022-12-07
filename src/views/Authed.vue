@@ -27,12 +27,12 @@
                 </template>
             </DropDown>
             <div class="date-at" style="position: relative;" v-if="interval_date[activeDayInterval] !== 'day'">
-                <Datepicker v-model="date" :year-picker="isYear" :month-picker="isMonth" :enableTimePicker="false"
-                    autoApply locale="ru-Ru" :clearable="false" />
+                <Datepicker v-model="date" :month-picker="isMonth" :enableTimePicker="false" autoApply locale="ru-Ru"
+                    :clearable="false" />
             </div>
         </div>
         <template v-if="(users.length > 0)">
-            <Chart :data="users" />
+            <Chart :data="users" :interval="interval" />
         </template>
         <div class="footer">
             <div class="count">
@@ -68,26 +68,94 @@
 </template>
 
 <script setup>
-import { interval_date } from '@/utils/constants'
+/* eslint-disable */
+import { interval_date, daysList } from '@/utils/constants'
+import { useFormatter } from '@/utils/formatter'
 import Icon from '@/components/Icon.vue';
 import DropDown from '@/components/DropDown.vue';
 import Chart from "@/components/Chart.vue"
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-import { computed, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
+import { hours } from '../utils/constants';
 
 const date = ref(new Date())
 const isMonth = ref(false)
-const isYear = ref(false)
-const getDay = () => { }
+const interval = ref([])
+
+const { handleDate } = useFormatter()
+
+const getDay = (prop) => {
+    activeDayInterval.value = prop
+    isMonth.value = false
+    if (activeDayInterval.value == 1) {
+        pageSize.value = 32
+        period.value = "days"
+        end_at.value = ''
+        store.commit("authed/flushUsers")
+        getData()
+
+        isMonth.value = true
+    }
+}
 
 const activeDayInterval = ref(0)
 
 const store = useStore()
 const users = computed(() => store.getters["authed/users"])
+const pageSize = ref(25)
+const start_at = ref()
+const end_at = ref()
+const period = ref('hours')
 
-store.dispatch("authed/getUsers", {})
+const startDate = reactive({
+    day: new Date().getDate(),
+    month: new Date().getMonth() + 1,
+    year: new Date().getFullYear()
+})
+
+const filteredDays = ref([])
+const endDate = reactive({
+    day: new Date().getDate(),
+    month: new Date().getMonth() + 1,
+    year: new Date().getFullYear()
+})
+
+const getData = () => {
+    store.dispatch("authed/getUsers", {
+        start_at: start_at.value,
+        end_at: end_at.value,
+        period: period.value,
+        pageSize: pageSize.value,
+        cb: () => {
+            filteredDays.value = []
+            if (period.value === "hours") {
+                interval.value = {
+                    type: "hours",
+                    result: hours
+                }
+                return
+            }
+            for (const item of users.value) {
+                let date = handleDate(item.date, 'm d y')
+                filteredDays.value.push(date)
+            }
+            interval.value = {
+                type: "days",
+                result: filteredDays.value.reverse()
+            }
+        }
+    })
+}
+
+
+onMounted(() => {
+    start_at.value = new Date(`${startDate.month}-${startDate.month}-${startDate.day}`).toJSON()
+    end_at.value = new Date(`${endDate.year}-${endDate.month}-${endDate.day}`).toJSON()
+    getData()
+})
+
 </script>
 
 <style lang="scss">

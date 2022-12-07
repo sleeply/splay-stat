@@ -2,7 +2,7 @@ import { urlV1 } from "@/network/index";
 
 export async function getUsers(cb, start_at, end_at, period, pageSize, offset) {
   fetch(
-    `${urlV1}/account-signup/date__gte=${start_at}&date__lte=${end_at}&limit=${pageSize}&offset${
+    `${urlV1}/account-signup/?date__gte=${start_at}&date__lte=${end_at}&period=${period}&limit=${pageSize}&offset=${
       pageSize * offset
     }`,
     {

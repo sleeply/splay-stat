@@ -13,21 +13,25 @@ const props = defineProps({
     data: {
         type: Array,
         default: () => { }
+    },
+    interval: {
+        type: Object,
+        default: () => {}
     }
 })
 const counts = computed(() => {
     let newCount = []
     for (const item of props.data) {
-        newCount.push(item.accounts_count)
+        newCount.push(item.counts)
     }
     return newCount
 })
 
 const data = {
-    labels: ['00:00', '00:01', '00:02', '00:003', '00:04', '03am', '04am', '05am', '06am', '07am'],
+    labels: props.interval.result,
     datasets: [{
         label: "ad",
-        data: counts.value,
+        data: counts.value.reverse(),
 
     }],
     responsive: true,

@@ -13,7 +13,14 @@ const getters = {
 const actions = {
   getUsers(
     { commit, state },
-    { cb = () => {}, start_at, end_at, period, pageSize, load = 1 }
+    {
+      cb = () => {},
+      start_at = "",
+      end_at = "",
+      period = "days",
+      pageSize,
+      load = 1,
+    }
   ) {
     api.apiAuthed.getUsers(
       (data, count) => {
@@ -50,6 +57,8 @@ const mutations = {
 
   flushUsers(state) {
     state.users = [];
+    state.usersCount = null;
+    state.usersPage = 0;
   },
 };
 
