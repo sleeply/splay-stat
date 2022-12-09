@@ -27,11 +27,11 @@
                 </template>
             </DropDown>
             <div class="date-at" style="position: relative;" v-show="interval_date[activeDayInterval] !== 'hours'">
-                <Datepicker v-model="start_at" @update:modelValue="refresh" :enableTimePicker="false" autoApply
+                <Datepicker v-model="date__gte" @update:modelValue="refresh" :enableTimePicker="false" autoApply
                     locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" />
             </div>
             <div class="date-at" v-show="interval_date[activeDayInterval] !== 'hours'">
-                <Datepicker v-model="end_at" @update:modelValue="refresh" :enableTimePicker="false" autoApply
+                <Datepicker v-model="date__lt" @update:modelValue="refresh" :enableTimePicker="false" autoApply
                     locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" />
             </div>
         </div>
@@ -72,7 +72,6 @@
 </template>
 
 <script setup>
-/* eslint-disable */
 import { interval_date } from '@/utils/constants'
 import { useFormatter } from '@/utils/formatter'
 import Icon from '@/components/Icon.vue';
@@ -82,9 +81,8 @@ import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
-import { hours } from '../utils/constants';
+import { hours } from '@/utils/constants';
 
-const date = ref(new Date())
 const interval = ref([])
 const isMonth = ref(false)
 const isDays = ref(false)
@@ -95,7 +93,6 @@ const counts = computed(() => {
     for (const item of users.value) {
         count.push(item.counts)
     }
-
     return count.reverse()
 })
 
@@ -106,31 +103,39 @@ const getDay = (prop) => {
     isHours.value = false
     isDays.value = false
     isMonth.value = false
-    console.log(prop)
-    console.log(interval_date)
-    console.log(interval_date[prop])
-    if (interval_date[prop] === 'hours') {
-        period.value = "hours"
-        isHours.value = true
+    if (interval_date[prop] === 'month') {
+        startDate.month = 1
+        startDate.day = 1
+        startDate.year = new Date().getFullYear()
+        period.value = "months";
+        isMonth.value = true;
+        date__gte.value = new Date(startDate.year, 0, 2)
         store.commit("authed/flushUsers")
-        getData()
-        return
     }
-    if (interval_date[prop] === 'days') {
+    else if (interval_date[prop] === 'days') {
         pageSize.value = 32
         period.value = "days"
-        store.commit("authed/flushUsers")
-        getData()
-        isDays.value = true
-        return
+        startDate.month = new Date().getMonth() + 1
+        startDate.year = new Date().getFullYear()
+        date__gte.value = new Date(`${startDate.year}-${startDate.month}-${1}`)
+        console.log(date__gte.value)
     }
-    if (interval_date[prop] === 'month') {
-        isMonth.value = true
-        period.value = "months"
-        store.commit("authed/flushUsers")
-        getData()
-        return
+    else if (interval_date[prop] === 'hours') {
+        period.value = "hours"
+        isHours.value = true
+        startDate.day = new Date().getDate()
+        startDate.month = new Date().getMonth() + 1
+        startDate.year = new Date().getFullYear()
+        date__gte.value = new Date(`${startDate.year}-${startDate.month}-${startDate.day}`)
+
     }
+
+    Object.keys(endDate).forEach((key) => {
+        delete endDate[key];
+    });
+
+    store.commit("authed/flushUsers")
+    getData()
 }
 
 const activeDayInterval = ref(0)
@@ -138,8 +143,6 @@ const activeDayInterval = ref(0)
 const store = useStore()
 const users = computed(() => store.getters["authed/users"])
 const pageSize = ref(25)
-const start_at = ref(new Date())
-const end_at = ref(new Date())
 const period = ref('hours')
 
 const startDate = reactive({
@@ -148,13 +151,21 @@ const startDate = reactive({
     year: new Date().getFullYear()
 })
 
+const endDate = reactive({
+    day: new Date().getDate() + 1,
+    month: new Date().getMonth() + 1,
+    year: new Date().getFullYear()
+})
+
+const date__gte = ref(new Date(`${startDate.year}-${startDate.month}-${startDate.day}`))
+const date__lt = ref("")
+
 const filteredDays = ref([])
 
 const getData = () => {
     store.dispatch("authed/getUsers", {
-        year: startDate.year,
-        month: startDate.month,
-        day: startDate.day,
+        date__gte: date__gte.value.toJSON(),
+        date__lt: date__lt.value,
         period: period.value,
         pageSize: pageSize.value,
         cb: () => {
@@ -181,21 +192,23 @@ const getData = () => {
 
 const refresh = () => {
     if (period.value === "months") {
-        console.log(end_at.value.getMonth())
-        startDate.month = end_at.value.getMonth() + 1
-    }
-    else if (period.value === "days") {
-        console.log(end_at.value.getDate())
-        startDate.day = end_at.value.getDate()
         console.log(startDate)
     }
-    store.commit("authed/flushUsers")
-    getData()
+    // if (period.value === "months") {
+    //     console.log(end_at.value.getMonth())
+    //     startDate.month = end_at.value.getMonth() + 1
+    // }
+    // else if (period.value === "days") {
+    //     console.log(end_at.value.getDate())
+    //     startDate.day = end_at.value.getDate()
+    //     console.log(startDate)
+    // }
+    // store.commit("authed/flushUsers")
+    // getData()
 }
 
 
 onMounted(() => {
-    start_at.value = new Date(`${startDate.year}-${startDate.month}-${startDate.day}`).toJSON()
     getData()
 })
 

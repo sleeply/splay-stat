@@ -13,15 +13,7 @@ const getters = {
 const actions = {
   getUsers(
     { commit, state },
-    {
-      cb = () => {},
-      year = "",
-      month = "",
-      day = "",
-      period = "days",
-      pageSize,
-      load = 1,
-    }
+    { cb = () => {}, date__gte, date__lt, period = "days", pageSize, load = 1 }
   ) {
     api.apiAuthed.getUsers(
       (data, count) => {
@@ -34,9 +26,8 @@ const actions = {
 
         cb();
       },
-      year,
-      month,
-      day,
+      date__gte,
+      date__lt,
       period,
       pageSize,
       state.usersPage * load

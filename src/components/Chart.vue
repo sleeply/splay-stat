@@ -59,6 +59,9 @@ const plugins = {
             },
         },
     },
+    legend: {
+        display: false
+    }
 }
 
 const config = {
@@ -127,7 +130,6 @@ const getGradient = (ctx, chartArea) => {
 onMounted(() => {
     /* eslint-disable */
     new Chart(canvas.value, config);
-    // newCharTest = document.getElementById("unique")
 })
 </script>
 
