@@ -36,7 +36,7 @@
             </div>
         </div>
         <template v-if="(users.length > 0)">
-            <Chart :data="users" :interval="interval" />
+            <Chart :data="counts" :interval="interval" />
         </template>
         <div class="footer">
             <div class="count">
@@ -73,7 +73,7 @@
 
 <script setup>
 /* eslint-disable */
-import { interval_date, daysList } from '@/utils/constants'
+import { interval_date } from '@/utils/constants'
 import { useFormatter } from '@/utils/formatter'
 import Icon from '@/components/Icon.vue';
 import DropDown from '@/components/DropDown.vue';
@@ -89,6 +89,15 @@ const interval = ref([])
 const isMonth = ref(false)
 const isDays = ref(false)
 const isHours = ref(false)
+
+const counts = computed(() => {
+    let count = []
+    for (const item of users.value) {
+        count.push(item.counts)
+    }
+
+    return count.reverse()
+})
 
 const { handleDate } = useFormatter()
 

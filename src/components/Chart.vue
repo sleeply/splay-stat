@@ -5,9 +5,12 @@
 </template>
 
 <script setup>
-import { onMounted, ref, defineProps, computed } from "vue";
+import { useLanguage } from "@/utils/language";
+import { onMounted, ref, defineProps } from "vue";
 
-const canvas = ref()
+const canvas = ref(null)
+
+const { i18n } = useLanguage()
 
 const props = defineProps({
     data: {
@@ -16,22 +19,15 @@ const props = defineProps({
     },
     interval: {
         type: Object,
-        default: () => {}
+        default: () => { }
     }
-})
-const counts = computed(() => {
-    let newCount = []
-    for (const item of props.data) {
-        newCount.push(item.counts)
-    }
-    return newCount
 })
 
 const data = {
     labels: props.interval.result,
     datasets: [{
-        label: "ad",
-        data: counts.value.reverse(),
+        label: "",
+        data: props.data,
 
     }],
     responsive: true,
@@ -56,11 +52,10 @@ const plugins = {
         callbacks: {
             label: function (event) {
                 let newLabel = event.dataset.data[event.dataIndex]
-                console.log(newLabel)
                 return newLabel
             },
             title: () => {
-                return "Посещений"
+                return i18n.global.t("chart.tooltip.title")
             },
         },
     },
@@ -124,7 +119,6 @@ const getGradient = (ctx, chartArea) => {
         gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
         gradient.addColorStop(0.4, "rgba(91, 196, 255, 1)");
         gradient.addColorStop(0.1, "rgba(255, 91, 239, 1)");
-        // gradient.addColorStop(1, "rgba(255, 91, 239, 1)");
     }
 
     return gradient
