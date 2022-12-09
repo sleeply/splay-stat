@@ -60,10 +60,12 @@ export function useFormatter() {
         return `${("0" + dateObj.getDate()).substr(-2)} ${
           months[dateObj.getMonth()]
         }`;
-        case "m d y":
-          return `${shortMonths[dateObj.getMonth()]} ${(
-            "0" + dateObj.getDate()
-          ).substr(-2)}, ${dateObj.getFullYear()}`;
+      case "m d y":
+        return `${shortMonths[dateObj.getMonth()]} ${(
+          "0" + dateObj.getDate()
+        ).substr(-2)}, ${dateObj.getFullYear()}`;
+      case "m y":
+        return `${shortMonths[dateObj.getMonth()]} , ${dateObj.getFullYear()}`;
       case "dddd":
         return isToday(dateObj)
           ? i18n.global.t("days.today")

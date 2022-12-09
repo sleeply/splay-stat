@@ -73,6 +73,7 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import { interval_date } from '@/utils/constants'
 import { useFormatter } from '@/utils/formatter'
 import Icon from '@/components/Icon.vue';
@@ -80,7 +81,7 @@ import DropDown from '@/components/DropDown.vue';
 import Chart from "@/components/Chart.vue"
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-import { computed, nextTick, onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 import { hours } from '@/utils/constants';
 const interval = ref([])
@@ -100,9 +101,7 @@ const date__lt = ref(new Date())
 
 const getUtcTime = (date, day) => {
     let getDay = day ? day : date.getDate()
-
     let dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
-    console.log(dateStr)
     // 00%3A00%3A00%2B05%3A00
     return dateStr
 }
@@ -116,68 +115,33 @@ const getDay = async (prop) => {
     isHours.value = false
     isDays.value = false
     isMonth.value = false
+    let year = new Date().getFullYear()
+    let month = new Date().getMonth()
+    let day
+    store.commit("authed/flushUsers")
     if (interval_date[prop] === 'month') {
         period.value = "months"
-        // startDate.year = new Date().getFullYear()
-        startDate.year = new Date().getFullYear()
-
-        date__gte.value = new Date(2022, 0, 1)
+        isMonth.value = true
+        day = 1
+        date__gte.value = new Date(year, 0, day)
         date__lt.value = new Date()
-        await nextTick()
-        // getUtcTime(date__gte.value)
-        // getUtcTime(date__lt.value)
-
-        // getUtcTime(date__lt.value, date__lt.value.getDate() + 1)
-        // startDate.month = 1
-        // startDate.day = 1
-        // period.value = "months";
-        // isMonth.value = true;
-        // date__gte.value = new Date(startDate.year, 0, 2)
-        // getUtcTime(date__gte.value)
-        // store.commit("authed/flushUsers")
-        // endDate.day = new Date().getDate() + 1
-        // endDate.month = new Date().getMonth() + 1
-        // endDate.year = new Date().getFullYear()
-        // date__lt.value = new Date(`${endDate.year}-${endDate.month}-${endDate.day}`)
-        // getUtcTime(date__lt.value)
+        refreshData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
     }
     else if (interval_date[prop] === 'days') {
-        // pageSize.value = 32
-        // isMonth.value = true
-        // period.value = "days"
-        // startDate.month = new Date().getMonth() + 1
-        // startDate.year = new Date().getFullYear()
-        // date__gte.value = new Date(`${startDate.year}-${startDate.month}-${1}`)
-        // getUtcTime(date__gte.value)
-        // endDate.month = new Date().getMonth() + 1
-        // endDate.year = new Date().getFullYear()
-        // date__lt.value = new Date(endDate.year, endDate.month, 0)
-        // getUtcTime(date__lt.value)
+        pageSize.value = 32
+        isMonth.value = true
+        period.value = "days"
+        day = 1
+        date__gte.value = new Date(year, month, day)
+        date__lt.value = new Date(year, month + 1, 0)
+        refreshData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
     }
     else if (interval_date[prop] === 'hours') {
-        // period.value = "hours"
-        // isHours.value = - true
-        // date__gte.value = new Date()
-        // date__lt.value = new Date()
-        // getUtcTime(date__gte.value, date__gte.value.getDate())
-        // getUtcTime(date__lt.value, date__gte.value.getDate() + 1)
-        // period.value = "hours"
-        // isHours.value = true
-        // startDate.day = new Date().getDate()
-        // startDate.month = new Date().getMonth() + 1
-        // startDate.year = new Date().getFullYear()
-        // date__gte.value = new Date(`${startDate.year}-${startDate.month}-${startDate.day}`)
-        // getUtcTime(date__gte.value)
-        // endDate.day = new Date().getDate() + 1
-        // endDate.month = new Date().getMonth() + 1
-        // endDate.year = new Date().getFullYear()
-        // date__lt.value = new Date(`${endDate.year}-${endDate.month}-${endDate.day}`)
-        // getUtcTime(date__lt.value)
-
+        period.value = "hours"
+        date__gte.value = new Date()
+        date__lt.value = new Date()
+        getData()
     }
-
-    store.commit("authed/flushUsers")
-    getData()
 }
 
 const activeDayInterval = ref(0)
@@ -220,7 +184,47 @@ const getData = () => {
             }
 
             for (const item of users.value) {
-                let date = handleDate(item.date, 'm d y')
+                let date = handleDate(item.date, 'm y')
+                filteredDays.value.push(date)
+            }
+            interval.value = {
+                type: "days",
+                result: filteredDays.value.reverse()
+            }
+        }
+    })
+}
+
+const refreshData = (start_at, end_at) => {
+    store.commit("authed/flushUsers")
+    store.dispatch("authed/getUsers", {
+        date__gte: start_at,
+        date__lt: end_at,
+        period: period.value,
+        pageSize: pageSize.value,
+        cb: () => {
+            filteredDays.value = []
+            if (period.value === "hours") {
+                interval.value = {
+                    type: "hours",
+                    result: hours
+                }
+                return
+            }
+            if (period.value === "days") {
+                for (const item of users.value) {
+                    let date = handleDate(item.date, 'm d y')
+                    filteredDays.value.push(date)
+                }
+                interval.value = {
+                    type: "days",
+                    result: filteredDays.value.reverse()
+                }
+                return
+            }
+
+            for (const item of users.value) {
+                let date = handleDate(item.date, 'm y')
                 filteredDays.value.push(date)
             }
             interval.value = {
@@ -232,23 +236,38 @@ const getData = () => {
 }
 
 const refresh = () => {
-    if (period.value === 'days') {
-        startDate.month = date__gte.value.getMonth() + 1
-        date__lt.value = new Date(startDate.year, startDate.month, 1)
-        date__gte.value = new Date(`${startDate.year}-${startDate.month}-${1}`)
-        getUtcTime(date__lt.value)
-        getUtcTime(date__gte.value)
+    let month = date__gte.value.getMonth()
+    let year = date__gte.value.getFullYear()
+    let day = 1
+    console.log(date__lt.value)
+    if (period.value === "days") {
+        date__gte.value = new Date(year, month, day)
+        date__lt.value = new Date(year, month + 1, day)
     }
-    else if (period.value === "month") {
-        endDate.month = date__lt.value.getMonth() + 1
-        endDate.year = date__lt.value.getFullYear()
-        startDate.year = date__gte.value.getFullYear()
-        startDate.month = date__gte.value.getMonth() + 1
-        date__gte.value = new Date(startDate.year, startDate.month, 0)
-        date__lt.value = new Date(endDate.year, endDate.month, 0)
+    else if (period.value === 'months') {
+        let endMonth = date__lt.value.getMonth() + 1
+        console.log(endMonth)
+        date__lt.value = new Date(year, endMonth, 0)
+
     }
-    store.commit("authed/flushUsers")
-    getData()
+    refreshData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
+    // if (period.value === 'days') {
+    //     startDate.month = date__gte.value.getMonth() + 1
+    //     date__lt.value = new Date(startDate.year, startDate.month, 1)
+    //     date__gte.value = new Date(`${startDate.year}-${startDate.month}-${1}`)
+    //     getUtcTime(date__lt.value)
+    //     getUtcTime(date__gte.value)
+    // }
+    // else if (period.value === "month") {
+    //     endDate.month = date__lt.value.getMonth() + 1
+    //     endDate.year = date__lt.value.getFullYear()
+    //     startDate.year = date__gte.value.getFullYear()
+    //     startDate.month = date__gte.value.getMonth() + 1
+    //     date__gte.value = new Date(startDate.year, startDate.month, 0)
+    //     date__lt.value = new Date(endDate.year, endDate.month, 0)
+    // }
+    // store.commit("authed/flushUsers")
+    // getData()
 }
 
 
