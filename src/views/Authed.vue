@@ -30,7 +30,8 @@
                 <Datepicker v-model="date__gte" @update:modelValue="refresh" :enableTimePicker="false" autoApply
                     locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" />
             </div>
-            <div class="date-at" v-show="interval_date[activeDayInterval] !== 'hours'">
+            <div class="date-at"
+                v-show="interval_date[activeDayInterval] !== 'hours' && interval_date[activeDayInterval] !== 'days'">
                 <Datepicker v-model="date__lt" @update:modelValue="refresh" :enableTimePicker="false" autoApply
                     locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" />
             </div>
@@ -82,7 +83,6 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 import { hours } from '@/utils/constants';
-
 const interval = ref([])
 const isMonth = ref(false)
 const isDays = ref(false)
@@ -111,14 +111,22 @@ const getDay = (prop) => {
         isMonth.value = true;
         date__gte.value = new Date(startDate.year, 0, 2)
         store.commit("authed/flushUsers")
+        endDate.day = new Date().getDate() + 1
+        endDate.month = new Date().getMonth() + 1
+        endDate.year = new Date().getFullYear()
+        date__lt.value = new Date(`${endDate.year}-${endDate.month}-${endDate.day}`)
     }
     else if (interval_date[prop] === 'days') {
         pageSize.value = 32
+        isMonth.value = true
         period.value = "days"
         startDate.month = new Date().getMonth() + 1
         startDate.year = new Date().getFullYear()
         date__gte.value = new Date(`${startDate.year}-${startDate.month}-${1}`)
-        console.log(date__gte.value)
+        console.log(date__lt.value)
+        endDate.month = new Date().getMonth() + 1
+        endDate.year = new Date().getFullYear()
+        date__lt.value = new Date(endDate.year, endDate.month, 0)
     }
     else if (interval_date[prop] === 'hours') {
         period.value = "hours"
@@ -127,12 +135,12 @@ const getDay = (prop) => {
         startDate.month = new Date().getMonth() + 1
         startDate.year = new Date().getFullYear()
         date__gte.value = new Date(`${startDate.year}-${startDate.month}-${startDate.day}`)
+        endDate.day = new Date().getDate() + 1
+        endDate.month = new Date().getMonth() + 1
+        endDate.year = new Date().getFullYear()
+        date__lt.value = new Date(`${endDate.year}-${endDate.month}-${endDate.day}`)
 
     }
-
-    Object.keys(endDate).forEach((key) => {
-        delete endDate[key];
-    });
 
     store.commit("authed/flushUsers")
     getData()
@@ -158,14 +166,14 @@ const endDate = reactive({
 })
 
 const date__gte = ref(new Date(`${startDate.year}-${startDate.month}-${startDate.day}`))
-const date__lt = ref("")
+const date__lt = ref(new Date(`${endDate.year}-${endDate.month}-${endDate.day}`))
 
 const filteredDays = ref([])
 
 const getData = () => {
     store.dispatch("authed/getUsers", {
         date__gte: date__gte.value.toJSON(),
-        date__lt: date__lt.value,
+        date__lt: date__lt.value.toJSON(),
         period: period.value,
         pageSize: pageSize.value,
         cb: () => {
@@ -191,20 +199,14 @@ const getData = () => {
 }
 
 const refresh = () => {
-    if (period.value === "months") {
-        console.log(startDate)
+    if (period.value === 'days') {
+        startDate.month = date__gte.value.getMonth() + 1
+        date__lt.value = new Date(startDate.year, startDate.month, 1)
+        date__gte.value = new Date(`${startDate.year}-${startDate.month}-${1}`)
     }
-    // if (period.value === "months") {
-    //     console.log(end_at.value.getMonth())
-    //     startDate.month = end_at.value.getMonth() + 1
-    // }
-    // else if (period.value === "days") {
-    //     console.log(end_at.value.getDate())
-    //     startDate.day = end_at.value.getDate()
-    //     console.log(startDate)
-    // }
-    // store.commit("authed/flushUsers")
-    // getData()
+    console.log(date__gte.value)
+    store.commit("authed/flushUsers")
+    getData()
 }
 
 
