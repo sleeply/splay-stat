@@ -1,5 +1,6 @@
 <template>
     <div class="authed s-container">
+
         <div class="page-title">
             {{ $t("authed.title") }}
         </div>
@@ -36,8 +37,8 @@
                     locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" />
             </div>
         </div>
-        <template v-if="(users.length > 0)">
-            <Chart :data="counts" :interval="interval" />
+        <template v-if="(users.counts.length > 0)">
+            <Chart :data="users.counts" :interval="interval" />
         </template>
         <div class="footer">
             <div class="count">
@@ -65,7 +66,7 @@
                 </Icon>
                 <div class="content">
                     <h1 class="text16 ">{{ $t("countries.selectedTimeVisits") }}</h1>
-                    <span class="text25 extra-bold">122 648</span>
+                    <span class="text25 extra-bold">{{ users.selecTimeCount }}</span>
                 </div>
             </div>
         </div>
@@ -73,7 +74,6 @@
 </template>
 
 <script setup>
-/* eslint-disable */
 import { interval_date } from '@/utils/constants'
 import { useFormatter } from '@/utils/formatter'
 import Icon from '@/components/Icon.vue';
@@ -81,7 +81,7 @@ import DropDown from '@/components/DropDown.vue';
 import Chart from "@/components/Chart.vue"
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { hours } from '@/utils/constants';
 const interval = ref([])
@@ -89,24 +89,33 @@ const isMonth = ref(false)
 const isDays = ref(false)
 const isHours = ref(false)
 
-const counts = computed(() => {
-    let count = []
-    for (const item of users.value) {
-        count.push(item.counts)
+
+const store = useStore()
+const users = computed(() => {
+    let users = store.getters["authed/users"]
+    let counts = []
+    let selecTimeCount = 0
+    if (users.length > 0) {
+        for (const item of users) {
+            counts.push(item.counts)
+            selecTimeCount += item.counts
+        }
     }
-    return count.reverse()
+    return {
+        users,
+        counts: counts.reverse(),
+        selecTimeCount
+    }
 })
+
 const date__gte = ref(new Date())
 const date__lt = ref(new Date())
 
 const getUtcTime = (date, day) => {
     let getDay = day ? day : date.getDate()
     let dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
-    // 00%3A00%3A00%2B05%3A00
     return dateStr
 }
-
-
 
 const { handleDate } = useFormatter()
 
@@ -146,24 +155,8 @@ const getDay = async (prop) => {
 
 const activeDayInterval = ref(0)
 
-const store = useStore()
-const users = computed(() => store.getters["authed/users"])
 const pageSize = ref(25)
 const period = ref('hours')
-
-const startDate = reactive({
-    day: new Date().getDate(),
-    month: new Date().getMonth() + 1,
-    year: new Date().getFullYear()
-})
-
-
-const endDate = reactive({
-    day: new Date().getDate() + 1,
-    month: new Date().getMonth() + 1,
-    year: new Date().getFullYear()
-})
-
 
 const filteredDays = ref([])
 
@@ -251,25 +244,7 @@ const refresh = () => {
 
     }
     refreshData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
-    // if (period.value === 'days') {
-    //     startDate.month = date__gte.value.getMonth() + 1
-    //     date__lt.value = new Date(startDate.year, startDate.month, 1)
-    //     date__gte.value = new Date(`${startDate.year}-${startDate.month}-${1}`)
-    //     getUtcTime(date__lt.value)
-    //     getUtcTime(date__gte.value)
-    // }
-    // else if (period.value === "month") {
-    //     endDate.month = date__lt.value.getMonth() + 1
-    //     endDate.year = date__lt.value.getFullYear()
-    //     startDate.year = date__gte.value.getFullYear()
-    //     startDate.month = date__gte.value.getMonth() + 1
-    //     date__gte.value = new Date(startDate.year, startDate.month, 0)
-    //     date__lt.value = new Date(endDate.year, endDate.month, 0)
-    // }
-    // store.commit("authed/flushUsers")
-    // getData()
 }
-
 
 onMounted(() => {
     getData()
@@ -283,7 +258,6 @@ onMounted(() => {
 }
 
 .dp__input {
-    // padding: 0 !important;
     border: none;
     width: 182px;
     font-size: 20px !important;
