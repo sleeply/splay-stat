@@ -5,7 +5,9 @@
         </div>
         <div class="mid">
             <div class="top">
-                <router-link to="">
+                <router-link :to="$i18nRoute({
+                    name: 'MainWrapper'
+                })">
                     <Icon class="ico-size">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -14,7 +16,7 @@
                         </svg>
                     </Icon>
                 </router-link>
-                <router-link to="">
+                <!-- <router-link to="">
                     <Icon class="ico-size">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -22,8 +24,10 @@
                                 fill="#9A9AA9" />
                         </svg>
                     </Icon>
-                </router-link>
-                <router-link to="">
+                </router-link> -->
+                <router-link :to="$i18nRoute({
+                    name: 'Device'
+                })">
                     <Icon class="ico-size">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -32,7 +36,9 @@
                         </svg>
                     </Icon>
                 </router-link>
-                <router-link to="">
+                <router-link :to="$i18nRoute({
+                    name: 'Authed'
+                })">
                     <Icon class="ico-size">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -41,7 +47,9 @@
                         </svg>
                     </Icon>
                 </router-link>
-                <router-link to="">
+                <router-link :to="$i18nRoute({
+                    name: 'Watches'
+                })">
                     <Icon class="ico-size">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -50,7 +58,9 @@
                         </svg>
                     </Icon>
                 </router-link>
-                <router-link to="">
+                <router-link :to="$i18nRoute({
+                    name: 'Regions'
+                })">
                     <Icon class="ico-size">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -107,10 +117,11 @@ import Icon from '@/components/Icon.vue';
         // height: 24px;
         width: 30px;
         height: 30px;
+
+
     }
 
     .logo {
-        // width: 2.63rem;
         width: 60px;
 
     }
@@ -126,11 +137,28 @@ import Icon from '@/components/Icon.vue';
             display: flex;
             flex-direction: column;
             align-items: center;
-            // gap: 1.94rem;
             gap: 47px;
 
             a {
                 display: block;
+
+                .ico-size {
+                    svg {
+                        path {
+                            fill: var(--basic-grey);
+                        }
+                    }
+                }
+
+                &.router-link-exact-active {
+                    .ico-size {
+                        svg {
+                            path {
+                                fill: var(--highlight);
+                            }
+                        }
+                    }
+                }
             }
         }
 

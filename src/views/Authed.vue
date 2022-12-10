@@ -26,7 +26,7 @@
                     </Icon>
                 </template>
             </DropDown>
-            <div class="date-at" style="position: relative;" v-show="interval_date[activeDayInterval] !== 'hours'">
+            <div class="date-at" style="position: relative;">
                 <Datepicker v-model="date__gte" @update:modelValue="updateModelValue" :enableTimePicker="false"
                     autoApply locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)"
                     :month-picker="isMonth" />
@@ -205,16 +205,19 @@ const updateModelValue = () => {
     let month = date__gte.value.getMonth()
     let year = date__gte.value.getFullYear()
     let day = 1
-    console.log(date__lt.value)
     if (period.value === "days") {
         date__gte.value = new Date(year, month, day)
         date__lt.value = new Date(year, month + 1, day)
     }
     else if (period.value === 'months') {
         let endMonth = date__lt.value.getMonth() + 1
-        console.log(endMonth)
         date__lt.value = new Date(year, endMonth, 0)
-
+    }
+    else if (period.value === "hours") {
+        console.log(date__gte.value)
+        date__lt.value = ''
+        getData(getUtcTime(date__gte.value), getUtcTime(date__gte.value, date__gte.value.getDate() + 1))
+        return
     }
     getData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
 }
