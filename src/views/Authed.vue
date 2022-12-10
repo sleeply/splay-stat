@@ -27,8 +27,9 @@
                 </template>
             </DropDown>
             <div class="date-at" style="position: relative;" v-show="interval_date[activeDayInterval] !== 'hours'">
-                <Datepicker v-model="date__gte" @update:modelValue="updateModelValue" :enableTimePicker="false" autoApply
-                    locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" />
+                <Datepicker v-model="date__gte" @update:modelValue="updateModelValue" :enableTimePicker="false"
+                    autoApply locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)"
+                    :month-picker="isMonth" />
             </div>
             <div class="date-at"
                 v-show="interval_date[activeDayInterval] !== 'hours' && interval_date[activeDayInterval] !== 'days'">
@@ -84,12 +85,9 @@ import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { hours } from '@/utils/constants';
 
-const interval = ref([])
-const isMonth = ref(false)
-const isDays = ref(false)
-const isHours = ref(false)
-
 const store = useStore()
+const { handleDate } = useFormatter()
+
 const users = computed(() => {
     let users = store.getters["authed/users"]
     let counts = []
@@ -107,6 +105,19 @@ const users = computed(() => {
     }
 })
 
+const interval = ref([])
+
+const isMonth = ref(false)
+const isDays = ref(false)
+const isHours = ref(false)
+
+const activeDayInterval = ref(0)
+
+const pageSize = ref(25)
+const period = ref('hours')
+
+const filteredDays = ref([])
+
 const date__gte = ref(new Date())
 const date__lt = ref(new Date())
 
@@ -115,8 +126,6 @@ const getUtcTime = (date, day) => {
     let dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
     return dateStr
 }
-
-const { handleDate } = useFormatter()
 
 const getDay = async (prop) => {
     activeDayInterval.value = prop
@@ -152,15 +161,8 @@ const getDay = async (prop) => {
     }
 }
 
-const activeDayInterval = ref(0)
-
-const pageSize = ref(25)
-const period = ref('hours')
-
-const filteredDays = ref([])
-
 const getData = (start_at, end_at) => {
-store.commit("authed/flushUsers")
+    store.commit("authed/flushUsers")
     store.dispatch("authed/getUsers", {
         date__gte: start_at,
         date__lt: end_at,
