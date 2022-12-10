@@ -27,12 +27,12 @@
                 </template>
             </DropDown>
             <div class="date-at" style="position: relative;" v-show="interval_date[activeDayInterval] !== 'hours'">
-                <Datepicker v-model="date__gte" @update:modelValue="refresh" :enableTimePicker="false" autoApply
+                <Datepicker v-model="date__gte" @update:modelValue="updateModelValue" :enableTimePicker="false" autoApply
                     locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" />
             </div>
             <div class="date-at"
                 v-show="interval_date[activeDayInterval] !== 'hours' && interval_date[activeDayInterval] !== 'days'">
-                <Datepicker v-model="date__lt" @update:modelValue="refresh" :enableTimePicker="false" autoApply
+                <Datepicker v-model="date__lt" @update:modelValue="updateModelValue" :enableTimePicker="false" autoApply
                     locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" />
             </div>
         </div>
@@ -133,7 +133,7 @@ const getDay = async (prop) => {
         day = 1
         date__gte.value = new Date(year, 0, day)
         date__lt.value = new Date()
-        refreshData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
+        getData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
     }
     else if (interval_date[prop] === 'days') {
         pageSize.value = 32
@@ -142,13 +142,13 @@ const getDay = async (prop) => {
         day = 1
         date__gte.value = new Date(year, month, day)
         date__lt.value = new Date(year, month + 1, 0)
-        refreshData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
+        getData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
     }
     else if (interval_date[prop] === 'hours') {
         period.value = "hours"
         date__gte.value = new Date()
         date__lt.value = new Date()
-        refreshData(getUtcTime(date__gte.value), getUtcTime(date__lt.value, new Date().getDate() + 1))
+        getData(getUtcTime(date__gte.value), getUtcTime(date__lt.value, new Date().getDate() + 1))
     }
 }
 
@@ -159,8 +159,8 @@ const period = ref('hours')
 
 const filteredDays = ref([])
 
-const refreshData = (start_at, end_at) => {
-    store.commit("authed/flushUsers")
+const getData = (start_at, end_at) => {
+store.commit("authed/flushUsers")
     store.dispatch("authed/getUsers", {
         date__gte: start_at,
         date__lt: end_at,
@@ -199,7 +199,7 @@ const refreshData = (start_at, end_at) => {
     })
 }
 
-const refresh = () => {
+const updateModelValue = () => {
     let month = date__gte.value.getMonth()
     let year = date__gte.value.getFullYear()
     let day = 1
@@ -214,11 +214,11 @@ const refresh = () => {
         date__lt.value = new Date(year, endMonth, 0)
 
     }
-    refreshData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
+    getData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
 }
 
 onMounted(() => {
-    refreshData(getUtcTime(date__gte.value, new Date().getDate()), getUtcTime(date__gte.value, new Date().getDate() + 1))
+    getData(getUtcTime(date__gte.value, new Date().getDate()), getUtcTime(date__gte.value, new Date().getDate() + 1))
 })
 
 </script>
