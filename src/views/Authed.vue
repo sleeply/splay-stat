@@ -1,6 +1,5 @@
 <template>
     <div class="authed s-container">
-
         <div class="page-title">
             {{ $t("authed.title") }}
         </div>
@@ -84,11 +83,11 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { hours } from '@/utils/constants';
+
 const interval = ref([])
 const isMonth = ref(false)
 const isDays = ref(false)
 const isHours = ref(false)
-
 
 const store = useStore()
 const users = computed(() => {
@@ -149,7 +148,7 @@ const getDay = async (prop) => {
         period.value = "hours"
         date__gte.value = new Date()
         date__lt.value = new Date()
-        getData()
+        refreshData(getUtcTime(date__gte.value), getUtcTime(date__lt.value, new Date().getDate() + 1))
     }
 }
 
@@ -159,34 +158,6 @@ const pageSize = ref(25)
 const period = ref('hours')
 
 const filteredDays = ref([])
-
-const getData = () => {
-    store.dispatch("authed/getUsers", {
-        date__gte: getUtcTime(date__gte.value, new Date().getDate()),
-        date__lt: getUtcTime(date__gte.value, new Date().getDate() + 1),
-        period: period.value,
-        pageSize: pageSize.value,
-        cb: () => {
-            filteredDays.value = []
-            if (period.value === "hours") {
-                interval.value = {
-                    type: "hours",
-                    result: hours
-                }
-                return
-            }
-
-            for (const item of users.value) {
-                let date = handleDate(item.date, 'm y')
-                filteredDays.value.push(date)
-            }
-            interval.value = {
-                type: "days",
-                result: filteredDays.value.reverse()
-            }
-        }
-    })
-}
 
 const refreshData = (start_at, end_at) => {
     store.commit("authed/flushUsers")
@@ -205,7 +176,7 @@ const refreshData = (start_at, end_at) => {
                 return
             }
             if (period.value === "days") {
-                for (const item of users.value) {
+                for (const item of users.value.users) {
                     let date = handleDate(item.date, 'm d y')
                     filteredDays.value.push(date)
                 }
@@ -216,7 +187,7 @@ const refreshData = (start_at, end_at) => {
                 return
             }
 
-            for (const item of users.value) {
+            for (const item of users.value.users) {
                 let date = handleDate(item.date, 'm y')
                 filteredDays.value.push(date)
             }
@@ -247,7 +218,7 @@ const refresh = () => {
 }
 
 onMounted(() => {
-    getData()
+    refreshData(getUtcTime(date__gte.value, new Date().getDate()), getUtcTime(date__gte.value, new Date().getDate() + 1))
 })
 
 </script>
