@@ -290,12 +290,12 @@ onMounted(() => {
             .choice {
 
                 &:hover,
+                &.selected,
                 &:focus {
                     span {
                         color: var(--basic-light);
                     }
                 }
-
             }
         }
     }
@@ -316,14 +316,12 @@ onMounted(() => {
             display: block;
         }
 
-
         .count {
             display: flex;
             align-items: center;
             max-width: 402px;
             height: 100%;
             background: var(--basic-light);
-            // padding: 19px 10px 19px 25px;
             padding: 27px 11px 27px 35px;
             border-radius: 14px;
             margin-top: 19px;

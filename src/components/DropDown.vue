@@ -61,8 +61,6 @@ onBeforeUnmount(() => {
     .active {
         font-size: 0.875rem;
         line-height: 1.1875rem;
-        // padding: 0.6875rem 0.5rem 0.625rem 1.0625rem;
-        // padding: 15px 11px 15px 23px;
         height: 56px;
         padding: 0 11px 0 23px;
 
