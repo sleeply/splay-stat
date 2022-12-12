@@ -18,3 +18,4 @@ export async function getContent(cb, filters = "", date__gte, ordering) {
       cb(json["results"], json["count"]);
     });
 }
+

@@ -64,7 +64,7 @@
                 </Icon>
                 <div class="content">
                     <h1 class="text16">{{ $t("subs.count_subs") }}</h1>
-                    <span class="text25 extra-bold">122 648</span>
+                    <span class="text25 extra-bold">{{ subs.subsTotal }}</span>
                 </div>
             </div>
             <div class="count">
@@ -135,6 +135,7 @@ const subs = computed(() => {
     let subs = store.getters["subs/subs"]
     let interval = {}
     let count = 0
+    let subsTotal = store.getters["subs/subsTotal"]
     interval = {
         type: "hours",
         result: hours
@@ -145,7 +146,8 @@ const subs = computed(() => {
     return {
         subs: subs,
         interval,
-        count
+        count,
+        subsTotal
     }
 })
 
@@ -161,6 +163,8 @@ const getData = (start_at, end_at) => {
         date__lte: end_at
     })
 }
+
+store.dispatch("subs/getSubsTotal", {})
 
 getData('', getUtcTime(date__gte.value, new Date().getDate() + 1))
 
