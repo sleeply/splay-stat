@@ -2,7 +2,8 @@
 
 export const SUPPORT_LOCALES = ["en", "ru", "uz"];
 
-export const interval_date = ["hours", "days", "month"];
+export const interval_date = ["hours", "days", "month", 'days_period'];
+// export const interval_date = ["hours", "days"];
 export const interval_visits = [
   "country",
   "country-visitis",

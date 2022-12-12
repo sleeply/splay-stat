@@ -34,11 +34,11 @@
             <div class="date-at"
                 v-show="interval_date[activeDayInterval] !== 'hours' && interval_date[activeDayInterval] !== 'days'">
                 <Datepicker v-model="date__lt" @update:modelValue="updateModelValue" :enableTimePicker="false" autoApply
-                    locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" />
+                    locale="ru-Ru" :clearable="false" :month-picker="isMonth" :disable-month-year-select="(isDays)" />
             </div>
         </div>
         <template v-if="(Object.keys(users.counts[0]).length > 0)">
-            <Chart :data="users.counts" :interval="interval" :tooltipTitle="$t('chart.tooltip.authed')"/>
+            <Chart :data="users.counts" :interval="interval" :tooltipTitle="$t('chart.tooltip.authed')" />
         </template>
         <div class="footer">
             <div class="count">
@@ -96,7 +96,6 @@ const users = computed(() => {
     let selecTimeCount = 0
     if (users.length > 0) {
         for (const item of users) {
-            // counts[0].push(item.counts)
             counts[0].push(item.counts)
             selecTimeCount += item.counts
         }
@@ -119,6 +118,7 @@ const activeDayInterval = ref(0)
 
 const pageSize = ref(25)
 const period = ref('hours')
+const view_period = ref("hours")
 
 const filteredDays = ref([])
 
@@ -142,23 +142,32 @@ const getDay = async (prop) => {
     store.commit("authed/flushUsers")
     if (interval_date[prop] === 'month') {
         period.value = "months"
+        view_period.value = "months"
         isMonth.value = true
         day = 1
         date__gte.value = new Date(year, 0, day)
         date__lt.value = new Date()
         getData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
     }
+    else if (interval_date[prop] === 'days_period') {
+        period.value = 'days'
+        view_period.value = 'days_period'
+        getData(getUtcTime(date__gte.value), getUtcTime(date__lt.value))
+    }
     else if (interval_date[prop] === 'days') {
         pageSize.value = 32
         isMonth.value = true
         period.value = "days"
+        view_period.value = "days"
         day = 1
         date__gte.value = new Date(year, month, day)
+        date__gte.value = new Date()
         date__lt.value = new Date(year, month + 1, 0)
         getData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
     }
     else if (interval_date[prop] === 'hours') {
         period.value = "hours"
+        view_period.value = "hours"
         date__gte.value = new Date()
         date__lt.value = new Date()
         getData(getUtcTime(date__gte.value), getUtcTime(date__lt.value, new Date().getDate() + 1))
@@ -209,21 +218,25 @@ const updateModelValue = () => {
     let month = date__gte.value.getMonth()
     let year = date__gte.value.getFullYear()
     let day = 1
-    if (period.value === "days") {
+    if (view_period.value === "days") {
         date__gte.value = new Date(year, month, day)
         date__lt.value = new Date(year, month + 1, day)
     }
-    else if (period.value === 'months') {
+    else if (view_period.value === 'days_period') {
+        pageSize.value = 1000
+        getData(getUtcTime(date__gte.value), getUtcTime(date__lt.value))
+    }
+    else if (view_period.value === 'months') {
         let endMonth = date__lt.value.getMonth() + 1
         date__lt.value = new Date(year, endMonth, 0)
     }
-    else if (period.value === "hours") {
+    else if (view_period.value === "hours") {
         console.log(date__gte.value)
         date__lt.value = ''
         getData(getUtcTime(date__gte.value), getUtcTime(date__gte.value, date__gte.value.getDate() + 1))
         return
     }
-    getData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
+    getData(getUtcTime(date__gte.value), getUtcTime(date__lt.value))
 }
 
 onMounted(() => {
