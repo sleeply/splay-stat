@@ -83,7 +83,8 @@
                             </template>
                         </DropDown>
                         <div class="area-name">
-                            <input type="text" class="semi-bold text20" :placeholder="$t('watches.name')">
+                            <input v-model="searchQuery" @input="handleSearch" type="text" class="semi-bold text20"
+                                :placeholder="$t('watches.name')">
                             <Icon class="ico-size">
                                 <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -305,6 +306,7 @@ import { useStore } from 'vuex';
 const store = useStore()
 const date__gte = ref("")
 const ordering = ref("")
+const searchQuery = ref("")
 const filters = ref({})
 const pageSize = 10
 const activePage = ref(1)
@@ -382,12 +384,24 @@ const setPage = (page) => {
     refreshData()
 }
 
+let searchTimer
+
+const handleSearch = () => {
+    if (searchTimer) clearTimeout(searchTimer)
+
+    searchTimer = setTimeout(() => {
+        refreshData()
+    }, 500);
+
+}
+
 const refreshData = () => {
     store.commit("content/flushContent")
     store.dispatch("content/getContent", {
         filters: filters.value,
         date__gte: date__gte.value,
         ordering: ordering.value,
+        search: searchQuery.value,
         pageSize,
     })
 }
@@ -397,6 +411,7 @@ const getData = () => {
         filters: filters.value,
         date__gte: date__gte.value,
         ordering: ordering.value,
+        search: searchQuery.value,
         pageSize
     })
 

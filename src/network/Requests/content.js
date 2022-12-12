@@ -5,15 +5,16 @@ export async function getContent(
   filters = "",
   date__gte,
   ordering,
+  search="",
   pageSize,
-  offset
+  offset,
 ) {
   let filtersQuery = "";
   for (const filterName in filters) {
     filtersQuery += `&${filterName}=${filters[filterName]}`;
   }
   fetch(
-    `${urlV1}/content-video/?updated_at=${date__gte}&ordering=${ordering}${filtersQuery}&limit=${pageSize}&offset=${
+    `${urlV1}/content-video/?updated_at=${date__gte}&ordering=${ordering}${filtersQuery}&search=${search}&limit=${pageSize}&offset=${
       pageSize * offset
     }`,
     {

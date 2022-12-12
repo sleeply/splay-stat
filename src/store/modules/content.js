@@ -24,6 +24,7 @@ const actions = {
       filters,
       date__gte = "",
       ordering = "",
+      search = "",
       pageSize = 30,
       load = 1,
     }
@@ -32,16 +33,12 @@ const actions = {
       (data, count) => {
         commit("setContent", data);
         commit("setContentCount", count);
-        // for (let i = 1; i <= load; i++) {
-        //   commit("setContent", data.slice((i - 1) * pageSize, i * pageSize));
-        //   commit("setContentPage");
-        // }
-        // commit("setContentCount", count);
         cb();
       },
       filters,
       date__gte,
       ordering,
+      search,
       pageSize,
       state.contentPage * load
     );
