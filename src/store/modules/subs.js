@@ -3,10 +3,12 @@ import { api } from "@/network";
 const state = {
   subs: [],
   subsTotal: 0,
+  subsList: [],
 };
 const getters = {
   subs: (state) => state.subs,
   subsTotal: (state) => state.subsTotal,
+  subsList: (state) => state.subsList,
 };
 const actions = {
   getSubs({ commit }, { cb = () => {}, date__gte = "", date__lte = "" }) {
@@ -26,6 +28,13 @@ const actions = {
       cb();
     });
   },
+
+  getSubsList({commit}, {cb =() =>{}}){
+    api.apiSubs.getSubsList((data) =>{
+      commit("setSubsList", data)
+      cb()
+    })
+  }
 };
 const mutations = {
   setSubs(state, value) {
@@ -36,6 +45,12 @@ const mutations = {
   },
   setSubsTotal(state, value) {
     state.subsTotal = value;
+  },
+  setSubsList(state, value) {
+    state.subsList = value;
+  },
+  flushSubsList(state) {
+    state.subsList = [];
   },
 };
 

@@ -138,10 +138,12 @@
                     {{ $t("watches.type_subs") }}
                 </div>
                 <div class="flex">
-                    <DropDown class="interval-days-drop" :items="interval_date" @setActive="getDay"
-                        :active="activeDayInterval">
+                    <DropDown class="interval-days-drop" :items="list.subs" @setActive="handleFilterSubs"
+                        :active="activeSub">
                         <template #active="{ active }">
-                            <p class="text20 semi-bold">{{ $t(`interval_date.${active}`) }} </p>
+                            <!-- <p class="text20 semi-bold">{{ $t(`interval_date.${active}`) }} </p> -->
+                            <p class="text20 semi-bold" v-if="activeSub !== -1">{{ active?.title }} </p>
+                            <p class="text20 semi-bold" v-else> {{ $t("watches.all") }} </p>
                             <Icon class="drop-ico">
                                 <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -150,8 +152,19 @@
                                 </svg>
                             </Icon>
                         </template>
+                        <template #default>
+                            <span class=" semi-bold text20"> {{ $t("watches.all") }}</span>
+                            <Icon class="ico-size">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M5.76246 10.5859L12.6311 3.71724C12.9435 3.40482 13.45 3.40482 13.7625 3.71724C14.0749 4.02966 14.0749 4.53619 13.7625 4.84861L5.76246 12.8486L1.76246 8.84861C1.45004 8.53619 1.45004 8.02966 1.76246 7.71724C2.07488 7.40482 2.58141 7.40482 2.89383 7.71724L5.76246 10.5859Z"
+                                        fill="white" />
+                                </svg>
+                            </Icon>
+                        </template>
                         <template #list="{ item }">
-                            <span class=" semi-bold text20"> {{ $t(`interval_date.${item}`) }}</span>
+                            <span class=" semi-bold text20"> {{ item?.title }}</span>
                             <Icon class="ico-size">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -306,6 +319,7 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import DropDown from '@/components/DropDown.vue';
 import { interval_date } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
@@ -323,17 +337,20 @@ const list = computed(() => {
     let content = store.getters["content/content"]
     let cats = store.getters["content/cats"]
     let sponsors = store.getters["content/sponsors"]
+    let subs = store.getters["subs/subsList"]
 
     return {
         content,
         cats,
         sponsors,
+        subs,
     }
 })
 
 const activeDayInterval = ref(0)
 const activeCat = ref(-1)
 const activeSponsor = ref(-1)
+const activeSub = ref(-1)
 const date = ref(new Date())
 
 const isMonth = ref(false)
@@ -366,6 +383,19 @@ const handleFilterSponsors = (prop) => {
     refreshData()
 }
 
+const handleFilterSubs = (prop) => {
+    activeSub.value = prop
+    console.log(list.value.subs[activeSub.value])
+
+    filters.value = {
+        ...filters.value,
+        allowed_subscriptions: activeSub.value === -1 ? "" : list.value.subs[activeSub.value].id + "&"
+    }
+    console.log(filters.value)
+
+    refreshData()
+}
+
 const refreshData = () => {
     store.commit("content/flushContent")
     store.dispatch("content/getContent", {
@@ -386,6 +416,7 @@ const getData = () => {
 
     store.dispatch("content/getCats", {})
     store.dispatch("content/getSponsors", {})
+    store.dispatch("subs/getSubsList", {})
 }
 
 getData()
