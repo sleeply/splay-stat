@@ -1,16 +1,7 @@
 import { urlV1 } from "@/network/index";
-export async function getUsers(
-  cb,
-  date__gte,
-  date__lt,
-  period,
-  pageSize,
-  offset
-) {
+export async function getSubs(cb, date__gte, date__lt) {
   fetch(
-    `${urlV1}/account-signup/?date__gte=${date__gte}&date__lt=${date__lt}&period=${period}&limit=${pageSize}&offset=${
-      pageSize * offset
-    }`,
+    `${urlV1}/account-signup/?date__gte=${date__gte}&date__lt=${date__lt}`,
     {
       method: "GET",
     }
@@ -19,6 +10,6 @@ export async function getUsers(
       return res.json();
     })
     .then((json) => {
-      cb(json["results"], json["count"]);
+      cb(json);
     });
 }

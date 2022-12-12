@@ -34,6 +34,10 @@ defineProps({
   list: {
     type: Array,
     default: () => []
+  },
+  total:{
+    type: Array,
+    
   }
 })
 </script>

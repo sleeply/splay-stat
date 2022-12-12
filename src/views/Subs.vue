@@ -37,7 +37,7 @@
                     locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" />
             </div>
         </div>
-        <Table />
+        
         <div class="footer">
             <div class="count">
                 <Icon class="count-icon">
@@ -68,7 +68,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -153,65 +152,8 @@ const updateModelValue = () => { }
 .subs {
     width: 100%;
 
-    .filters {
-        margin-top: 20px;
-        display: flex;
-        align-items: center;
-        gap: 21px;
-        margin-bottom: 54px;
-
-        P {
-            color: var(--darkness-opacity-07);
-        }
-
-        span {
-            color: var(--darkness-opacity-07);
-
-        }
-
-
-        .interval-days-drop {
-            width: 182px;
-            background: var(--basic-light);
-
-            .choice {
-
-                &:hover,
-                &:focus {
-                    span {
-                        color: var(--basic-light);
-                    }
-                }
-
-            }
-        }
-
-        .interval-visits-drop {
-            width: 182px;
-            background: var(--basic-light);
-
-            .choice {
-
-                &:hover,
-                &:focus {
-                    span {
-                        color: var(--basic-light);
-                    }
-                }
-
-            }
-        }
-
-        .date-at {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .drop-ico {
-            width: 10px;
-            height: 10px;
-        }
+    .page-title {
+        margin-bottom: 42px;
     }
 }
 </style>

@@ -273,53 +273,5 @@ onMounted(() => {
     .page-title {
         margin-bottom: 42px;
     }
-
-    .filters {
-        display: flex;
-        align-items: center;
-        gap: 21px;
-
-        .filters-title {
-            color: var(--darkness-opacity-07);
-        }
-
-        .ico-size {
-            width: 16px;
-            height: 16px;
-            flex: 0 0 16px;
-        }
-
-        .drop-ico {
-            width: 10px;
-            height: 10px;
-        }
-
-        .interval-days-drop {
-            width: 182px;
-            background: var(--basic-light);
-
-            P {
-                color: var(--darkness-opacity-07);
-            }
-
-            span {
-                color: var(--darkness-opacity-07);
-
-            }
-
-            .choice {
-
-                &:hover,
-                &.selected,
-                &:focus {
-                    span {
-                        color: var(--basic-light);
-                    }
-                }
-            }
-        }
-    }
-
-
 }
 </style>
