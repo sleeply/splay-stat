@@ -10,10 +10,11 @@
                 </div>
                 <div class="container">
                     <div class="flex">
-                        <DropDown class="interval-days-drop" :items="interval_date" @setActive="getDay"
-                            :active="activeDayInterval">
+                        <DropDown class="interval-days-drop" :items="list.cats" @setActive="handleCatFilter"
+                            :active="activeCat">
                             <template #active="{ active }">
-                                <p class="text20 semi-bold">{{ $t(`interval_date.${active}`) }} </p>
+                                <p class="text20 semi-bold" v-if="activeCat !== -1">{{ active?.name }} </p>
+                                <p class="text20 semi-bold" v-else> {{ $t("watches.all") }} </p>
                                 <Icon class="drop-ico">
                                     <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -22,8 +23,19 @@
                                     </svg>
                                 </Icon>
                             </template>
+                            <template #default>
+                                <span class=" semi-bold text20"> {{ $t("watches.all") }}</span>
+                                <Icon class="ico-size">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M5.76246 10.5859L12.6311 3.71724C12.9435 3.40482 13.45 3.40482 13.7625 3.71724C14.0749 4.02966 14.0749 4.53619 13.7625 4.84861L5.76246 12.8486L1.76246 8.84861C1.45004 8.53619 1.45004 8.02966 1.76246 7.71724C2.07488 7.40482 2.58141 7.40482 2.89383 7.71724L5.76246 10.5859Z"
+                                            fill="white" />
+                                    </svg>
+                                </Icon>
+                            </template>
                             <template #list="{ item }">
-                                <span class=" semi-bold text20"> {{ $t(`interval_date.${item}`) }}</span>
+                                <span class=" semi-bold text20"> {{ item?.name }}</span>
                                 <Icon class="ico-size">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -34,8 +46,7 @@
                                 </Icon>
                             </template>
                         </DropDown>
-                        <DropDown class="interval-days-drop" :items="interval_date" @setActive="getDay"
-                            :active="activeDayInterval">
+                        <DropDown class="interval-days-drop" :items="interval_date" :active="activeDayInterval">
                             <template #active="{ active }">
                                 <p class="text20 semi-bold">{{ $t(`interval_date.${active}`) }} </p>
                                 <Icon class="drop-ico">
@@ -73,8 +84,7 @@
                         </div>
                     </div>
                     <div class="flex">
-                        <DropDown class="interval-days-drop" :items="interval_date" @setActive="getDay"
-                            :active="activeDayInterval">
+                        <DropDown class="interval-days-drop" :items="interval_date" :active="activeDayInterval">
                             <template #active="{ active }">
                                 <p class="text20 semi-bold">{{ $t(`interval_date.${active}`) }} </p>
                                 <Icon class="drop-ico">
@@ -98,13 +108,13 @@
                             </template>
                         </DropDown>
                         <div class="date-at" style="position: relative;">
-                            <Datepicker ref="picker" v-model="date" :year-picker="isYear" :month-picker="isMonth"
-                                :enableTimePicker="false" autoApply locale="ru-Ru">
+                            <Datepicker ref="picker" v-model="date" :month-picker="isMonth" :enableTimePicker="false"
+                                autoApply locale="ru-Ru">
                             </Datepicker>
                         </div>
                         <div class="date-at" style="position: relative;">
-                            <Datepicker ref="picker" v-model="date" :year-picker="isYear" :month-picker="isMonth"
-                                :enableTimePicker="false" autoApply locale="ru-Ru">
+                            <Datepicker ref="picker" v-model="date" :month-picker="isMonth" :enableTimePicker="false"
+                                autoApply locale="ru-Ru">
                             </Datepicker>
                         </div>
                     </div>
@@ -209,7 +219,7 @@
                 </th>
             </thead>
             <tr class="canscroll" v-for="(item) in list.content" :key="item">
-                <td> {{ item.id }} </td>
+                <td> {{ item.content_id }} </td>
                 <td>
                     <div style="display: flex; align-items: center;">
                         <icon class="icon-size">
@@ -292,15 +302,52 @@ const date__gte = ref("")
 const ordering = ref("")
 const filters = ref({})
 
-const activeDayInterval = ref(0)
-const date = ref(new Date())
 const list = computed(() => {
     let content = store.getters["content/content"]
+    let cats = store.getters["content/cats"]
 
     return {
         content,
+        cats
     }
 })
+
+const activeDayInterval = ref(0)
+const activeCat = ref(-1)
+const date = ref(new Date())
+
+const isMonth = ref(false)
+const isDays = ref(false)
+const isHours = ref(false)
+
+const getDay = (prop) => {
+    isMonth.value = false
+    isDays.value = false
+    isHours.value = false
+    activeCat.value = prop
+    console.log(list.value.cats[activeCat.value])
+}
+
+const handleCatFilter = (prop) => {
+
+    activeCat.value = prop
+    filters.value = {
+        ...filters.value,
+        category: activeCat.value === -1 ? "" : list.value.cats[prop].id
+    }
+    refreshData()
+}
+
+const refreshData = () => {
+    store.commit("content/flushContent")
+    store.dispatch("content/getContent", {
+        filters: filters.value,
+        date__gte: date__gte.value,
+        ordering: ordering.value,
+    })
+}
+
+
 
 const getData = () => {
     store.dispatch("content/getContent", {
@@ -308,6 +355,8 @@ const getData = () => {
         date__gte: date__gte.value,
         ordering: ordering.value,
     })
+
+    store.dispatch("content/getCats", {})
 }
 
 getData()
@@ -350,15 +399,13 @@ getData()
     .drop-ico {
         width: 10px;
         height: 10px;
+        flex: 0 0 10px;
     }
 
     .filters {
         display: flex;
+        flex-wrap: wrap;
         gap: 74px;
-        // position: sticky;
-        // top: 0;
-        // z-index: 20;
-        // background: var(--background);
 
         .title {
             color: var(--darkness-opacity-07);
@@ -378,7 +425,6 @@ getData()
             display: flex;
             flex-direction: column;
             gap: 25px;
-
         }
 
         .right-holder {
@@ -425,7 +471,10 @@ getData()
         }
 
         .interval-days-drop {
-            width: 182px;
+            // width: 182px;
+            min-width: 182px;
+            max-width: 230px;
+            width: 100%;
             background: var(--basic-light);
 
             .choice {
@@ -442,6 +491,7 @@ getData()
 
         .area-name {
             width: 182px;
+            flex: 0 0 182px;
             height: 56px;
             background: var(--basic-light);
             border-radius: 14px;
@@ -466,6 +516,7 @@ getData()
         border: none;
         border-collapse: separate;
         border-spacing: 0 20px;
+
         .header {
             display: flex;
             align-items: center;

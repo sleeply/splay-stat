@@ -19,3 +19,14 @@ export async function getContent(cb, filters = "", date__gte, ordering) {
     });
 }
 
+export async function getCategories(cb) {
+  fetch(`${urlV1}/category/`, {
+    method: "GET",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      cb(json);
+    });
+}

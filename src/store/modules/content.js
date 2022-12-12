@@ -2,9 +2,11 @@ import { api } from "@/network";
 
 const state = {
   content: [],
+  cats: [],
 };
 const getters = {
   content: (state) => state.content,
+  cats: (state) => state.cats,
 };
 const actions = {
   getContent(
@@ -21,6 +23,13 @@ const actions = {
       ordering
     );
   },
+
+  getCats({ commit }, { cb = () => {} }) {
+    api.apiContent.getCategories((data) => {
+      commit("setCats", data);
+      cb();
+    });
+  },
 };
 const mutations = {
   setContent(state, value) {
@@ -28,6 +37,12 @@ const mutations = {
   },
   flushContent(state) {
     state.content = [];
+  },
+  setCats(state, value) {
+    state.cats = value;
+  },
+  flushCats(state) {
+    state.cats = [];
   },
 };
 

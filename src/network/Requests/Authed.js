@@ -24,7 +24,7 @@ export async function getUsers(
     });
 }
 
-export async function getSubsTotal(cb) {
+export async function getTotal(cb) {
   fetch(`${urlV1}/total/?model_type=account_signup`, {
     method: "GET",
   })

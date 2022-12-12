@@ -25,3 +25,15 @@ export async function getSubsTotal(cb) {
       cb(json["count"]);
     });
 }
+
+export async function getSubsList(cb) {
+  fetch(`${urlV1}/content-subscription/`, {
+    method: "GET",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      cb(json);
+    });
+}

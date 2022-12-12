@@ -8,6 +8,11 @@
         </div>
 
         <div class="choices">
+            <div class="choice" :class="{
+                selected: -1 === active
+            }" @click="emits('setActive', -1)">
+                <slot name="default"></slot>
+            </div>
             <template v-for="(item, index) in items" :key="index">
                 <div class="choice" :class="{
                     selected: index === active
@@ -81,17 +86,9 @@ onBeforeUnmount(() => {
         z-index: 2;
 
         .choice {
-            // padding-left: 1.0625rem;
             padding: 4px 11px 4px 23px;
             word-break: break-word;
-            // padding-left: 23px;
-            // padding-right: 11px;
-            // padding-right: 0.5rem;
-            // padding-bottom: 0.25rem;
-            // padding-top: 0.25rem;
             vertical-align: middle;
-            // font-size: 0.875rem;
-            // line-height: 1.1875rem;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -108,9 +105,6 @@ onBeforeUnmount(() => {
             }
 
             .ico-size {
-                // width: 16px;
-                // height: 16px;
-
                 opacity: 0;
             }
 
