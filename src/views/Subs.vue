@@ -1,7 +1,7 @@
 <template>
-    <div class="authed s-container">
+    <div class="subs s-container">
         <div class="page-title">
-            {{ $t("authed.title") }}
+            {{ $t("subs.title") }}
         </div>
         <div class="filters">
             <div class="filters-title bold text22">{{ $t("countries.filter-title") }}</div>
@@ -37,9 +37,7 @@
                     locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" />
             </div>
         </div>
-        <template v-if="(Object.keys(users.counts[0]).length > 0)">
-            <Chart :data="users.counts" :interval="interval" :tooltipTitle="$t('chart.tooltip.authed')"/>
-        </template>
+        <Table />
         <div class="footer">
             <div class="count">
                 <Icon class="count-icon">
@@ -51,7 +49,7 @@
                     </svg>
                 </Icon>
                 <div class="content">
-                    <h1 class="text16">{{ $t("authed.authedAllTime") }}</h1>
+                    <h1 class="text16">{{ $t("subs.count_subs") }}</h1>
                     <span class="text25 extra-bold">122 648</span>
                 </div>
             </div>
@@ -65,179 +63,74 @@
                     </svg>
                 </Icon>
                 <div class="content">
-                    <h1 class="text16 ">{{ $t("authed.selectedTimeAuthed") }}</h1>
-                    <span class="text25 extra-bold">{{ users.selecTimeCount }}</span>
+                    <h1 class="text16 ">{{ $t("subs.count_subs_period") }}</h1>
+                    <span class="text25 extra-bold">12312</span>
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 
 <script setup>
-import { interval_date } from '@/utils/constants'
-import { useFormatter } from '@/utils/formatter'
-import Icon from '@/components/Icon.vue';
+/* eslint-disable */
+
 import DropDown from '@/components/DropDown.vue';
-import Chart from "@/components/Chart.vue"
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-import { computed, onMounted, ref } from 'vue';
-import { useStore } from 'vuex';
+import { interval_date } from '@/utils/constants'
+import Icon from '@/components/Icon.vue';
+import { computed, ref } from 'vue';
 import { hours } from '@/utils/constants';
-
-const store = useStore()
-const { handleDate } = useFormatter()
-
-const users = computed(() => {
-    let users = store.getters["authed/users"]
-    let counts = {
-        0: []
-    }
-    let selecTimeCount = 0
-    if (users.length > 0) {
-        for (const item of users) {
-            // counts[0].push(item.counts)
-            counts[0].push(item.counts)
-            selecTimeCount += item.counts
-        }
-        console.log(counts)
-    }
-    return {
-        users,
-        counts,
-        selecTimeCount
-    }
-})
-
-const interval = ref([])
+import Table from '@/components/Table.vue';
 
 const isMonth = ref(false)
 const isDays = ref(false)
 const isHours = ref(false)
-
+const period = ref("hours")
 const activeDayInterval = ref(0)
-
-const pageSize = ref(25)
-const period = ref('hours')
-
-const filteredDays = ref([])
-
 const date__gte = ref(new Date())
 const date__lt = ref(new Date())
 
-const getUtcTime = (date, day) => {
-    let getDay = day ? day : date.getDate()
-    let dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
-    return dateStr
-}
-
-const getDay = async (prop) => {
-    activeDayInterval.value = prop
-    isHours.value = false
-    isDays.value = false
+const getDay = (prop) => {
     isMonth.value = false
-    let year = new Date().getFullYear()
-    let month = new Date().getMonth()
-    let day
-    store.commit("authed/flushUsers")
-    if (interval_date[prop] === 'month') {
+    isDays.value = false
+    isHours.value = false
+
+    if (interval_date[prop] === "month") {
         period.value = "months"
-        isMonth.value = true
-        day = 1
-        date__gte.value = new Date(year, 0, day)
-        date__lt.value = new Date()
-        getData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
     }
-    else if (interval_date[prop] === 'days') {
-        pageSize.value = 32
-        isMonth.value = true
+    else if (interval_date[prop] === "days") {
         period.value = "days"
-        day = 1
-        date__gte.value = new Date(year, month, day)
-        date__lt.value = new Date(year, month + 1, 0)
-        getData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
     }
-    else if (interval_date[prop] === 'hours') {
+    else if (interval_date[prop] === "hours") {
         period.value = "hours"
-        date__gte.value = new Date()
-        date__lt.value = new Date()
-        getData(getUtcTime(date__gte.value), getUtcTime(date__lt.value, new Date().getDate() + 1))
     }
 }
 
-const getData = (start_at, end_at) => {
-    store.commit("authed/flushUsers")
-    store.dispatch("authed/getUsers", {
-        date__gte: start_at,
-        date__lt: end_at,
-        period: period.value,
-        pageSize: pageSize.value,
-        cb: () => {
-            filteredDays.value = []
-            if (period.value === "hours") {
-                interval.value = {
-                    type: "hours",
-                    result: hours
-                }
-                return
-            }
-            if (period.value === "days") {
-                for (const item of users.value.users) {
-                    let date = handleDate(item.date, 'm d y')
-                    filteredDays.value.push(date)
-                }
-                interval.value = {
-                    type: "days",
-                    result: filteredDays.value.reverse()
-                }
-                return
-            }
-
-            for (const item of users.value.users) {
-                let date = handleDate(item.date, 'm y')
-                filteredDays.value.push(date)
-            }
-            interval.value = {
-                type: "days",
-                result: filteredDays.value.reverse()
-            }
-        }
-    })
-}
-
-const updateModelValue = () => {
-    let month = date__gte.value.getMonth()
-    let year = date__gte.value.getFullYear()
-    let day = 1
-    if (period.value === "days") {
-        date__gte.value = new Date(year, month, day)
-        date__lt.value = new Date(year, month + 1, day)
+const subs = computed(() => {
+    let subs = model
+    let interval = {}
+    interval = {
+        type: "hours",
+        result: hours
     }
-    else if (period.value === 'months') {
-        let endMonth = date__lt.value.getMonth() + 1
-        date__lt.value = new Date(year, endMonth, 0)
+    return {
+        subs: subs,
+        interval
     }
-    else if (period.value === "hours") {
-        console.log(date__gte.value)
-        date__lt.value = ''
-        getData(getUtcTime(date__gte.value), getUtcTime(date__gte.value, date__gte.value.getDate() + 1))
-        return
-    }
-    getData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
-}
-
-onMounted(() => {
-    getData(getUtcTime(date__gte.value, new Date().getDate()), getUtcTime(date__gte.value, new Date().getDate() + 1))
 })
 
-</script>
 
+const updateModelValue = () => { }
+</script>
 <style lang="scss">
 .dp__icon {
     display: none;
 }
 
 .dp__input {
+    // padding: 0 !important;
     border: none;
     width: 182px;
     font-size: 20px !important;
@@ -255,58 +148,70 @@ onMounted(() => {
 }
 </style>
 
+
 <style lang="scss" scoped>
-.authed {
-    .page-title {
-        margin-bottom: 42px;
-    }
+.subs {
+    width: 100%;
 
     .filters {
+        margin-top: 20px;
         display: flex;
         align-items: center;
         gap: 21px;
+        margin-bottom: 54px;
 
-        .filters-title {
+        P {
             color: var(--darkness-opacity-07);
         }
 
-        .ico-size {
-            width: 16px;
-            height: 16px;
-            flex: 0 0 16px;
+        span {
+            color: var(--darkness-opacity-07);
+
+        }
+
+
+        .interval-days-drop {
+            width: 182px;
+            background: var(--basic-light);
+
+            .choice {
+
+                &:hover,
+                &:focus {
+                    span {
+                        color: var(--basic-light);
+                    }
+                }
+
+            }
+        }
+
+        .interval-visits-drop {
+            width: 182px;
+            background: var(--basic-light);
+
+            .choice {
+
+                &:hover,
+                &:focus {
+                    span {
+                        color: var(--basic-light);
+                    }
+                }
+
+            }
+        }
+
+        .date-at {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .drop-ico {
             width: 10px;
             height: 10px;
         }
-
-        .interval-days-drop {
-            width: 182px;
-            background: var(--basic-light);
-
-            P {
-                color: var(--darkness-opacity-07);
-            }
-
-            span {
-                color: var(--darkness-opacity-07);
-
-            }
-
-            .choice {
-
-                &:hover,
-                &.selected,
-                &:focus {
-                    span {
-                        color: var(--basic-light);
-                    }
-                }
-            }
-        }
     }
-
-
 }
 </style>

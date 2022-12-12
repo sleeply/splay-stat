@@ -8,30 +8,50 @@
 import { useLanguage } from "@/utils/language";
 import { onMounted, ref, defineProps } from "vue";
 
+/* eslint-disable */
 const canvas = ref(null)
 
 const { i18n } = useLanguage()
+let newCharTest
 
 const props = defineProps({
     data: {
-        type: Array,
+        type: Object,
         default: () => { }
     },
     interval: {
         type: Object,
         default: () => { }
+    },
+    tooltipTitle: {
+        type: String,
+        default: ""
     }
 })
 
 const data = {
     labels: props.interval.result,
-    datasets: [{
-        label: "",
-        data: props.data,
-
-    }],
+    datasets: [],
     responsive: true,
 };
+
+
+const handleData = () => {
+    console.log(props.data)
+    for (const year in props.data) {
+        let newDataset = {
+            label: "",
+            data: [],
+        };
+        // newDataset.label = year
+        for (const value in props.data[year]) {
+            newDataset.data.push(props.data[year][value]);
+        }
+        newCharTest.config.data.datasets.push(newDataset);
+    }
+
+    newCharTest.update();
+}
 
 const plugins = {
     tooltip: {
@@ -51,11 +71,12 @@ const plugins = {
         labelColor: "rgba(255, 255, 255, 1)",
         callbacks: {
             label: function (event) {
-                let newLabel = event.dataset.data[event.dataIndex]
-                return newLabel
+                console.log("POMOIOOI")
+                // let newLabel = event.dataset.data[event.dataIndex]
+                // return newLabel
             },
             title: () => {
-                return i18n.global.t("chart.tooltip.title")
+                return props.tooltipTitle
             },
         },
     },
@@ -129,10 +150,7 @@ const getGradient = (ctx, chartArea) => {
 
 onMounted(() => {
     /* eslint-disable */
-    new Chart(canvas.value, config);
+    newCharTest = new Chart(document.getElementById("unique"), config);
+    handleData()
 })
 </script>
-
-<style lang="scss" scoped>
-
-</style>

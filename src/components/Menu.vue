@@ -5,7 +5,7 @@
         </div>
         <div class="mid">
             <div class="top">
-                <router-link :to="$i18nRoute({
+                <!-- <router-link :to="$i18nRoute({
                     name: 'MainWrapper'
                 })">
                     <Icon class="ico-size">
@@ -15,7 +15,7 @@
                                 fill="#605BFF" />
                         </svg>
                     </Icon>
-                </router-link>
+                </router-link> -->
                 <!-- <router-link to="">
                     <Icon class="ico-size">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -25,7 +25,7 @@
                         </svg>
                     </Icon>
                 </router-link> -->
-                <router-link :to="$i18nRoute({
+                <!-- <router-link :to="$i18nRoute({
                     name: 'Device'
                 })">
                     <Icon class="ico-size">
@@ -35,7 +35,7 @@
                                 fill="#9A9AA9" />
                         </svg>
                     </Icon>
-                </router-link>
+                </router-link> -->
                 <router-link :to="$i18nRoute({
                     name: 'Authed'
                 })">
@@ -48,6 +48,25 @@
                     </Icon>
                 </router-link>
                 <router-link :to="$i18nRoute({
+                    name: 'Subs'
+                })" class="subs">
+                    <Icon class="ico-size">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            data-v-2bc134a4="">
+                            <path d="M13.8497 4.25049V6.67049" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" data-v-2bc134a4=""></path>
+                            <path d="M13.8497 17.7603V19.7843" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" data-v-2bc134a4=""></path>
+                            <path d="M13.8497 14.3249V9.50391" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" data-v-2bc134a4=""></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M18.7021 20C20.5242 20 22 18.5426 22 16.7431V14.1506C20.7943 14.1506 19.8233 13.1917 19.8233 12.001C19.8233 10.8104 20.7943 9.85039 22 9.85039L21.999 7.25686C21.999 5.45745 20.5221 4 18.7011 4H5.29892C3.47789 4 2.00104 5.45745 2.00104 7.25686L2 9.93485C3.20567 9.93485 4.17668 10.8104 4.17668 12.001C4.17668 13.1917 3.20567 14.1506 2 14.1506V16.7431C2 18.5426 3.4758 20 5.29787 20H18.7021Z"
+                                stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                data-v-2bc134a4=""></path>
+                        </svg>
+                    </Icon>
+                </router-link>
+                <!-- <router-link :to="$i18nRoute({
                     name: 'Watches'
                 })">
                     <Icon class="ico-size">
@@ -68,9 +87,9 @@
                                 fill="#9A9AA9" />
                         </svg>
                     </Icon>
-                </router-link>
+                </router-link> -->
             </div>
-            <div class="bottom">
+            <!-- <div class="bottom">
                 <div class="avatar">
                     <img :src="require('@/assets/kurumi.jpg')" alt="">
                 </div>
@@ -83,7 +102,7 @@
                         </g>
                     </svg>
                 </Icon>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -139,8 +158,20 @@ import Icon from '@/components/Icon.vue';
             align-items: center;
             gap: 47px;
 
+            .subs {
+                .ico-size {
+                    svg {
+                        path {
+                            fill: none;
+                            stroke: var(--basic-grey);
+                        }
+                    }
+                }
+            }
+
             a {
                 display: block;
+                cursor: pointer;
 
                 .ico-size {
                     svg {
@@ -155,6 +186,17 @@ import Icon from '@/components/Icon.vue';
                         svg {
                             path {
                                 fill: var(--highlight);
+                            }
+                        }
+                    }
+
+                    &.subs {
+                        .ico-size {
+                            svg {
+                                path {
+                                    fill: none;
+                                    stroke: var(--highlight);
+                                }
                             }
                         }
                     }

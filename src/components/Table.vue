@@ -1,142 +1,102 @@
 <template>
-  <div>
-    <table cellspacing="0">
-        <tr>
-          <th>Страна</th>
+  <table cellspacing="0">
+    <tr>
+      <th v-for="(name, index) in header" :key="index"> {{ name }} </th>
+      <!-- <th>Страна</th>
           <th>Регион</th>
           <th>Город</th>
           <th>Сессии</th>
           <th>Аккаунты</th>
-          <th>Девайсы</th>
-        </tr>
-        <tr v-for="(item, index) in fakeList" :key="index">
-          <td> {{ item.country }} </td>
-          <td> {{ item.region }} </td>
-          <td> {{ item.city }} </td>
-          <td> {{ item.sessions }} </td>
-          <td> {{ item.Accounts }} </td>
-          <td> {{ item.devices }} </td>
-        </tr>
-        <tr class="total">
-          <td>Суммирование:</td>
-          <td>0</td>
-          <td>0</td>
-          <td>100 000 000</td>
-          <td>100 000 000</td>
-          <td>Ios</td>
-        </tr>
-    </table>
-  </div>
+          <th>Девайсы</th> -->
+    </tr>
+    <tr>
+      <td v-for="(item, index) in list" :key="index"> {{ item.name }} </td>
+      <td> {{ item }} </td>
+    </tr>
+    <tr class="total">
+      <td>Суммирование:</td>
+      <td>0</td>
+      <td>0</td>
+      <td>100 000 000</td>
+      <td>100 000 000</td>
+      <td>Ios</td>
+    </tr>
+  </table>
 </template>
 
 <script setup>
-const fakeList = [
-  {
-    country: 'Узбекистан',
-    region: 'Ташкентская обл.',
-    city: 'Ташкент',
-    sessions: '100 000 000 ',
-    Accounts: '100 000 000',
-    devices: 'Ios',
+import { defineProps } from 'vue'
+defineProps({
+  header: {
+    type: Array,
+    default: () => []
   },
-  {
-    country: 'Узбекистан',
-    region: 'Ташкентская обл.',
-    city: 'Ташкент',
-    sessions: '100 000 000 ',
-    Accounts: '100 000 000',
-    devices: 'Ios',
-  },
-  {
-    country: 'Узбекистан',
-    region: 'Ташкентская обл.',
-    city: 'Ташкент',
-    sessions: '100 000 000 ',
-    Accounts: '100 000 000',
-    devices: 'Ios',
-  },
-  {
-    country: 'Узбекистан',
-    region: 'Ташкентская обл.',
-    city: 'Ташкент',
-    sessions: '100 000 000 ',
-    Accounts: '100 000 000',
-    devices: 'Ios',
-  },
-  {
-    country: 'Узбекистан',
-    region: 'Ташкентская обл.',
-    city: 'Ташкент',
-    sessions: '100 000 000 ',
-    Accounts: '100 000 000',
-    devices: 'Ios',
-  },
-  {
-    country: 'Узбекистан',
-    region: 'Ташкентская обл.',
-    city: 'Ташкент',
-    sessions: '100 000 000 ',
-    Accounts: '100 000 000',
-    devices: 'Ios',
-  },
-  {
-    country: 'Узбекистан',
-    region: 'Ташкентская обл.',
-    city: 'Ташкент',
-    sessions: '100 000 000 ',
-    Accounts: '100 000 000',
-    devices: 'Ios',
-  },
-]
+  list: {
+    type: Array,
+    default: () => []
+  }
+})
 </script>
 
 <style lang="scss" scoped>
 table {
-  width: 55.8125rem;
-  margin: 0 auto;
-
-}
-
-th,
-td {
-  // border: 1px solid var(--darkness);
-  color: var(--darkness);
-  padding: 1.25rem 0.8125rem;
-}
-
-th {
-  opacity: 0.7;
-  text-align: left;
-  font-size: 0.75rem;
-  line-height: 1rem;
-}
-
-td{
-  font-size: 0.875rem;
-  line-height:  1.1875rem;
-}
-
-tr {
   width: 100%;
-}
+  border: none;
+  border-collapse: separate;
+  border-spacing: 0 20px;
 
-.total {
-  background: var(--highlight);
-  text-align: left;
-  border-radius: 0.625rem;
+  th,
+  td {
+    // border: 1px solid var(--darkness);
+    color: var(--darkness);
+
+  }
+
+  th {
+    opacity: 0.7;
+    text-align: left;
+  }
 
   td {
-    vertical-align: middle;
-    color: var(--basic-light);
-    font-weight: 600;
+    padding: 28px 18px;
+    background: var(--basic-light);
 
-    &:first-child{
+    &:first-child {
       border-radius: 0.625rem 0 0 0.625rem;
+      padding-left: 18px;
     }
-    &:last-child{
+
+    &:last-child {
+      padding-right: 18px;
       border-radius: 0 0.625rem 0.625rem 0;
     }
 
   }
+
+  tr {
+    width: 100%;
+  }
+
+  .total {
+    text-align: left;
+    border-radius: 14px;
+
+    td {
+      vertical-align: middle;
+      color: var(--basic-light);
+      background: var(--highlight);
+      font-weight: 600;
+
+      &:first-child {
+        border-radius: 14px 0 0 14px;
+      }
+
+      &:last-child {
+        border-radius: 0 14px 14px 0;
+      }
+
+    }
+  }
+
 }
 </style>

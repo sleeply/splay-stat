@@ -5,20 +5,31 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, defineProps } from "vue";
 
 const canvas = ref()
+
+const props = defineProps({
+    data: {
+        type: Object,
+        default: () => { }
+    },
+    interval: {
+        type: Object,
+        default: () => { }
+    }
+})
 let newCharTest;
 /* eslint-disable */
 
 const model = {
-    2015: [20, 12, 5,0,0,4],
-    // 2016: [17, 26, 21, 41, 8, 23, 17, 26, 21, 41, 8, 23],
-    // 2017: [23, 15, 8, 24, 38, 20, 23, 15, 8, 24, 38, 20]
+    2015: [20, 12, 5, 0, 0, 4],
+    2016: [17, 26, 21, 41, 8, 23, 17, 26, 21, 41, 8, 23],
+    2017: [23, 15, 8, 24, 38, 20, 23, 15, 8, 24, 38, 20]
 };
 
 const handleData = () => {
-    for (const year in model) {
+    for (const year in props.data) {
         let newDataset = {
             label: year,
             data: [],
@@ -29,8 +40,8 @@ const handleData = () => {
             pointHoverBorderWidth: 5,
         };
         newDataset.label = year
-        for (const value in model[year]) {
-            newDataset.data.push(model[year][value]);
+        for (const value in props.data[year]) {
+            newDataset.data.push(props.data[year][value]);
         }
         newCharTest.config.data.datasets.push(newDataset);
     }
