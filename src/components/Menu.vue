@@ -66,7 +66,7 @@
                         </svg>
                     </Icon>
                 </router-link>
-                <!-- <router-link :to="$i18nRoute({
+                <router-link :to="$i18nRoute({
                     name: 'Watches'
                 })">
                     <Icon class="ico-size">
@@ -77,7 +77,7 @@
                         </svg>
                     </Icon>
                 </router-link>
-                <router-link :to="$i18nRoute({
+                <!-- <router-link :to="$i18nRoute({
                     name: 'Regions'
                 })">
                     <Icon class="ico-size">

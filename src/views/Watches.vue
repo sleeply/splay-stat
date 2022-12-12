@@ -159,6 +159,7 @@
                 </div>
             </div>
         </div>
+        {{list}}
         <WatchesTable />
 
         <div class="footer">
@@ -200,13 +201,35 @@ import DropDown from '@/components/DropDown.vue';
 import { interval_date } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
 import WatchesTable from '@/components/pages/WatchesTable.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import { useStore } from 'vuex';
 
+const store = useStore()
+const date__gte = ref("")
+const ordering = ref("")
+const filters = ref({})
 
 const activeDayInterval = ref(0)
 const date = ref(new Date())
+const list = computed(() => {
+    let content = store.getters["content/content"]
+
+    return {
+        content,
+    }
+})
+
+const getData = () => {
+    store.dispatch("content/getContent", {
+        filters: filters.value,
+        date__gte: date__gte.value,
+        ordering: ordering.value,
+    })
+}
+
+getData()
 </script>
 
 <style lang="scss">
