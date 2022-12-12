@@ -11,6 +11,7 @@
     "build": "npm run build:client && npm run build:server"
   },
   "dependencies": {
+    "@hennge/vue3-pagination": "^1.0.17",
     "@vuepic/vue-datepicker": "^3.5.3",
     "chart.js": "^4.0.1",
     "core-js": "^3.6.5",
@@ -23,13 +24,13 @@
     "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {
-    "@vue/server-renderer": "^3.1.5",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
+    "@vue/server-renderer": "^3.1.5",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0",

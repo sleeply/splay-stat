@@ -284,42 +284,16 @@
             </tr> -->
         </table>
 
-        <div class="footer">
-            <div class="count">
-                <Icon class="count-icon">
-                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="50" height="50" rx="25" fill="#EFF5FF" />
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M16 16H34C35.1046 16 36 16.8954 36 18V32C36 33.1046 35.1046 34 34 34H16C14.8954 34 14 33.1046 14 32V18C14 16.8954 14.8954 16 16 16ZM16 18V32H34V18H16ZM20 30H22V24H20V30ZM26 30H24V20H26V30ZM28 30H30V23H28V30Z"
-                            fill="#5B93FF" />
-                    </svg>
-                </Icon>
-                <div class="content">
-                    <h1 class="text16">{{ $t("watches.count_all") }}</h1>
-                    <span class="text25 extra-bold">122 648</span>
-                </div>
-            </div>
-            <div class="count">
-                <Icon class="count-icon">
-                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="50" height="50" rx="25" fill="#FFF7E1" />
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M21 19H19V18H17V21H33V18H31V19H29V18H21V19ZM33 23H17V33H33V23ZM29 16H21V15H19V16H17C15.8954 16 15 16.8954 15 18V33C15 34.1046 15.8954 35 17 35H33C34.1046 35 35 34.1046 35 33V18C35 16.8954 34.1046 16 33 16H31V15H29V16ZM20 27V25H22V27H20ZM24 27H26V25H24V27ZM28 27V25H30V27H28ZM20 29V31H22V29H20ZM26 31H24V29H26V31Z"
-                            fill="#FFC327" />
-                    </svg>
-                </Icon>
-                <div class="content">
-                    <h1 class="text16 ">{{ $t("watches.count_selected") }}</h1>
-                    <span class="text25 extra-bold">122 648</span>
-                </div>
-            </div>
-        </div>
-
+        <v-pagination v-model="activePage" :pages="list.pageCount" :range-size="1" @update:modelValue="setPage" />
     </div>
 </template>
 
 <script setup>
 /* eslint-disable */
+
+import VPagination from "@hennge/vue3-pagination";
+import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+
 import DropDown from '@/components/DropDown.vue';
 import { interval_date } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
@@ -332,18 +306,24 @@ const store = useStore()
 const date__gte = ref("")
 const ordering = ref("")
 const filters = ref({})
+const pageSize = 10
+const activePage = ref(1)
 
 const list = computed(() => {
     let content = store.getters["content/content"]
     let cats = store.getters["content/cats"]
     let sponsors = store.getters["content/sponsors"]
     let subs = store.getters["subs/subsList"]
+    let contentCount = store.getters["content/contentCount"]
+    let pageCount = Math.ceil(contentCount / pageSize)
+
 
     return {
         content,
         cats,
         sponsors,
         subs,
+        pageCount
     }
 })
 
@@ -396,22 +376,28 @@ const handleFilterSubs = (prop) => {
     refreshData()
 }
 
+const getPage = () => { }
+const setPage = (page) => {
+    store.commit("content/setContentPage", page - 1)
+    refreshData()
+}
+
 const refreshData = () => {
     store.commit("content/flushContent")
     store.dispatch("content/getContent", {
         filters: filters.value,
         date__gte: date__gte.value,
         ordering: ordering.value,
+        pageSize,
     })
 }
-
-
 
 const getData = () => {
     store.dispatch("content/getContent", {
         filters: filters.value,
         date__gte: date__gte.value,
         ordering: ordering.value,
+        pageSize
     })
 
     store.dispatch("content/getCats", {})
@@ -423,6 +409,21 @@ getData()
 </script>
 
 <style lang="scss">
+.Page {
+    font-size: 14px !important;
+    width: 37px;
+    height: 37px;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    font-weight: 700 !important;
+}
+
+.Page-active {
+    background: var(--highlight) !important;
+    color: var(--basic-light);
+    border: transparent;
+}
+
 .dp__icon {
     display: none;
 }
