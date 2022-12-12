@@ -5,7 +5,7 @@
         </div>
         <div class="filters">
             <div class="filters-title bold text22">{{ $t("countries.filter-title") }}</div>
-            <DropDown class="interval-days-drop" :items="interval_date" @setActive="getDay" :active="activeDayInterval">
+            <!-- <DropDown class="interval-days-drop" :items="interval_date" @setActive="getDay" :active="activeDayInterval">
                 <template #active="{ active }">
                     <p class="text20 semi-bold">{{ $t(`interval_date.${active}`) }} </p>
                     <Icon class="drop-ico">
@@ -25,19 +25,33 @@
                         </svg>
                     </Icon>
                 </template>
-            </DropDown>
+            </DropDown> -->
             <div class="date-at" style="position: relative;">
                 <Datepicker v-model="date__gte" @update:modelValue="updateModelValue" :enableTimePicker="false"
                     autoApply locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)"
                     :month-picker="isMonth" />
             </div>
-            <div class="date-at"
-                v-show="interval_date[activeDayInterval] !== 'hours' && interval_date[activeDayInterval] !== 'days'">
+            <div class="date-at">
                 <Datepicker v-model="date__lt" @update:modelValue="updateModelValue" :enableTimePicker="false" autoApply
                     locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" />
             </div>
         </div>
-        
+
+        <table cellspacing="0">
+            <tr>
+                <th> Называние </th>
+                <th> Кол-во покупок </th>
+            </tr>
+            <tr v-for="(sub, index) in subs.subs" :key="index">
+                <td>
+                    {{ sub.subscription }}
+                </td>
+                <td>
+                    {{ sub.count }}
+                </td>
+            </tr>
+        </table>
+
         <div class="footer">
             <div class="count">
                 <Icon class="count-icon">
@@ -64,7 +78,7 @@
                 </Icon>
                 <div class="content">
                     <h1 class="text16 ">{{ $t("subs.count_subs_period") }}</h1>
-                    <span class="text25 extra-bold">12312</span>
+                    <span class="text25 extra-bold">{{ subs.count }}</span>
                 </div>
             </div>
         </div>
@@ -81,12 +95,16 @@ import { interval_date } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
 import { computed, ref } from 'vue';
 import { hours } from '@/utils/constants';
-import Table from '@/components/Table.vue';
+import { useStore } from 'vuex';
+
+const store = useStore()
 
 const isMonth = ref(false)
 const isDays = ref(false)
 const isHours = ref(false)
 const period = ref("hours")
+
+
 const activeDayInterval = ref(0)
 const date__gte = ref(new Date())
 const date__lt = ref(new Date())
@@ -107,21 +125,46 @@ const getDay = (prop) => {
     }
 }
 
+const getUtcTime = (date, day) => {
+    let getDay = day ? day : date.getDate()
+    let dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
+    return dateStr
+}
+
+
 const subs = computed(() => {
-    let subs = model
+    let subs = store.getters["subs/subs"]
     let interval = {}
+    let count = 0
     interval = {
         type: "hours",
         result: hours
     }
+    for (const sub of subs) {
+        count += sub?.count
+    }
     return {
         subs: subs,
-        interval
+        interval,
+        count
     }
 })
 
+const updateModelValue = () => {
+    getData(getUtcTime(date__gte.value), getUtcTime(date__lt.value))
+}
 
-const updateModelValue = () => { }
+const getData = (start_at, end_at) => {
+    store.commit("subs/flushSubs")
+
+    store.dispatch("subs/getSubs", {
+        date__gte: start_at,
+        date__lte: end_at
+    })
+}
+
+getData('', getUtcTime(date__gte.value, new Date().getDate() + 1))
+
 </script>
 <style lang="scss">
 .dp__icon {
@@ -154,6 +197,114 @@ const updateModelValue = () => { }
 
     .page-title {
         margin-bottom: 42px;
+    }
+
+    table {
+        width: 100%;
+        border: none;
+        border-collapse: separate;
+        border-spacing: 0 20px;
+
+        thead {
+            position: sticky;
+            top: 0;
+            background: var(--background);
+            z-index: 20;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            .icon-size {
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        .type {
+            width: 22px;
+            height: 22px;
+            background-color: var(--secondary-highlight);
+            border-radius: 7px;
+            margin: auto;
+        }
+
+        th,
+        td {
+            color: var(--darkness);
+
+            span {
+                text-align: center;
+            }
+
+        }
+
+        th {
+            font-size: 20px;
+            line-height: 28px;
+            font-weight: 700;
+            // opacity: 0.7;
+            text-align: left;
+
+            span {
+                text-align: left;
+            }
+        }
+
+        td {
+            padding: 28px 0;
+            font-size: 18px;
+            line-height: 26px;
+            font-weight: 600;
+            vertical-align: middle;
+            background: var(--basic-light);
+
+            span {
+                margin-left: 16px;
+                font-size: 18px;
+                line-height: 26px;
+                font-weight: 600;
+            }
+
+            &:first-child {
+                border-radius: 14px 0 0 14px;
+                padding-left: 18px;
+            }
+
+            &:last-child {
+                padding-right: 18px;
+                border-radius: 0 14px 14px 0;
+            }
+
+        }
+
+        tr {
+            width: 100%;
+        }
+
+        .total {
+            text-align: left;
+            border-radius: 14px;
+
+            td {
+                vertical-align: middle;
+                color: var(--basic-light);
+                background: var(--highlight);
+                font-weight: 600;
+
+                &:first-child {
+                    border-radius: 14px 0 0 14px;
+                }
+
+                &:last-child {
+                    border-radius: 0 14px 14px 0;
+                }
+
+            }
+        }
+
     }
 }
 </style>

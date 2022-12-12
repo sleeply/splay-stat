@@ -1,7 +1,7 @@
 import { urlV1 } from "@/network/index";
-export async function getSubs(cb, date__gte, date__lt) {
+export async function getSubs(cb, date__gte, date__lte) {
   fetch(
-    `${urlV1}/account-signup/?date__gte=${date__gte}&date__lt=${date__lt}`,
+    `${urlV1}/transaction-history/?date__gte=${date__gte}&date__lte=${date__lte}`,
     {
       method: "GET",
     }

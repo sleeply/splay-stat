@@ -7,20 +7,23 @@ const getters = {
   subs: (state) => state.subs,
 };
 const actions = {
-  getSubs({ commit }, { cb = () => {}, date__gte = "", date__lt = "" }) {
+  getSubs({ commit }, { cb = () => {}, date__gte = "", date__lte = "" }) {
     api.apiSubs.getSubs(
       (data) => {
         commit("setSubs", data);
         cb();
       },
       date__gte,
-      date__lt
+      date__lte
     );
   },
 };
 const mutations = {
   setSubs(state, value) {
     state.subs = value;
+  },
+  flushSubs(state) {
+    state.subs = [];
   },
 };
 
