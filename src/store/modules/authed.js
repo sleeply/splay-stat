@@ -4,11 +4,13 @@ const state = {
   users: {},
   usersCount: null,
   usersPage: 0,
+  total: 0,
 };
 const getters = {
   users: (state) => state.users,
   usersCount: (state) => state.usersCount,
   usersPage: (state) => state.usersPage,
+  total: (state) => state.total,
 };
 const actions = {
   getUsers(
@@ -33,6 +35,13 @@ const actions = {
       state.usersPage * load
     );
   },
+
+  getAuthTotal({ commit }, { cb = () => {} }) {
+    api.apiAuthed.getTotal((data) => {
+      commit("setTotal", data);
+      cb();
+    });
+  },
 };
 /* eslint-disable */
 const mutations = {
@@ -52,6 +61,14 @@ const mutations = {
     state.users = [];
     state.usersCount = null;
     state.usersPage = 0;
+  },
+
+  setTotal(state, value) {
+    state.total = value;
+  },
+
+  flushTotal(state) {
+    state.total = 0;
   },
 };
 

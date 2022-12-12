@@ -3,7 +3,6 @@
         <div class="page-title">
             {{ $t("watches.title") }}
         </div>
-
         <div class="filters">
             <div class="left-holder">
                 <div class="title bold text22 ">
@@ -159,8 +158,91 @@
                 </div>
             </div>
         </div>
-        {{list}}
-        <WatchesTable />
+        <!-- <WatchesTable /> -->
+        <table cellspacing="0">
+            <thead>
+                <th class="text18">id &nbsp;</th>
+                <th class="text18">Название фильма &nbsp;</th>
+                <th class="text18">Тип &nbsp;</th>
+                <th class="text18">Спонсор &nbsp;</th>
+                <th class="text18">
+                    <div class="header">
+                        <span>Сред. время просмотра</span>
+                        <icon class="icon-size">
+                            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4.01385 7.25664C3.97307 7.21773 3.79869 7.07082 3.65525 6.93398C2.75314 6.13169 1.27658 4.03876 0.825879 2.94332C0.753457 2.77696 0.600176 2.35636 0.590332 2.13164C0.590332 1.91631 0.640957 1.71104 0.743613 1.51517C0.887051 1.27099 1.11275 1.07511 1.37924 0.967784C1.56416 0.898691 2.11752 0.791361 2.12736 0.791361C2.73275 0.684031 3.71643 0.625 4.80346 0.625C5.83916 0.625 6.78275 0.684031 7.39728 0.771908C7.40713 0.78197 8.09479 0.889299 8.33033 1.00669C8.76064 1.22202 9.02783 1.64262 9.02783 2.09273V2.13164C9.01729 2.42479 8.7501 3.04126 8.74025 3.04126C8.28885 4.07766 6.88471 6.1223 5.95166 6.94404C5.95166 6.94404 5.71189 7.17547 5.56213 7.27609C5.34697 7.43306 5.08049 7.51087 4.814 7.51087C4.51658 7.51087 4.23955 7.423 4.01385 7.25664Z"
+                                    fill="#030229" />
+                            </svg>
+                        </icon>
+                        &nbsp;
+                    </div>
+                </th>
+                <th class="text18">
+                    <div class="header">
+                        <span>Количество просмотров</span>
+                        <icon class="icon-size">
+                            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4.01385 7.25664C3.97307 7.21773 3.79869 7.07082 3.65525 6.93398C2.75314 6.13169 1.27658 4.03876 0.825879 2.94332C0.753457 2.77696 0.600176 2.35636 0.590332 2.13164C0.590332 1.91631 0.640957 1.71104 0.743613 1.51517C0.887051 1.27099 1.11275 1.07511 1.37924 0.967784C1.56416 0.898691 2.11752 0.791361 2.12736 0.791361C2.73275 0.684031 3.71643 0.625 4.80346 0.625C5.83916 0.625 6.78275 0.684031 7.39728 0.771908C7.40713 0.78197 8.09479 0.889299 8.33033 1.00669C8.76064 1.22202 9.02783 1.64262 9.02783 2.09273V2.13164C9.01729 2.42479 8.7501 3.04126 8.74025 3.04126C8.28885 4.07766 6.88471 6.1223 5.95166 6.94404C5.95166 6.94404 5.71189 7.17547 5.56213 7.27609C5.34697 7.43306 5.08049 7.51087 4.814 7.51087C4.51658 7.51087 4.23955 7.423 4.01385 7.25664Z"
+                                    fill="#030229" />
+                            </svg>
+                        </icon>
+                        &nbsp;
+                    </div>
+                </th>
+                <th class="text18">
+                    <div class="header">
+                        <span>Категория</span>
+                        <icon class="icon-size">
+                            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4.01385 7.25664C3.97307 7.21773 3.79869 7.07082 3.65525 6.93398C2.75314 6.13169 1.27658 4.03876 0.825879 2.94332C0.753457 2.77696 0.600176 2.35636 0.590332 2.13164C0.590332 1.91631 0.640957 1.71104 0.743613 1.51517C0.887051 1.27099 1.11275 1.07511 1.37924 0.967784C1.56416 0.898691 2.11752 0.791361 2.12736 0.791361C2.73275 0.684031 3.71643 0.625 4.80346 0.625C5.83916 0.625 6.78275 0.684031 7.39728 0.771908C7.40713 0.78197 8.09479 0.889299 8.33033 1.00669C8.76064 1.22202 9.02783 1.64262 9.02783 2.09273V2.13164C9.01729 2.42479 8.7501 3.04126 8.74025 3.04126C8.28885 4.07766 6.88471 6.1223 5.95166 6.94404C5.95166 6.94404 5.71189 7.17547 5.56213 7.27609C5.34697 7.43306 5.08049 7.51087 4.814 7.51087C4.51658 7.51087 4.23955 7.423 4.01385 7.25664Z"
+                                    fill="#030229" />
+                            </svg>
+                        </icon>
+                        &nbsp;
+                    </div>
+                </th>
+            </thead>
+            <tr class="canscroll" v-for="(item) in list.content" :key="item">
+                <td> {{ item.id }} </td>
+                <td>
+                    <div style="display: flex; align-items: center;">
+                        <icon class="icon-size">
+                            <svg width="43" height="43" viewBox="0 0 43 43" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="21.3716" cy="21.5625" r="21.0938" fill="#605BFF" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M11.8794 14.1797H24.5356C25.7006 14.1797 26.645 15.1241 26.645 16.2891V17.7464L32.9731 14.5824V28.5423L26.645 25.3783V26.8359C26.645 28.0009 25.7006 28.9453 24.5356 28.9453H11.8794C10.7144 28.9453 9.77002 28.0009 9.77002 26.8359V16.2891C9.77002 15.1241 10.7144 14.1797 11.8794 14.1797ZM26.645 23.0199L30.8637 25.1293V17.9954L26.645 20.1048V23.0199ZM11.8794 16.2891V26.8359H24.5356V16.2891H11.8794Z"
+                                    fill="white" />
+                            </svg>
+                        </icon>
+                        <span class="text20"> {{ item?.title }} </span>
+                    </div>
+                </td>
+                <td>
+                    <div class="type"></div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- <tr class="total">
+                <td class="text20">Суммирование:</td>
+                <td class="text20"></td>
+                <td class="text20">10% - 10 000 </td>
+                <td class="text20">10% - 10 000 </td>
+                <td class="text20">10% - 10 000 </td>
+                <td class="text20">10% - 10 000 </td>
+                <td class="text20">10% - 10 000 </td>
+                <td class="text20">10% - 10 000 </td>
+            </tr> -->
+        </table>
 
         <div class="footer">
             <div class="count">
@@ -200,7 +282,6 @@
 import DropDown from '@/components/DropDown.vue';
 import { interval_date } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
-import WatchesTable from '@/components/pages/WatchesTable.vue';
 import { computed, ref } from 'vue';
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
@@ -274,6 +355,10 @@ getData()
     .filters {
         display: flex;
         gap: 74px;
+        // position: sticky;
+        // top: 0;
+        // z-index: 20;
+        // background: var(--background);
 
         .title {
             color: var(--darkness-opacity-07);
@@ -376,6 +461,98 @@ getData()
         }
     }
 
+    table {
+        width: 100%;
+        border: none;
+        border-collapse: separate;
+        border-spacing: 0 20px;
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            .icon-size {
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        .type {
+            width: 22px;
+            height: 22px;
+            background-color: var(--secondary-highlight);
+            border-radius: 7px;
+            // margin: auto;
+        }
+
+        th,
+        td {
+            // border: 1px solid var(--darkness);
+            color: var(--darkness);
+
+            span {
+                text-align: center;
+            }
+
+        }
+
+        th {
+            opacity: 0.7;
+            text-align: left;
+
+            span {
+                text-align: left;
+            }
+        }
+
+        td {
+            // padding: 28px 18px;
+            padding: 28px 0;
+            vertical-align: middle;
+            background: var(--basic-light);
+
+            span {
+                margin-left: 16px;
+            }
+
+            &:first-child {
+                border-radius: 14px 0 0 14px;
+                padding-left: 18px;
+            }
+
+            &:last-child {
+                padding-right: 18px;
+                border-radius: 0 14px 14px 0;
+            }
+
+        }
+
+        tr {
+            width: 100%;
+        }
+
+        .total {
+            text-align: left;
+            border-radius: 14px;
+
+            td {
+                vertical-align: middle;
+                color: var(--basic-light);
+                background: var(--highlight);
+                font-weight: 600;
+
+                &:first-child {
+                    border-radius: 14px 0 0 14px;
+                }
+
+                &:last-child {
+                    border-radius: 0 14px 14px 0;
+                }
+
+            }
+        }
+
+    }
 
     .footer {
         display: flex;

@@ -52,7 +52,7 @@
                 </Icon>
                 <div class="content">
                     <h1 class="text16">{{ $t("authed.authedAllTime") }}</h1>
-                    <span class="text25 extra-bold">122 648</span>
+                    <span class="text25 extra-bold">{{ users.total }}</span>
                 </div>
             </div>
             <div class="count">
@@ -90,6 +90,7 @@ const { handleDate } = useFormatter()
 
 const users = computed(() => {
     let users = store.getters["authed/users"]
+    let total = store.getters["authed/total"]
     let counts = {
         0: []
     }
@@ -104,7 +105,8 @@ const users = computed(() => {
     return {
         users,
         counts,
-        selecTimeCount
+        selecTimeCount,
+        total
     }
 })
 
@@ -240,6 +242,7 @@ const updateModelValue = () => {
 }
 
 onMounted(() => {
+    store.dispatch("authed/getAuthTotal", {})
     getData(getUtcTime(date__gte.value, new Date().getDate()), getUtcTime(date__gte.value, new Date().getDate() + 1))
 })
 

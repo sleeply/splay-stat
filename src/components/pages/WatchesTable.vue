@@ -1,6 +1,6 @@
 <template>
     <div>
-        <table cellspacing="0" >
+        <table cellspacing="0">
             <thead>
                 <th class="text18">Название фильма &nbsp;</th>
                 <th class="text18">Тип &nbsp;</th>
@@ -117,6 +117,13 @@
 
 <script setup>
 import Icon from '@/components/Icon.vue';
+import { defineProps } from 'vue'
+defineProps({
+    list: {
+        type: Array,
+        default: () => []
+    }
+})
 </script>
 
 <style lang="scss" scoped>

@@ -1,4 +1,5 @@
 import { urlV1 } from "@/network/index";
+
 export async function getUsers(
   cb,
   date__gte,
@@ -20,5 +21,17 @@ export async function getUsers(
     })
     .then((json) => {
       cb(json["results"], json["count"]);
+    });
+}
+
+export async function getTotal(cb) {
+  fetch(`${urlV1}/total/?model_type=account_signup`, {
+    method: "GET",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      cb(json["count"]);
     });
 }
