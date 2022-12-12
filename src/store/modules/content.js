@@ -3,10 +3,12 @@ import { api } from "@/network";
 const state = {
   content: [],
   cats: [],
+  sponsors: [],
 };
 const getters = {
   content: (state) => state.content,
   cats: (state) => state.cats,
+  sponsors: (state) => state.sponsors,
 };
 const actions = {
   getContent(
@@ -30,6 +32,12 @@ const actions = {
       cb();
     });
   },
+  getSponsors({ commit }, { cb = () => {} }) {
+    api.apiContent.getSponsors((data) => {
+      commit("setSponsors", data);
+      cb();
+    });
+  },
 };
 const mutations = {
   setContent(state, value) {
@@ -43,6 +51,13 @@ const mutations = {
   },
   flushCats(state) {
     state.cats = [];
+  },
+
+  setSponsors(state, value) {
+    state.sponsors = value;
+  },
+  flushSponsors(state) {
+    state.sponsors = [];
   },
 };
 

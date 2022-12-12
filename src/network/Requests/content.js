@@ -30,3 +30,15 @@ export async function getCategories(cb) {
       cb(json);
     });
 }
+
+export async function getSponsors(cb) {
+  fetch(`${urlV1}/sponsors/`, {
+    method: "GET",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      cb(json);
+    });
+}
