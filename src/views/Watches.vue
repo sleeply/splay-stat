@@ -46,7 +46,8 @@
                                 </Icon>
                             </template>
                         </DropDown>
-                        <DropDown class="interval-days-drop" :items="list.sponsors" :active="activeSponsor" @set-active="handleFilterSponsors">
+                        <DropDown class="interval-days-drop" :items="list.sponsors" :active="activeSponsor"
+                            @set-active="handleFilterSponsors">
                             <template #active="{ active }">
                                 <p class="text20 semi-bold" v-if="activeSponsor !== -1">{{ active?.name }} </p>
                                 <p class="text20 semi-bold" v-else> {{ $t("watches.all") }} </p>
@@ -252,7 +253,11 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
+                <template v-for="(cat, index) in list.cats" :key="index">
+                    <td v-if="cat?.id === item?.category">
+                        {{ cat?.name }}
+                    </td>
+                </template>
             </tr>
             <!-- <tr class="total">
                 <td class="text20">Суммирование:</td>
@@ -413,6 +418,8 @@ getData()
 
 <style lang="scss" scoped>
 .watches {
+    width: 100%;
+
     .ico-size {
         width: 16px;
         height: 16px;
@@ -430,6 +437,7 @@ getData()
         display: flex;
         flex-wrap: wrap;
         gap: 74px;
+        width: 100%;
 
         .title {
             color: var(--darkness-opacity-07);
@@ -452,6 +460,10 @@ getData()
         }
 
         .right-holder {
+            display: flex;
+            flex-direction: column;
+            width: 40%;
+
             .flex {
                 gap: 85px;
             }
