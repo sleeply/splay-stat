@@ -178,6 +178,12 @@
                     </DropDown>
 
                     <div class="container">
+                        <div class="item" v-for="sub in list.subs" :key="sub">
+                            <div :style="{
+                                background: sub.color
+                            }"></div>
+                            <span class="text20 semi-bold">Премиум</span>
+                        </div>
 
                         <!-- <div class="item premium">
                             <div class="div"></div>
@@ -601,6 +607,7 @@ getData()
         flex-wrap: wrap;
         gap: 74px;
         width: 100%;
+        margin-bottom: 42px;
 
         .title {
             color: var(--darkness-opacity-07);
