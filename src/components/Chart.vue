@@ -23,6 +23,10 @@ const props = defineProps({
         type: Object,
         default: () => { }
     },
+    colors: {
+        type: Object,
+        default:  { }
+    },
     tooltipTitle: {
         type: String,
         default: ""
@@ -37,13 +41,12 @@ const data = {
 
 
 const handleData = () => {
-    console.log(props.data)
     for (const year in props.data) {
         let newDataset = {
             label: "",
             data: [],
         };
-        // newDataset.label = year
+        newDataset.label = year
         for (const value in props.data[year]) {
             newDataset.data.push(props.data[year][value]);
         }
@@ -71,9 +74,8 @@ const plugins = {
         labelColor: "rgba(255, 255, 255, 1)",
         callbacks: {
             label: function (event) {
-                console.log("POMOIOOI")
-                // let newLabel = event.dataset.data[event.dataIndex]
-                // return newLabel
+                let newLabel = event.dataset.data[event.dataIndex]
+                return newLabel
             },
             title: () => {
                 return props.tooltipTitle
@@ -127,7 +129,15 @@ const config = {
                 backgroundColor: "white",
                 pointRadius: 10,
                 pointHoverRadius: 10,
-                pointBorderColor: "rgba(174, 143, 247, 1)",
+                // pointBorderColor: "rgba(174, 143, 247, 1)",
+                function(context) {
+                    const chart = context.chart;
+                    const { ctx, chartArea } = chart
+                    if (!chartArea) {
+                        return
+                    }
+                    return getGradient(ctx, chartArea)
+                }
             }
         }
     }
@@ -138,11 +148,28 @@ const getGradient = (ctx, chartArea) => {
     const chartWidth = chartArea.right - chartArea.left;
     const chartHeight = chartArea.bottom - chartArea.top;
     if (!gradient || width !== chartWidth || height !== chartHeight) {
-        width = chartWidth;
-        height = chartHeight;
         gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-        gradient.addColorStop(0.4, "rgba(91, 196, 255, 1)");
-        gradient.addColorStop(0.1, "rgba(255, 91, 239, 1)");
+        if (Object.keys(props.colors).length === 0) {
+            width = chartWidth;
+            height = chartHeight;
+            gradient.addColorStop(0.4, "rgba(91, 196, 255, 1)");
+            gradient.addColorStop(0.1, "rgba(255, 91, 239, 1)");
+        }
+        else {
+            width = chartWidth;
+            height = chartHeight;
+            for (const area of newCharTest.config.data.datasets) {
+                for (const color in props.colors) {
+                    if (area.label === color) {
+                        area.borderColor = props.colors[color]
+                    }
+
+                }
+
+            }
+            // gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+
+        }
     }
 
     return gradient

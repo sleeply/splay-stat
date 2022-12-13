@@ -64,6 +64,14 @@ const childRoutes = [
     },
   },
   {
+    path: "live",
+    name: "Live",
+    component: () => import("@/views/Live.vue"),
+    meta: {
+      isMenu: true,
+    },
+  },
+  {
     path: "watches",
     name: "Watches",
     component: () => import("@/views/Watches.vue"),

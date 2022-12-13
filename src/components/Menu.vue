@@ -77,8 +77,8 @@
                         </svg>
                     </Icon>
                 </router-link>
-                <!-- <router-link :to="$i18nRoute({
-                    name: 'Regions'
+                <router-link :to="$i18nRoute({
+                    name: 'Live'
                 })">
                     <Icon class="ico-size">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,7 +87,7 @@
                                 fill="#9A9AA9" />
                         </svg>
                     </Icon>
-                </router-link> -->
+                </router-link>
             </div>
             <!-- <div class="bottom">
                 <div class="avatar">

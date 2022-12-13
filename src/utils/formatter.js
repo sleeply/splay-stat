@@ -80,6 +80,23 @@ export function useFormatter() {
     }
   };
 
+  const handleHms = (value, format = "hh:mm") => {
+    // const timeObg =
+    const h = Math.floor(value / 3600);
+    const m = Math.floor((value % 3600) / 60);
+    if (h !== 0) {
+      switch (format) {
+        default:
+          return `${h.toString().slice(-2) + i18n.global.t("hms.h")}. ${
+            m.toString().slice(-2) + i18n.global.t("hms.m")
+          }.`;
+      }
+    } else {
+      // return ("0" + m).slice(-2) + i18n.global.t(`hms.m`);
+      return m.toString().slice(-2) + i18n.global.t(`hms.m`);
+    }
+  };
+
   const handleTime = (value, format = "hh:mm") => {
     const dateObj = new Date(value);
     switch (format) {
@@ -108,5 +125,5 @@ export function useFormatter() {
     return arr;
   };
 
-  return { handleDate, handleTime, capitalize, moveArrayItemToNewIndex };
+  return { handleDate, handleTime, capitalize, moveArrayItemToNewIndex, handleHms };
 }
