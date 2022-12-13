@@ -243,7 +243,7 @@ const updateModelValue = () => {
 
 onMounted(() => {
     store.dispatch("authed/getAuthTotal", {})
-    getData(getUtcTime(date__gte.value, new Date().getDate()), getUtcTime(date__gte.value, new Date().getDate() + 1))
+    getData(getUtcTime(date__gte.value, new Date().getDate() - 1), getUtcTime(date__gte.value, new Date().getDate() + 1))
 })
 
 </script>
