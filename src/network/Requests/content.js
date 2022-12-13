@@ -14,7 +14,7 @@ export async function getContent(
     filtersQuery += `&${filterName}=${filters[filterName]}`;
   }
   fetch(
-    `${urlV1}/content-video/?updated_at=${date__gte}&ordering=${ordering}${filtersQuery}&search=${search}&limit=${pageSize}&offset=${
+    `${urlV1}/content-video/?created_at__gte=${date__gte}&ordering=${ordering}${filtersQuery}&search=${search}&limit=${pageSize}&offset=${
       pageSize * offset
     }`,
     {

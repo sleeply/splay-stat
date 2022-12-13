@@ -98,7 +98,7 @@
                         </div>
                     </div>
                     <div class="flex">
-                        <DropDown class="interval-days-drop" :items="interval_date" :active="activeDayInterval">
+                        <!-- <DropDown class="interval-days-drop" :items="interval_date" :active="activeDayInterval">
                             <template #active="{ active }">
                                 <p class="text20 semi-bold">{{ $t(`interval_date.${active}`) }} </p>
                                 <Icon class="drop-ico">
@@ -120,15 +120,15 @@
                                     </svg>
                                 </Icon>
                             </template>
-                        </DropDown>
-                        <div class="date-at" style="position: relative;">
+                        </DropDown> -->
+                        <!-- <div class="date-at" style="position: relative;">
                             <Datepicker ref="picker" v-model="date" :month-picker="isMonth" :enableTimePicker="false"
                                 autoApply locale="ru-Ru">
                             </Datepicker>
-                        </div>
+                        </div> -->
                         <div class="date-at" style="position: relative;">
-                            <Datepicker ref="picker" v-model="date" :month-picker="isMonth" :enableTimePicker="false"
-                                autoApply locale="ru-Ru">
+                            <Datepicker @update:modelValue="updateModelValue" ref="picker" v-model="date__gte" :enableTimePicker="false" autoApply
+                                locale="ru-Ru">
                             </Datepicker>
                         </div>
                     </div>
@@ -198,11 +198,11 @@
         <!-- <WatchesTable /> -->
         <table cellspacing="0">
             <thead>
-                <th class="text18">id &nbsp;</th>
+                <th class="text18" @click="handleSort('content_id')">id &nbsp;</th>
                 <th class="text18">Название фильма &nbsp;</th>
                 <th class="text18">Тип &nbsp;</th>
                 <th class="text18">Спонсор &nbsp;</th>
-                <th class="text18">
+                <th class="text18" @click="handleSort('average_duration_1d')">
                     <div class="header">
                         <span>Сред. время просмотра</span>
                         <icon class="icon-size">
@@ -216,7 +216,7 @@
                         &nbsp;
                     </div>
                 </th>
-                <th class="text18">
+                <th class="text18" @click="handleSort('total_count_viewers_1d')">
                     <div class="header">
                         <span>Количество просмотров</span>
                         <icon class="icon-size">
@@ -233,14 +233,6 @@
                 <th class="text18">
                     <div class="header">
                         <span>Категория</span>
-                        <icon class="icon-size">
-                            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M4.01385 7.25664C3.97307 7.21773 3.79869 7.07082 3.65525 6.93398C2.75314 6.13169 1.27658 4.03876 0.825879 2.94332C0.753457 2.77696 0.600176 2.35636 0.590332 2.13164C0.590332 1.91631 0.640957 1.71104 0.743613 1.51517C0.887051 1.27099 1.11275 1.07511 1.37924 0.967784C1.56416 0.898691 2.11752 0.791361 2.12736 0.791361C2.73275 0.684031 3.71643 0.625 4.80346 0.625C5.83916 0.625 6.78275 0.684031 7.39728 0.771908C7.40713 0.78197 8.09479 0.889299 8.33033 1.00669C8.76064 1.22202 9.02783 1.64262 9.02783 2.09273V2.13164C9.01729 2.42479 8.7501 3.04126 8.74025 3.04126C8.28885 4.07766 6.88471 6.1223 5.95166 6.94404C5.95166 6.94404 5.71189 7.17547 5.56213 7.27609C5.34697 7.43306 5.08049 7.51087 4.814 7.51087C4.51658 7.51087 4.23955 7.423 4.01385 7.25664Z"
-                                    fill="#030229" />
-                            </svg>
-                        </icon>
                         &nbsp;
                     </div>
                 </th>
@@ -304,8 +296,8 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import { useStore } from 'vuex';
 
 const store = useStore()
-const date__gte = ref("")
-const ordering = ref("")
+const date__gte = ref(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1))
+const sortBy = ref("")
 const searchQuery = ref("")
 const filters = ref({})
 const pageSize = 10
@@ -333,7 +325,7 @@ const activeDayInterval = ref(0)
 const activeCat = ref(-1)
 const activeSponsor = ref(-1)
 const activeSub = ref(-1)
-const date = ref(new Date())
+const date = ref("")
 
 const isMonth = ref(false)
 const isDays = ref(false)
@@ -346,13 +338,20 @@ const getDay = (prop) => {
     activeCat.value = prop
 }
 
+const getUtcTime = (date, day) => {
+    console.log(date)
+    let getDay = day ? day : date.getDate()
+    let dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
+    return dateStr
+}
+
 const handleCatFilter = (prop) => {
     activeCat.value = prop
     filters.value = {
         ...filters.value,
         category: activeCat.value === -1 ? "" : list.value.cats[prop].id
     }
-    refreshData()
+    refreshData(getUtcTime(date__gte.value))
 }
 const handleFilterSponsors = (prop) => {
     activeSponsor.value = prop
@@ -362,26 +361,29 @@ const handleFilterSponsors = (prop) => {
         sponsors: activeSponsor.value === -1 ? "" : list.value.sponsors[activeSponsor.value].id
     }
 
-    refreshData()
+    refreshData(getUtcTime(date__gte.value))
 }
 
 const handleFilterSubs = (prop) => {
     activeSub.value = prop
-    console.log(list.value.subs[activeSub.value])
+    if (activeSub.value === -1) {
+        delete filters.value.allowed_subscriptions
+    refreshData(getUtcTime(date__gte.value))
+        return
+    }
 
     filters.value = {
         ...filters.value,
-        allowed_subscriptions: activeSub.value === -1 ? "" : list.value.subs[activeSub.value].id + "&"
+        allowed_subscriptions: list.value.subs[activeSub.value].id
     }
-    console.log(filters.value)
 
-    refreshData()
+    refreshData(getUtcTime(date__gte.value))
 }
 
 const getPage = () => { }
 const setPage = (page) => {
     store.commit("content/setContentPage", page - 1)
-    refreshData()
+    refreshData(getUtcTime(date__gte.value))
 }
 
 let searchTimer
@@ -390,27 +392,37 @@ const handleSearch = () => {
     if (searchTimer) clearTimeout(searchTimer)
 
     searchTimer = setTimeout(() => {
-        refreshData()
+    refreshData(getUtcTime(date__gte.value))
     }, 500);
 
 }
 
-const refreshData = () => {
+const handleSort = (prop) => {
+    sortBy.value = sortBy.value === prop ? `-${prop}` : `${prop}`
+    refreshData()
+}
+
+const updateModelValue = (prop) => {
+    console.log(prop)
+    refreshData(getUtcTime(prop))
+}
+
+const refreshData = (start_at) => {
     store.commit("content/flushContent")
     store.dispatch("content/getContent", {
         filters: filters.value,
-        date__gte: date__gte.value,
-        ordering: ordering.value,
+        date__gte: start_at ? start_at : "",
+        ordering: sortBy.value,
         search: searchQuery.value,
         pageSize,
     })
 }
 
-const getData = () => {
+const getData = (start_at) => {
     store.dispatch("content/getContent", {
         filters: filters.value,
-        date__gte: date__gte.value,
-        ordering: ordering.value,
+        date__gte: start_at,
+        ordering: sortBy.value,
         search: searchQuery.value,
         pageSize
     })
@@ -420,7 +432,7 @@ const getData = () => {
     store.dispatch("subs/getSubsList", {})
 }
 
-getData()
+getData(getUtcTime(date__gte.value))
 </script>
 
 <style lang="scss">
