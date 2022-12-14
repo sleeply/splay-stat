@@ -88,3 +88,4 @@ export const regions = [
     color: "#A04204",
   },
 ];
+

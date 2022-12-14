@@ -38,7 +38,7 @@
             </div>
         </div>
         <template v-if="(Object.keys(users.counts[0]).length > 0)">
-            <Chart :data="users.counts" :interval="interval" :tooltipTitle="$t('chart.tooltip.authed')" />
+            <Chart :data="users.counts" :interval="interval" :tooltipTitle="$t('chart.tooltip.authed')" :legend="false"/>
         </template>
         <div class="footer">
             <div class="count">

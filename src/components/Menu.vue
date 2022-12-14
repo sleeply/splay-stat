@@ -25,7 +25,7 @@
                         </svg>
                     </Icon>
                 </router-link> -->
-                <!-- <router-link :to="$i18nRoute({
+                <router-link :to="$i18nRoute({
                     name: 'Device'
                 })">
                     <Icon class="ico-size">
@@ -35,7 +35,7 @@
                                 fill="#9A9AA9" />
                         </svg>
                     </Icon>
-                </router-link> -->
+                </router-link>
                 <router-link :to="$i18nRoute({
                     name: 'Authed'
                 })">

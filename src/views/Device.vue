@@ -1,7 +1,7 @@
 <template>
     <div class="stats-countries s-container">
         <div class="page-title">
-            {{ $t("countries.title") }}
+            {{ $t("device.title") }}
         </div>
 
         <div class="filters-container">
@@ -43,61 +43,24 @@
                     <Datepicker v-model="date" :year-picker="isYear" :month-picker="isMonth" :enableTimePicker="false"
                         autoApply locale="ru-Ru" :clearable="false" />
                 </div>
-                <DropDown class="interval-visits-drop" :items="interval_visits" @setActive="getVisits"
-                    :active="activeVisit">
-                    <template #active="{ active }">
-                        <p class="text20 semi-bold"> {{ $t(`interval_visits.${active}`) }} </p>
-                        <Icon class="drop-ico">
-                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path opacity="0.5" d="M0.905273 1.12866L4.94824 5.04761L8.99121 1.12866" stroke="black"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </Icon>
-                    </template>
-                    <template #list="{ item }">
-                        <span class="semi-bold text20">{{ $t(`interval_visits.${item}`) }}</span>
-                        <Icon class="ico-size" :style="{
-                        
-                        }">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M5.76246 10.5859L12.6311 3.71724C12.9435 3.40482 13.45 3.40482 13.7625 3.71724C14.0749 4.02966 14.0749 4.53619 13.7625 4.84861L5.76246 12.8486L1.76246 8.84861C1.45004 8.53619 1.45004 8.02966 1.76246 7.71724C2.07488 7.40482 2.58141 7.40482 2.89383 7.71724L5.76246 10.5859Z"
-                                    fill="white" />
-                            </svg>
-                        </Icon>
-                    </template>
-                </DropDown>
             </div>
         </div>
-        <table cellspacing="0" cellpadding="20">
-            <tr>
-                <th class="text18">Страна</th>
-                <th class="text18">Регион</th>
-                <th class="text18">Город</th>
-                <th class="text18">Сессии</th>
-                <th class="text18">Аккаунты</th>
-                <th class="text18">Девайсы</th>
-            </tr>
-            <tr v-for="(item, index) in fakeList" :key="index">
-                <td class="text20"> {{ item.country }} </td>
-                <td class="text20"> {{ item.region }} </td>
-                <td class="text20"> {{ item.city }} </td>
-                <td class="text20"> {{ item.sessions }} </td>
-                <td class="text20"> {{ item.Accounts }} </td>
-                <td class="text20"> {{ item.devices }} </td>
-            </tr>
-            <tr class="total">
-                <td class="text20">Суммирование:</td>
-                <td class="text20">0</td>
-                <td class="text20">0</td>
-                <td class="text20">100 000 000</td>
-                <td class="text20">100 000 000</td>
-                <td class="text20">Ios</td>
-            </tr>
-        </table>
 
+        <table>
+            <tr>
+                <th> OS девайс </th>
+                <th> Web </th>
+                <th> Узбекистан </th>
+                <th> Другие Страны </th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+        </table>
         <div class="footer">
             <div class="count">
                 <Icon class="count-icon">
@@ -381,65 +344,4 @@ const fakeList = [
     }
 }
 
-
-table {
-    width: 100%;
-    border: none;
-    border-collapse: separate;
-    border-spacing: 0 20px;
-
-    th,
-    td {
-        // border: 1px solid var(--darkness);
-        color: var(--darkness);
-
-    }
-
-    th {
-        opacity: 0.7;
-        text-align: left;
-    }
-
-    td {
-        padding: 28px 18px;
-        background: var(--basic-light);
-
-        &:first-child {
-            border-radius: 0.625rem 0 0 0.625rem;
-            padding-left: 18px;
-        }
-
-        &:last-child {
-            padding-right: 18px;
-            border-radius: 0 0.625rem 0.625rem 0;
-        }
-
-    }
-
-    tr {
-        width: 100%;
-    }
-
-    .total {
-        text-align: left;
-        border-radius: 14px;
-
-        td {
-            vertical-align: middle;
-            color: var(--basic-light);
-            background: var(--highlight);
-            font-weight: 600;
-
-            &:first-child {
-                border-radius: 14px 0 0 14px;
-            }
-
-            &:last-child {
-                border-radius: 0 14px 14px 0;
-            }
-
-        }
-    }
-
-}
 </style>

@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <table cellspacing="0">
+        <table >
             <tr>
                 <th> Называние </th>
                 <th> Кол-во покупок </th>
@@ -200,114 +200,6 @@ getData('', getUtcTime(date__gte.value, new Date().getDate() + 1))
 
     .page-title {
         margin-bottom: 42px;
-    }
-
-    table {
-        width: 100%;
-        border: none;
-        border-collapse: separate;
-        border-spacing: 0 20px;
-
-        thead {
-            position: sticky;
-            top: 0;
-            background: var(--background);
-            z-index: 20;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-
-            .icon-size {
-                width: 10px;
-                height: 10px;
-            }
-        }
-
-        .type {
-            width: 22px;
-            height: 22px;
-            background-color: var(--secondary-highlight);
-            border-radius: 7px;
-            margin: auto;
-        }
-
-        th,
-        td {
-            color: var(--darkness);
-
-            span {
-                text-align: center;
-            }
-
-        }
-
-        th {
-            font-size: 20px;
-            line-height: 28px;
-            font-weight: 700;
-            // opacity: 0.7;
-            text-align: left;
-
-            span {
-                text-align: left;
-            }
-        }
-
-        td {
-            padding: 28px 0;
-            font-size: 18px;
-            line-height: 26px;
-            font-weight: 600;
-            vertical-align: middle;
-            background: var(--basic-light);
-
-            span {
-                margin-left: 16px;
-                font-size: 18px;
-                line-height: 26px;
-                font-weight: 600;
-            }
-
-            &:first-child {
-                border-radius: 14px 0 0 14px;
-                padding-left: 18px;
-            }
-
-            &:last-child {
-                padding-right: 18px;
-                border-radius: 0 14px 14px 0;
-            }
-
-        }
-
-        tr {
-            width: 100%;
-        }
-
-        .total {
-            text-align: left;
-            border-radius: 14px;
-
-            td {
-                vertical-align: middle;
-                color: var(--basic-light);
-                background: var(--highlight);
-                font-weight: 600;
-
-                &:first-child {
-                    border-radius: 14px 0 0 14px;
-                }
-
-                &:last-child {
-                    border-radius: 0 14px 14px 0;
-                }
-
-            }
-        }
-
     }
 }
 </style>

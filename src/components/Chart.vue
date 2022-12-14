@@ -25,11 +25,15 @@ const props = defineProps({
     },
     colors: {
         type: Object,
-        default:  { }
+        default: {}
     },
     tooltipTitle: {
         type: String,
         default: ""
+    },
+    legend: {
+        type: Boolean,
+        default: true
     }
 })
 
@@ -83,7 +87,7 @@ const plugins = {
         },
     },
     legend: {
-        display: false
+        display: props.legend
     }
 }
 

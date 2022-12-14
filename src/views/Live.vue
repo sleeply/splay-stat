@@ -56,7 +56,7 @@
             </div>
         </div>
 
-        <Chart :data="list.model" :interval="list.interval" :colors="list.colors"/>
+        <Chart :data="list.model" :interval="list.interval" :colors="list.colors" />
         <div class="footer">
             <div class="count">
                 <Icon class="count-icon">
@@ -142,6 +142,8 @@ const getDay = () => {
 
 }
 </script>
+
+
 <style lang="scss">
 .dp__icon {
     display: none;
@@ -168,7 +170,12 @@ const getDay = () => {
 
 <style lang="scss" scoped>
 .live {
+    .page-title {
+        margin-bottom: 42px;
+    }
+
     .filters {
+
         .live-type {
             display: flex;
             align-items: center;
