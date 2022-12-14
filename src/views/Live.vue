@@ -29,11 +29,20 @@
             <div class="date-at" style="position: relative;">
                 <Datepicker v-model="date__gte" @update:modelValue="updateModelValue" :enableTimePicker="false"
                     autoApply locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)"
-                    :month-picker="isMonth" />
+                    :month-picker="isMonth" :month-change-on-arrows="false" :min-date="new Date('2022-12-4')">
+                    <template #input-icon>
+                        <svg></svg>
+                    </template>
+                </Datepicker>
             </div>
             <div class="date-at">
                 <Datepicker v-model="date__lt" @update:modelValue="updateModelValue" :enableTimePicker="false" autoApply
-                    locale="ru-Ru" :clearable="false" :month-picker="isMonth" :disable-month-year-select="(isDays)" />
+                    locale="ru-Ru" :clearable="false" :month-picker="isMonth" :disable-month-year-select="(isDays)"
+                    @invalidSelect="handleInvalidSelect" :min-date="new Date('2022-12-4')">
+                    <template #input-icon>
+                        <svg></svg>
+                    </template>
+                </Datepicker>
             </div>
 
             <div class="live-type">
@@ -134,7 +143,15 @@ const list = computed(() => {
 
 })
 
-const updateModelValue = () => { }
+const handleInvalidSelect = (date) => {
+    console.log(date)
+}
+
+const updateModelValue = (date) => {
+    if (date <= new Date("2022-12-4")) {
+        console.log(date)
+    }
+}
 const getDay = () => {
     isHours.value = false
     isMonth.value = false
@@ -146,25 +163,25 @@ const getDay = () => {
 
 <style lang="scss">
 .dp__icon {
-    display: none;
+    // display: none;
 }
 
-.dp__input {
-    border: none;
-    width: 182px;
-    font-size: 20px !important;
-    line-height: 38px !important;
-    border-radius: 7px;
-    padding-left: 23px !important;
-    padding-right: 11px !important;
-    padding-top: 0;
-    padding-bottom: 0;
-}
+// .dp__input {
+//     border: none;
+//     width: 182px;
+//     font-size: 20px !important;
+//     line-height: 38px !important;
+//     border-radius: 7px;
+//     padding-left: 23px !important;
+//     padding-right: 11px !important;
+//     padding-top: 0;
+//     padding-bottom: 0;
+// }
 
-.dp__input_icon_pad {
-    height: 56px;
+// .dp__input_icon_pad {
+//     height: 56px;
 
-}
+// }
 </style>
 
 

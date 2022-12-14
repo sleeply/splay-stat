@@ -131,27 +131,27 @@ const getDay  = () =>{}
 </script>
 
 <style lang="scss">
-.dp__icon {
-    display: none;
-}
+// .dp__icon {
+//     display: none;
+// }
 
-.dp__input {
-    // padding: 0 !important;
-    border: none;
-    width: 182px;
-    font-size: 20px !important;
-    line-height: 38px !important;
-    border-radius: 7px;
-    padding-left: 23px !important;
-    padding-right: 11px !important;
-    padding-top: 0;
-    padding-bottom: 0;
-}
+// .dp__input {
+//     // padding: 0 !important;
+//     border: none;
+//     width: 182px;
+//     font-size: 20px !important;
+//     line-height: 38px !important;
+//     border-radius: 7px;
+//     padding-left: 23px !important;
+//     padding-right: 11px !important;
+//     padding-top: 0;
+//     padding-bottom: 0;
+// }
 
-.dp__input_icon_pad {
-    height: 56px;
+// .dp__input_icon_pad {
+//     height: 56px;
 
-}
+// }
 </style>
 
 <style lang="scss" scoped>

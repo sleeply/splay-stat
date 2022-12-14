@@ -29,16 +29,25 @@
             <div class="date-at" style="position: relative;">
                 <Datepicker v-model="date__gte" @update:modelValue="updateModelValue" :enableTimePicker="false"
                     autoApply locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)"
-                    :month-picker="isMonth" />
+                    :month-picker="isMonth">
+                    <template #input-icon>
+                        <svg></svg>
+                    </template>
+                </Datepicker>
             </div>
             <div class="date-at"
                 v-show="interval_date[activeDayInterval] !== 'hours' && interval_date[activeDayInterval] !== 'days'">
                 <Datepicker v-model="date__lt" @update:modelValue="updateModelValue" :enableTimePicker="false" autoApply
-                    locale="ru-Ru" :clearable="false" :month-picker="isMonth" :disable-month-year-select="(isDays)" />
+                    locale="ru-Ru" :clearable="false" :month-picker="isMonth" :disable-month-year-select="(isDays)">
+                    <template #input-icon>
+                        <svg></svg>
+                    </template>
+                </Datepicker>
             </div>
         </div>
         <template v-if="(Object.keys(users.counts[0]).length > 0)">
-            <Chart :data="users.counts" :interval="interval" :tooltipTitle="$t('chart.tooltip.authed')" :legend="false"/>
+            <Chart :data="users.counts" :interval="interval" :tooltipTitle="$t('chart.tooltip.authed')"
+                :legend="false" />
         </template>
         <div class="footer">
             <div class="count">
@@ -249,26 +258,26 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-.dp__icon {
-    display: none;
-}
+// .dp__icon {
+//     display: none;
+// }
 
-.dp__input {
-    border: none;
-    width: 182px;
-    font-size: 20px !important;
-    line-height: 38px !important;
-    border-radius: 7px;
-    padding-left: 23px !important;
-    padding-right: 11px !important;
-    padding-top: 0;
-    padding-bottom: 0;
-}
+// .dp__input {
+//     border: none;
+//     width: 182px;
+//     font-size: 20px !important;
+//     line-height: 38px !important;
+//     border-radius: 7px;
+//     padding-left: 23px !important;
+//     padding-right: 11px !important;
+//     padding-top: 0;
+//     padding-bottom: 0;
+// }
 
-.dp__input_icon_pad {
-    height: 56px;
+// .dp__input_icon_pad {
+//     height: 56px;
 
-}
+// }
 </style>
 
 <style lang="scss" scoped>
