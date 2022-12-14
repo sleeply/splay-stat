@@ -37,7 +37,7 @@
             </div>
             <div class="date-at">
                 <Datepicker v-model="date__lt" @update:modelValue="updateModelValue" :enableTimePicker="false" autoApply
-                    locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth">
+                    locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)" :month-picker="isMonth" :min-date="new Date(`${date__gte.getFullYear()}-${date__gte.getMonth() + 1}-${date__gte.getDate() + 1}`)">
                     <template #input-icon>
                         <svg></svg>
                     </template>

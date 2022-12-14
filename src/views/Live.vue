@@ -38,7 +38,7 @@
             <div class="date-at">
                 <Datepicker v-model="date__lt" @update:modelValue="updateModelValue" :enableTimePicker="false" autoApply
                     locale="ru-Ru" :clearable="false" :month-picker="isMonth" :disable-month-year-select="(isDays)"
-                    @invalidSelect="handleInvalidSelect" :min-date="new Date('2022-12-4')">
+                    @invalidSelect="handleInvalidSelect" :min-date="new Date('2022-12-4') && new Date(`${date__gte.getFullYear()}-${date__gte.getMonth() + 1}-${date__gte.getDate() + 1}`)">
                     <template #input-icon>
                         <svg></svg>
                     </template>
@@ -147,10 +147,8 @@ const handleInvalidSelect = (date) => {
     console.log(date)
 }
 
-const updateModelValue = (date) => {
-    if (date <= new Date("2022-12-4")) {
-        console.log(date)
-    }
+const updateModelValue = () => {
+    console.log(date__gte.value)
 }
 const getDay = () => {
     isHours.value = false

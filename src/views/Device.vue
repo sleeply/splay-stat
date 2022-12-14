@@ -35,7 +35,7 @@
                     </template>
                 </DropDown>
                 <div class="date-at" style="position: relative;">
-                    <Datepicker ref="picker" v-model="date" :year-picker="isYear" :month-picker="isMonth"
+                    <Datepicker ref="picker" v-model="date__gte" :year-picker="isYear" :month-picker="isMonth"
                         :enableTimePicker="false" autoApply locale="ru-Ru">
                         <template #input-icon>
                             <svg></svg>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="date-at" style="position: relative;" v-if="interval_date[activeDayInterval] !== 'day'">
                     <Datepicker v-model="date" :year-picker="isYear" :month-picker="isMonth" :enableTimePicker="false"
-                        autoApply locale="ru-Ru" >
+                        autoApply locale="ru-Ru"  :min-date="new Date(`${date__gte.getFullYear()}-${date__gte.getMonth() + 1}-${date__gte.getDate() + 1}`)">
                         <template #input-icon>
                             <svg></svg>
                         </template>
@@ -117,6 +117,7 @@ import { useStore } from 'vuex';
 // yearPicker, monthPicker, disabled ,yearRange, autoApply
 
 const activeDayInterval = ref(0)
+const date__gte = ref(new Date())
 const date = ref(new Date())
 const isYear = ref(false)
 const isMonth = ref(false)

@@ -38,7 +38,8 @@
             <div class="date-at"
                 v-show="interval_date[activeDayInterval] !== 'hours' && interval_date[activeDayInterval] !== 'days'">
                 <Datepicker v-model="date__lt" @update:modelValue="updateModelValue" :enableTimePicker="false" autoApply
-                    locale="ru-Ru" :clearable="false" :month-picker="isMonth" :disable-month-year-select="(isDays)">
+                    locale="ru-Ru" :clearable="false" :month-picker="isMonth" :disable-month-year-select="(isDays)"
+                    :min-date="new Date(`${date__gte.getFullYear()}-${date__gte.getMonth() + 1}-${date__gte.getDate() + 1}`)">
                     <template #input-icon>
                         <svg></svg>
                     </template>
