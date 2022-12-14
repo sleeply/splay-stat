@@ -52,13 +52,16 @@
                 <th> Web </th>
                 <th> Узбекистан </th>
                 <th> Другие Страны </th>
+                <!-- <th> Посещение </th> -->
             </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            <template v-for="item in Object.keys(ss_table)" :key="item">
+                <tr>
+                    <td> {{ item.split("_")[0] }} </td>
+                    <td> {{ item.split("_")[1] }} </td>
+                    <td> {{ ss_table[item].UZ }} </td>
+                    <td>{{ ss_table[item].other }} </td>
+                </tr>
+            </template>
 
         </table>
         <div class="footer">
@@ -96,101 +99,87 @@
 </template>
 
 <script setup>
-/* eslint-disable */
 import DropDown from '@/components/DropDown.vue';
-import { interval_date, interval_visits } from '@/utils/constants'
+import { interval_date } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
-import { ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import { useStore } from 'vuex';
 
 // yearPicker, monthPicker, disabled ,yearRange, autoApply
 
 const activeDayInterval = ref(0)
-const activeVisit = ref(0)
 const date = ref(new Date())
 const isYear = ref(false)
 const isMonth = ref(false)
 const isDays = ref(false)
 const picker = ref()
+const store = useStore()
 
 const getDay = (prop) => {
-    console.log(interval_date[prop])
     activeDayInterval.value = prop
     isYear.value = false
     isMonth.value = false
-    if (activeDayInterval.value == 2) {
-        isYear.value = true
-    }
-
-    if (activeDayInterval.value == 3) {
-        isMonth.value = true
-    }
+    isDays.value = false
 }
 
-const getVisits = (prop) => {
-    activeVisit.value = prop
+const list = computed(() => {
+    let devices = store.getters["device/devices"]
+
+    return {
+        devices
+    }
+})
+
+const ss_table = ref({})
+
+const filterThis = () => {
+    Object.keys(ss_table.value).forEach((key) => {
+        delete ss_table.value[key];
+    });
+    for (const item of list.value.devices) {
+        let my_key = `${item.os_type}_${item.device_type}`
+        try {
+
+            if (my_key in ss_table.value) {
+                if (item.country === "UZ") {
+                    ss_table.value[my_key].UZ += item.sessions
+                }
+                else {
+                    ss_table.value[my_key].other += item.sessions
+                }
+            }
+            else {
+                ss_table.value = {
+                    ...ss_table.value,
+                    [my_key]: {
+                        UZ: item.country === "UZ" ? item.sessions : 0,
+                        other: item.country !== "UZ" ? item.sessions : 0
+                    }
+                }
+            }
+        }
+        catch (e) {
+            console.log('err', e)
+        }
+    }
+
+    console.log(ss_table.value)
 }
 
-// Table
-const fakeList = [
-    {
-        country: 'Узбекистан',
-        region: 'Ташкентская обл.',
-        city: 'Ташкент',
-        sessions: '100 000 000 ',
-        Accounts: '100 000 000',
-        devices: 'Ios',
-    },
-    {
-        country: 'Узбекистан',
-        region: 'Ташкентская обл.',
-        city: 'Ташкент',
-        sessions: '100 000 000 ',
-        Accounts: '100 000 000',
-        devices: 'Ios',
-    },
-    {
-        country: 'Узбекистан',
-        region: 'Ташкентская обл.',
-        city: 'Ташкент',
-        sessions: '100 000 000 ',
-        Accounts: '100 000 000',
-        devices: 'Ios',
-    },
-    {
-        country: 'Узбекистан',
-        region: 'Ташкентская обл.',
-        city: 'Ташкент',
-        sessions: '100 000 000 ',
-        Accounts: '100 000 000',
-        devices: 'Ios',
-    },
-    {
-        country: 'Узбекистан',
-        region: 'Ташкентская обл.',
-        city: 'Ташкент',
-        sessions: '100 000 000 ',
-        Accounts: '100 000 000',
-        devices: 'Ios',
-    },
-    {
-        country: 'Узбекистан',
-        region: 'Ташкентская обл.',
-        city: 'Ташкент',
-        sessions: '100 000 000 ',
-        Accounts: '100 000 000',
-        devices: 'Ios',
-    },
-    {
-        country: 'Узбекистан',
-        region: 'Ташкентская обл.',
-        city: 'Ташкент',
-        sessions: '100 000 000 ',
-        Accounts: '100 000 000',
-        devices: 'Ios',
-    },
-]
+
+const getData = () => {
+    store.dispatch("device/getDevices", {
+        cb: () => {
+            filterThis()
+        }
+    })
+}
+
+onMounted(() => {
+    getData()
+})
 </script>
 
 <style lang="scss">
@@ -343,5 +332,4 @@ const fakeList = [
         }
     }
 }
-
 </style>
