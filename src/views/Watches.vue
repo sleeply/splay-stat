@@ -46,7 +46,7 @@
                                 </Icon>
                             </template>
                         </DropDown>
-                        <DropDown class="interval-days-drop" :items="list.sponsors" :active="activeSponsor"
+                        <!-- <DropDown class="interval-days-drop" :items="list.sponsors" :active="activeSponsor"
                             @set-active="handleFilterSponsors">
                             <template #active="{ active }">
                                 <p class="text20 semi-bold" v-if="activeSponsor !== -1">{{ active?.name }} </p>
@@ -81,7 +81,7 @@
                                     </svg>
                                 </Icon>
                             </template>
-                        </DropDown>
+                        </DropDown> -->
                         <div class="area-name">
                             <input v-model="searchQuery" @input="handleSearch" type="text" class="semi-bold text20"
                                 :placeholder="$t('watches.name')">
@@ -182,22 +182,8 @@
                             <div :style="{
                                 background: sub.color
                             }"></div>
-                            <span class="text20 semi-bold">Премиум</span>
+                            <span class="text20 semi-bold"> {{ sub?.title }} </span>
                         </div>
-
-                        <!-- <div class="item premium">
-                            <div class="div"></div>
-                            <span class="text20 semi-bold">Премиум</span>
-                        </div>
-                        <div class="item all">
-                            <div class="div"></div>
-                            <span class="text20 semi-bold">Относится к обеим</span>
-                        </div>
-                        <div class="item standart">
-                            <div class="div"></div>
-                            <span class="text20 semi-bold">Стандарт</span>
-                        </div> -->
-
                     </div>
                 </div>
             </div>
@@ -343,7 +329,7 @@
                     <span v-else>{{ $t("no_data") }} </span>
                 </td>
                 <td>
-                    <span v-if="item?.average_total > 0">{{ handleHms(item?.average_total) }}</span>
+                    <span v-if="item?.average_total > 0">{{ handleHms(item?.average_total) }}  </span>
                     <span v-else>{{ $t("no_data") }} </span>
                 </td>
                 <td>
@@ -605,6 +591,7 @@ getData()
     .filters {
         display: flex;
         flex-wrap: wrap;
+        align-items: flex-start;
         gap: 74px;
         width: 100%;
         margin-bottom: 42px;

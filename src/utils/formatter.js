@@ -84,16 +84,19 @@ export function useFormatter() {
     // const timeObg =
     const h = Math.floor(value / 3600);
     const m = Math.floor((value % 3600) / 60);
+    const s = Math.floor((value % 3600) % 60);
     if (h !== 0) {
       switch (format) {
         default:
           return `${h.toString().slice(-2) + i18n.global.t("hms.h")}. ${
             m.toString().slice(-2) + i18n.global.t("hms.m")
-          }.`;
+          }. `;
       }
     } else {
       // return ("0" + m).slice(-2) + i18n.global.t(`hms.m`);
-      return m.toString().slice(-2) + i18n.global.t(`hms.m`);
+      return `${m.toString().slice(-2) + i18n.global.t(`hms.m`)} ${
+        s.toString().slice(-2) + i18n.global.t("hms.s")
+      }`;
     }
   };
 
@@ -125,5 +128,11 @@ export function useFormatter() {
     return arr;
   };
 
-  return { handleDate, handleTime, capitalize, moveArrayItemToNewIndex, handleHms };
+  return {
+    handleDate,
+    handleTime,
+    capitalize,
+    moveArrayItemToNewIndex,
+    handleHms,
+  };
 }
