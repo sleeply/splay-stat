@@ -126,8 +126,8 @@ const filteredDays = ref([])
 
 const date__gte = ref(new Date())
 const date__lt = ref()
-date__gte.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
-date__lt.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+// date__gte.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+// date__lt.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
 
 
 const getUtcTime = (date, day) => {
@@ -151,9 +151,12 @@ const getDay = async (prop) => {
         view_period.value = "months"
         isMonth.value = true
         day = 1
-        date__gte.value = new Date(year, 0, day)
-        date__lt.value = new Date()
-        getData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
+        let start_at = new Date(year, 0, day)
+        let end_at = new Date()
+        // date__gte.value = "2022-12-01"
+        // date__gte.value = new Date(year, 0, day)
+        // date__lt.value = new Date()
+        getData(getUtcTime(start_at, day), getUtcTime(end_at))
     }
     else if (interval_date[prop] === 'days_period') {
         period.value = 'days'
@@ -166,9 +169,10 @@ const getDay = async (prop) => {
         period.value = "days"
         view_period.value = "days"
         day = 1
-        date__gte.value = new Date(year, month, day)
-        date__gte.value = new Date()
+        date__gte.value = new Date(year, month)
+        // date__gte.value = new Date()
         date__lt.value = new Date(year, month + 1, 0)
+        console.log(date__gte.value)
         getData(getUtcTime(date__gte.value, day), getUtcTime(date__lt.value))
     }
     else if (interval_date[prop] === 'hours') {
@@ -225,8 +229,7 @@ const updateModelValue = (date) => {
     let year = new Date(date__gte.value).getFullYear()
     let day = 1
     if (view_period.value === "days") {
-        date__gte.value = new Date(year, month, day)
-        date__lt.value = new Date(year, month + 1, day)
+        date__lt.value = new Date(year, month + 1, 0)
     }
     else if (view_period.value === 'days_period') {
         pageSize.value = 1000
