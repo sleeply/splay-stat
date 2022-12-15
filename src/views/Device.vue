@@ -28,6 +28,13 @@
                         </template>
                     </Datepicker>
                 </div> -->
+
+                <div class="date-at">
+                    <input v-model="date__gte" @input="refreshData" type="date">
+                </div>
+                <div class="date-at">
+                    <input v-model="date__lt" @input="refreshData" type="date" :min="date__gte">
+                </div>
             </div>
         </div>
 
@@ -140,9 +147,16 @@ const list = computed(() => {
     }
 })
 
+// const getUtcTime = (date, day) => {
+//     let getDay = day ? day : date.getDate()
+//     let dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
+//     return dateStr
+// }
+
 const getUtcTime = (date, day) => {
-    let getDay = day ? day : date.getDate()
-    let dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
+    let my_date = new Date(date)
+    let getDay = day ? day : my_date.getDate()
+    let dateStr = my_date.getFullYear() + "-" + (my_date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
     return dateStr
 }
 
