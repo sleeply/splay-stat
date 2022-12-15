@@ -11,7 +11,7 @@
 
             <div class="filters">
                 <div class="date-at" style="position: relative;">
-                    <Datepicker ref="picker" v-model="date__gte" @update:model-value="refreshData"
+                    <Datepicker ref="picker" v-model="date__gte" @update:model-value="refreshData" :clearable="false"
                         :enableTimePicker="false" autoApply locale="ru-Ru"
                         :min-date="new Date(`${date__gte.getFullYear()}-${date__gte.getMonth() + 1}-4`)">
                         <template #input-icon>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="date-at" style="position: relative;">
                     <Datepicker v-model="date__lt" @update:model-value="refreshData" :enableTimePicker="false" autoApply
-                        locale="ru-Ru"
+                        :clearable="false" locale="ru-Ru"
                         :min-date="new Date(`${date__gte.getFullYear()}-${date__gte.getMonth() + 1}-${date__gte.getDate() + 1}`)">
                         <template #input-icon>
                             <svg></svg>

@@ -236,23 +236,18 @@ table {
 }
 
 // datepicker
-.dp__icon {
-  // display: none;
-}
-
 .dp__input {
-  // padding: 0 !important;
-  border: none;
-  width: 182px;
+  border: none !important;
+  width: 182px !important;
   font-size: 20px !important;
   line-height: 38px !important;
-  border-radius: 7px;
+  border-radius: 7px !important;
   padding-left: 23px !important;
   padding-right: 11px !important;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 .dp__input_icon_pad {
-  height: 56px;
+  height: 56px !important;
 }
