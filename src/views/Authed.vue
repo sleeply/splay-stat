@@ -26,26 +26,6 @@
                     </Icon>
                 </template>
             </DropDown>
-            <!-- <div class="date-at" style="position: relative;"> -->
-            <!-- <Datepicker v-model="date__gte" @update:modelValue="updateModelValue" :enableTimePicker="false"
-                    autoApply locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)"
-                    :month-picker="isMonth">
-                    <template #input-icon>
-                        <svg></svg>
-                    </template>
-                </Datepicker>
-            </div>
-            <div class="date-at"
-                v-show="interval_date[activeDayInterval] !== 'hours' && interval_date[activeDayInterval] !== 'days'">
-                <Datepicker v-model="date__lt" @update:modelValue="updateModelValue" :enableTimePicker="false" autoApply
-                    locale="ru-Ru" :clearable="false" :month-picker="isMonth" :disable-month-year-select="(isDays)"
-                    :min-date="new Date(`${date__gte.getFullYear()}-${date__gte.getMonth() + 1}-${date__gte.getDate() + 1}`)">
-                    <template #input-icon>
-                        <svg></svg>
-                    </template>
-                </Datepicker> -->
-            <!-- <Datepicker v-model="date__gte" :disabled-dates=""/> -->
-            <!-- </div> -->
             <div class="date-at">
                 <input v-model="date__gte" @input="updateModelValue" :type="isMonth ? 'month' : 'date'"
                     onkeydown="return false">
@@ -101,10 +81,6 @@ import Icon from '@/components/Icon.vue';
 import DropDown from '@/components/DropDown.vue';
 import Chart from "@/components/Chart.vue"
 
-// import Datepicker from 'vue3-datepicker'
-// import Datepicker from '@vuepic/vue-datepicker';
-// import '@vuepic/vue-datepicker/dist/main.css'
-// import Datepicker from 'vue3-date-time-picker';
 import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { hours } from '@/utils/constants';
@@ -150,11 +126,6 @@ const filteredDays = ref([])
 const date__gte = ref(new Date())
 const date__lt = ref(new Date())
 
-// const getUtcTime = (date, day) => {
-//     let getDay = day ? day : date.getDate()
-//     let dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
-//     return dateStr
-// }
 const getUtcTime = (date, day) => {
     let my_date = new Date(date)
     let getDay = day ? day : my_date.getDate()
