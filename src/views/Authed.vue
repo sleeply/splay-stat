@@ -28,7 +28,8 @@
             </DropDown>
             <div class="date-at">
                 <input v-model="date__gte" @input="updateModelValue" :type="isMonth ? 'month' : 'date'"
-                    onkeydown="return false">
+                    onkeydown="return false"
+                    :max="`${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`">
             </div>
             <div class="date-at"
                 v-show="interval_date[activeDayInterval] !== 'hours' && interval_date[activeDayInterval] !== 'days'">
@@ -124,7 +125,10 @@ const view_period = ref("hours")
 const filteredDays = ref([])
 
 const date__gte = ref(new Date())
-const date__lt = ref(new Date())
+const date__lt = ref()
+date__gte.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+date__lt.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+
 
 const getUtcTime = (date, day) => {
     let my_date = new Date(date)

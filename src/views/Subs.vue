@@ -44,7 +44,9 @@
                 </Datepicker>
             </div> -->
             <div class="date-at">
-                <input v-model="date__gte" @input="updateModelValue" :type="isMonth ? 'month' : 'date'" onkeydown="return false">
+                <input v-model="date__gte" @input="updateModelValue" :type="isMonth ? 'month' : 'date'"
+                    onkeydown="return false"
+                    :max="`${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`">
             </div>
         </div>
 
@@ -116,8 +118,11 @@ const period = ref("hours")
 
 
 const activeDayInterval = ref(0)
-const date__gte = ref(new Date())
-const date__lt = ref(new Date())
+const date__gte = ref()
+const date__lt = ref()
+date__gte.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+date__lt.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+
 
 const getDay = (prop) => {
     isMonth.value = false

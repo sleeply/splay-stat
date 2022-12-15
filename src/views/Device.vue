@@ -13,16 +13,14 @@
             <div class="filters">
                 <div class="date-at">
                     <input v-model="date__gte" @input="refreshData" min="2022-12-04" type="date"
-                        onkeydown="return false" lang="ru-Ru">
+                        onkeydown="return false"
+                        :max="`${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`">
                 </div>
                 <div class="date-at">
-                    <input v-model="date__lt" @input="refreshData" type="date" :min="`${new Date(date__gte).getFullYear()}-${new Date(date__gte).getMonth() + 1}-${new
-                    Date(date__gte).getDate() < 10 ? '0' + new Date(date__gte).getDate() : new Date(date__gte).getDate()}`"
-                        onkeydown="return false">
+                    <input v-model="date__lt" @input="refreshData" type="date"
+                        :min="`${new Date(date__gte).getFullYear()}-${new Date(date__gte).getMonth() + 1}-${new
+                        Date(date__gte).getDate() < 10 ? '0' + new Date(date__gte).getDate() : new Date(date__gte).getDate()}`" onkeydown="return false">
                 </div>
-                {{ date__gte }}
-                {{ date__lt }}
-
             </div>
         </div>
         <!-- eslint-enable -->
