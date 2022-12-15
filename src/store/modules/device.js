@@ -7,11 +7,18 @@ const getters = {
   devices: (state) => state.devices,
 };
 const actions = {
-  getDevices({ commit }, { cb = () => {} }) {
-    api.apiDevice.getDevices((data) => {
-      commit("setDevices", data);
-      cb();
-    });
+  getDevices(
+    { commit },
+    { cb = () => {}, created_at__gte = "", created_at__lt = "" }
+  ) {
+    api.apiDevice.getDevices(
+      (data) => {
+        commit("setDevices", data);
+        cb();
+      },
+      created_at__gte,
+      created_at__lt
+    );
   },
 };
 const mutations = {
