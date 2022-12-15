@@ -173,9 +173,13 @@ import Icon from '@/components/Icon.vue';
 
             a {
                 display: block;
-                cursor: pointer;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
 
                 .ico-size {
+
                     svg {
                         path {
                             fill: var(--basic-grey);

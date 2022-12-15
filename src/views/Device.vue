@@ -30,10 +30,10 @@
                 </div> -->
 
                 <div class="date-at">
-                    <input v-model="date__gte" @input="refreshData" type="date">
+                    <input v-model="date__gte" @input="refreshData" type="date" onkeydown="return false" lang="ru-Ru">
                 </div>
                 <div class="date-at">
-                    <input v-model="date__lt" @input="refreshData" type="date" :min="date__gte">
+                    <input v-model="date__lt" @input="refreshData" type="date" :min="date__gte" onkeydown="return false">
                 </div>
             </div>
         </div>

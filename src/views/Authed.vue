@@ -47,11 +47,13 @@
             <!-- <Datepicker v-model="date__gte" :disabled-dates=""/> -->
             <!-- </div> -->
             <div class="date-at">
-                <input v-model="date__gte" @input="updateModelValue" :type="isMonth ? 'month' : 'date'">
+                <input v-model="date__gte" @input="updateModelValue" :type="isMonth ? 'month' : 'date'"
+                    onkeydown="return false">
             </div>
             <div class="date-at"
                 v-show="interval_date[activeDayInterval] !== 'hours' && interval_date[activeDayInterval] !== 'days'">
-                <input v-model="date__lt" @input="updateModelValue" :type="isMonth ? 'month' : 'date'" :min="date__gte">
+                <input v-model="date__lt" @input="updateModelValue" :type="isMonth ? 'month' : 'date'" :min="date__gte"
+                    onkeydown="return false">
             </div>
         </div>
         <template v-if="(Object.keys(users.counts[0]).length > 0)">

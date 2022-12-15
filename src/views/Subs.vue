@@ -44,7 +44,7 @@
                 </Datepicker>
             </div> -->
             <div class="date-at">
-                <input v-model="date__gte" @input="updateModelValue" :type="isMonth ? 'month' : 'date'">
+                <input v-model="date__gte" @input="updateModelValue" :type="isMonth ? 'month' : 'date'" onkeydown="return false">
             </div>
         </div>
 
