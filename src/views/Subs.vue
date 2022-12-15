@@ -26,7 +26,7 @@
                     </Icon>
                 </template>
             </DropDown> -->
-            <div class="date-at" style="position: relative;">
+            <!-- <div class="date-at" style="position: relative;">
                 <Datepicker v-model="date__gte" @update:modelValue="updateModelValue" :enableTimePicker="false"
                     autoApply locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)"
                     :month-picker="isMonth">
@@ -42,7 +42,7 @@
                         <svg></svg>
                     </template>
                 </Datepicker>
-            </div>
+            </div> -->
         </div>
 
         <table>
@@ -96,8 +96,8 @@
 <script setup>
 /* eslint-disable */
 import DropDown from '@/components/DropDown.vue';
-import Datepicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+// import Datepicker from '@vuepic/vue-datepicker';
+// import '@vuepic/vue-datepicker/dist/main.css'
 import { interval_date } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
 import { computed, ref } from 'vue';

@@ -55,7 +55,7 @@
                         </Icon>
                     </template>
                 </DropDown>
-                <div class="date-at" style="position: relative;">
+                <!-- <div class="date-at" style="position: relative;">
                     <Datepicker ref="picker" v-model="date" :year-picker="isYear" :month-picker="isMonth"
                         :enableTimePicker="false" autoApply locale="ru-Ru">
                     </Datepicker>
@@ -64,7 +64,7 @@
                     <Datepicker ref="picker" v-model="date" :year-picker="isYear" :month-picker="isMonth"
                         :enableTimePicker="false" autoApply locale="ru-Ru">
                     </Datepicker>
-                </div>
+                </div> -->
             </div>
         </div>
         <RegionsChart />
@@ -116,8 +116,8 @@ import DropDown from '@/components/DropDown.vue';
 import { interval_date, regions } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
 import { ref } from 'vue';
-import Datepicker from "@vuepic/vue-datepicker";
-import "@vuepic/vue-datepicker/dist/main.css";
+// import Datepicker from "@vuepic/vue-datepicker";
+// import "@vuepic/vue-datepicker/dist/main.css";
 import { useLanguage } from "@/utils/language"
 import RegionsChart from "@/components/pages/RegionsChart.vue"
 

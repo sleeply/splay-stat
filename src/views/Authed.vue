@@ -26,8 +26,8 @@
                     </Icon>
                 </template>
             </DropDown>
-            <div class="date-at" style="position: relative;">
-                <Datepicker v-model="date__gte" @update:modelValue="updateModelValue" :enableTimePicker="false"
+            <!-- <div class="date-at" style="position: relative;"> -->
+            <!-- <Datepicker v-model="date__gte" @update:modelValue="updateModelValue" :enableTimePicker="false"
                     autoApply locale="ru-Ru" :clearable="false" :disable-month-year-select="(isDays)"
                     :month-picker="isMonth">
                     <template #input-icon>
@@ -43,7 +43,15 @@
                     <template #input-icon>
                         <svg></svg>
                     </template>
-                </Datepicker>
+                </Datepicker> -->
+            <!-- <Datepicker v-model="date__gte" :disabled-dates=""/> -->
+            <!-- </div> -->
+            <div class="date-at">
+                <input v-model="date__gte" @input="updateModelValue" :type="isMonth ? 'month' : 'date'">
+            </div>
+            <div class="date-at"
+                v-show="interval_date[activeDayInterval] !== 'hours' && interval_date[activeDayInterval] !== 'days'">
+                <input v-model="date__lt" @input="updateModelValue" :type="isMonth ? 'month' : 'date'" :min="date__gte">
             </div>
         </div>
         <template v-if="(Object.keys(users.counts[0]).length > 0)">
@@ -84,13 +92,17 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import { interval_date } from '@/utils/constants'
 import { useFormatter } from '@/utils/formatter'
 import Icon from '@/components/Icon.vue';
 import DropDown from '@/components/DropDown.vue';
 import Chart from "@/components/Chart.vue"
-import Datepicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+
+// import Datepicker from 'vue3-datepicker'
+// import Datepicker from '@vuepic/vue-datepicker';
+// import '@vuepic/vue-datepicker/dist/main.css'
+// import Datepicker from 'vue3-date-time-picker';
 import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { hours } from '@/utils/constants';
@@ -110,7 +122,6 @@ const users = computed(() => {
             counts[0].push(item.counts)
             selecTimeCount += item.counts
         }
-        console.log(counts)
     }
     return {
         users,
@@ -137,9 +148,15 @@ const filteredDays = ref([])
 const date__gte = ref(new Date())
 const date__lt = ref(new Date())
 
+// const getUtcTime = (date, day) => {
+//     let getDay = day ? day : date.getDate()
+//     let dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
+//     return dateStr
+// }
 const getUtcTime = (date, day) => {
-    let getDay = day ? day : date.getDate()
-    let dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
+    let my_date = new Date(date)
+    let getDay = day ? day : my_date.getDate()
+    let dateStr = my_date.getFullYear() + "-" + (my_date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
     return dateStr
 }
 
@@ -226,9 +243,9 @@ const getData = (start_at, end_at) => {
     })
 }
 
-const updateModelValue = () => {
-    let month = date__gte.value.getMonth()
-    let year = date__gte.value.getFullYear()
+const updateModelValue = (date) => {
+    let month = new Date(date__gte.value).getMonth()
+    let year = new Date(date__gte.value).getFullYear()
     let day = 1
     if (view_period.value === "days") {
         date__gte.value = new Date(year, month, day)
@@ -236,16 +253,18 @@ const updateModelValue = () => {
     }
     else if (view_period.value === 'days_period') {
         pageSize.value = 1000
-        getData(getUtcTime(date__gte.value), getUtcTime(date__lt.value))
+        let newDay = new Date(date__lt.value).getDate() + 1
+        getData(getUtcTime(date__gte.value), getUtcTime(date__lt.value, newDay))
+        return
     }
     else if (view_period.value === 'months') {
-        let endMonth = date__lt.value.getMonth() + 1
-        date__lt.value = new Date(year, endMonth, 0)
+        let endMonth = new Date(date__lt.value).getMonth() + 1
+        let newDate = new Date(year, endMonth, 0)
+        getData(getUtcTime(date__gte.value), getUtcTime(newDate))
     }
     else if (view_period.value === "hours") {
-        console.log(date__gte.value)
         date__lt.value = ''
-        getData(getUtcTime(date__gte.value), getUtcTime(date__gte.value, date__gte.value.getDate() + 1))
+        getData(getUtcTime(date__gte.value), getUtcTime(date__gte.value, new Date(date__gte.value).getDate() + 1))
         return
     }
     getData(getUtcTime(date__gte.value), getUtcTime(date__lt.value))

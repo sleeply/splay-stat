@@ -10,7 +10,7 @@
             </div>
 
             <div class="filters">
-                <div class="date-at" style="position: relative;">
+                <!-- <div class="date-at" style="position: relative;">
                     <Datepicker ref="picker" v-model="date__gte" @update:model-value="refreshData" :clearable="false"
                         :enableTimePicker="false" autoApply locale="ru-Ru"
                         :min-date="new Date(`${date__gte.getFullYear()}-${date__gte.getMonth() + 1}-4`)">
@@ -27,7 +27,7 @@
                             <svg></svg>
                         </template>
                     </Datepicker>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -84,10 +84,11 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import Icon from '@/components/Icon.vue';
 import { computed, onMounted, ref } from 'vue';
-import Datepicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+// import Datepicker from '@vuepic/vue-datepicker';
+// import '@vuepic/vue-datepicker/dist/main.css'
 import { useStore } from 'vuex';
 
 const date__gte = ref(new Date())

@@ -34,7 +34,7 @@
                         </Icon>
                     </template>
                 </DropDown>
-                <div class="date-at" style="position: relative;">
+                <!-- <div class="date-at" style="position: relative;">
                     <Datepicker ref="picker" v-model="date" :year-picker="isYear" :month-picker="isMonth"
                         :enableTimePicker="false" autoApply locale="ru-Ru">
                     </Datepicker>
@@ -42,7 +42,7 @@
                 <div class="date-at" style="position: relative;" v-if="interval_date[activeDayInterval] !== 'day'">
                     <Datepicker v-model="date" :year-picker="isYear" :month-picker="isMonth" :enableTimePicker="false"
                         autoApply locale="ru-Ru" :clearable="false" />
-                </div>
+                </div> -->
                 <DropDown class="interval-visits-drop" :items="interval_visits" @setActive="getVisits"
                     :active="activeVisit">
                     <template #active="{ active }">
@@ -138,8 +138,8 @@ import DropDown from '@/components/DropDown.vue';
 import { interval_date, interval_visits } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
 import { ref } from 'vue';
-import Datepicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+// import Datepicker from '@vuepic/vue-datepicker';
+// import '@vuepic/vue-datepicker/dist/main.css'
 
 // yearPicker, monthPicker, disabled ,yearRange, autoApply
 

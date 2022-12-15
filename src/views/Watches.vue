@@ -376,8 +376,8 @@ import DropDown from '@/components/DropDown.vue';
 import { interval_date } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
 import { computed, ref } from 'vue';
-import Datepicker from "@vuepic/vue-datepicker";
-import "@vuepic/vue-datepicker/dist/main.css";
+// import Datepicker from "@vuepic/vue-datepicker";
+// import "@vuepic/vue-datepicker/dist/main.css";
 import { useStore } from 'vuex';
 import { useFormatter } from "@/utils/formatter";
 
