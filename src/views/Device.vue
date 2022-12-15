@@ -90,8 +90,6 @@ import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { useStore } from 'vuex';
 
-// yearPicker, monthPicker, disabled ,yearRange, autoApply
-
 const date__gte = ref(new Date())
 const date__lt = ref(new Date())
 const picker = ref()
@@ -146,7 +144,6 @@ const getUtcTime = (date, day) => {
     let dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
     return dateStr
 }
-
 
 const getData = () => {
     store.dispatch("device/getDevices", {
