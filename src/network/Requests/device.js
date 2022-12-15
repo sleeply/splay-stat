@@ -16,7 +16,7 @@ export async function getDevices(cb, created_at__gte, created_at__lt) {
 }
 
 export async function getDevicesTotal(cb) {
-  fetch(`${urlV1}/total/?model_type=account_signup`, {
+  fetch(`${urlV1}/total/?model_type=session_types`, {
     method: "GET",
   })
     .then((res) => {

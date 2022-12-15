@@ -61,7 +61,7 @@
                 </Icon>
                 <div class="content">
                     <h1 class="text16">{{ $t("device.count_of_visits") }}</h1>
-                    <span class="text25 extra-bold">{{ total }}</span>
+                    <span class="text25 extra-bold">{{ list.total }}</span>
                 </div>
             </div>
             <div class="count">
