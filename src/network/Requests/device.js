@@ -14,3 +14,15 @@ export async function getDevices(cb, created_at__gte, created_at__lt) {
       cb(json);
     });
 }
+
+export async function getDevicesTotal(cb) {
+  fetch(`${urlV1}/total/?model_type=account_signup`, {
+    method: "GET",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      cb(json["count"]);
+    });
+}

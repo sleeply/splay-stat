@@ -61,7 +61,7 @@
                 </Icon>
                 <div class="content">
                     <h1 class="text16">{{ $t("device.count_of_visits") }}</h1>
-                    <span class="text25 extra-bold">122 648</span>
+                    <span class="text25 extra-bold">{{ total }}</span>
                 </div>
             </div>
             <div class="count">
@@ -99,6 +99,7 @@ const store = useStore()
 
 const list = computed(() => {
     let devices = store.getters["device/devices"]
+    let total = store.getters["device/total"]
     let s_table = {}
     let count = 0
     if (devices.length > 0) {
@@ -135,7 +136,8 @@ const list = computed(() => {
     return {
         devices,
         s_table,
-        count
+        count,
+        total
     }
 })
 
@@ -148,9 +150,10 @@ const getUtcTime = (date, day) => {
 
 const getData = () => {
     store.dispatch("device/getDevices", {
-        cb: () => {
-        }
+        cb: () => { }
     })
+
+    store.dispatch("device/getDevicesTotal", {})
 }
 
 const refreshData = () => {
