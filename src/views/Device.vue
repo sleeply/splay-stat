@@ -1,7 +1,7 @@
 <template>
     <div class="stats-countries s-container">
         <div class="page-title">
-            {{ $t("countries.title") }}
+            {{ $t("device.title") }}
         </div>
 
         <div class="filters-container">
@@ -9,99 +9,40 @@
                 {{ $t("countries.filter-title") }}
             </div>
 
+            <!-- eslint-disable -->
             <div class="filters">
-                <DropDown class="interval-days-drop" :items="interval_date" @setActive="getDay"
-                    :active="activeDayInterval">
-                    <template #active="{ active }">
-                        <p class="text20 semi-bold">{{ $t(`interval_date.${active}`) }} </p>
-                        <Icon class="drop-ico">
-                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path opacity="0.5" d="M0.905273 1.12866L4.94824 5.04761L8.99121 1.12866" stroke="black"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </Icon>
-                    </template>
-                    <template #list="{ item }">
-                        <span class=" semi-bold"> {{ $t(`interval_date.${item}`) }}</span>
-                        <Icon class="ico-size">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M5.76246 10.5859L12.6311 3.71724C12.9435 3.40482 13.45 3.40482 13.7625 3.71724C14.0749 4.02966 14.0749 4.53619 13.7625 4.84861L5.76246 12.8486L1.76246 8.84861C1.45004 8.53619 1.45004 8.02966 1.76246 7.71724C2.07488 7.40482 2.58141 7.40482 2.89383 7.71724L5.76246 10.5859Z"
-                                    fill="white" />
-                            </svg>
-                        </Icon>
-                    </template>
-                </DropDown>
-                <div class="date-at" style="position: relative;">
-                    <Datepicker ref="picker" v-model="date" :year-picker="isYear" :month-picker="isMonth"
-                        :enableTimePicker="false" autoApply locale="ru-Ru">
-                        <!-- <template #action-select>
-
-                            <p class="custom-select" @click="selectDate">awdawd</p>
-                        </template> -->
-                    </Datepicker>
+                <div class="date-at">
+                    <input v-model="date__gte" @input="refreshData" min="2022-12-04" type="date"
+                        onkeydown="return false"
+                        :max="`${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`">
                 </div>
-                <div class="date-at" style="position: relative;" v-if="interval_date[activeDayInterval] !== 'day'">
-                    <Datepicker v-model="date" :year-picker="isYear" :month-picker="isMonth" :enableTimePicker="false"
-                        autoApply locale="ru-Ru" :clearable="false" />
+                <div class="date-at">
+                    <input v-model="date__lt" @input="refreshData" type="date"
+                        :min="`${new Date(date__gte).getFullYear()}-${new Date(date__gte).getMonth() + 1}-${new
+                        Date(date__gte).getDate() < 10 ? '0' + new Date(date__gte).getDate() : new Date(date__gte).getDate()}`" onkeydown="return false">
                 </div>
-                <DropDown class="interval-visits-drop" :items="interval_visits" @setActive="getVisits"
-                    :active="activeVisit">
-                    <template #active="{ active }">
-                        <p class="text20 semi-bold"> {{ $t(`interval_visits.${active}`) }} </p>
-                        <Icon class="drop-ico">
-                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path opacity="0.5" d="M0.905273 1.12866L4.94824 5.04761L8.99121 1.12866" stroke="black"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </Icon>
-                    </template>
-                    <template #list="{ item }">
-                        <span class="semi-bold">{{ $t(`interval_visits.${item}`) }}</span>
-                        <Icon class="ico-size" :style="{
-                        
-                        }">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M5.76246 10.5859L12.6311 3.71724C12.9435 3.40482 13.45 3.40482 13.7625 3.71724C14.0749 4.02966 14.0749 4.53619 13.7625 4.84861L5.76246 12.8486L1.76246 8.84861C1.45004 8.53619 1.45004 8.02966 1.76246 7.71724C2.07488 7.40482 2.58141 7.40482 2.89383 7.71724L5.76246 10.5859Z"
-                                    fill="white" />
-                            </svg>
-                        </Icon>
-                    </template>
-                </DropDown>
             </div>
         </div>
-        <table cellspacing="0" cellpadding="20">
-            <tr>
-                <th class="text18">Страна</th>
-                <th class="text18">Регион</th>
-                <th class="text18">Город</th>
-                <th class="text18">Сессии</th>
-                <th class="text18">Аккаунты</th>
-                <th class="text18">Девайсы</th>
-            </tr>
-            <tr v-for="(item, index) in fakeList" :key="index">
-                <td class="text20"> {{ item.country }} </td>
-                <td class="text20"> {{ item.region }} </td>
-                <td class="text20"> {{ item.city }} </td>
-                <td class="text20"> {{ item.sessions }} </td>
-                <td class="text20"> {{ item.Accounts }} </td>
-                <td class="text20"> {{ item.devices }} </td>
-            </tr>
-            <tr class="total">
-                <td class="text20">Суммирование:</td>
-                <td class="text20">0</td>
-                <td class="text20">0</td>
-                <td class="text20">100 000 000</td>
-                <td class="text20">100 000 000</td>
-                <td class="text20">Ios</td>
-            </tr>
-        </table>
+        <!-- eslint-enable -->
 
+        <table>
+            <tr>
+                <th> OS девайс </th>
+                <th> Web </th>
+                <th> Узбекистан </th>
+                <th> Другие Страны </th>
+                <!-- <th> Посещение </th> -->
+            </tr>
+            <template v-for="item in Object.keys(list.s_table)" :key="item">
+                <tr>
+                    <td> {{ item.split("_")[0] }} </td>
+                    <td> {{ item.split("_")[1] }} </td>
+                    <td> {{ list.s_table?.[item].UZ }} </td>
+                    <td>{{ list.s_table?.[item]?.other }} </td>
+                </tr>
+            </template>
+
+        </table>
         <div class="footer">
             <div class="count">
                 <Icon class="count-icon">
@@ -113,8 +54,8 @@
                     </svg>
                 </Icon>
                 <div class="content">
-                    <h1 class="text16">{{ $t("countries.count_of_visits") }}</h1>
-                    <span class="text25 extra-bold">122 648</span>
+                    <h1 class="text16">{{ $t("device.count_of_visits") }}</h1>
+                    <span class="text25 extra-bold">{{ list.total }}</span>
                 </div>
             </div>
             <div class="count">
@@ -127,8 +68,8 @@
                     </svg>
                 </Icon>
                 <div class="content">
-                    <h1 class="text16 ">{{ $t("countries.selectedTimeVisits") }}</h1>
-                    <span class="text25 extra-bold">122 648</span>
+                    <h1 class="text16 ">{{ $t("device.selectedTimeVisits") }}</h1>
+                    <span class="text25 extra-bold"> {{ list.count }} </span>
                 </div>
             </div>
         </div>
@@ -138,125 +79,105 @@
 
 <script setup>
 /* eslint-disable */
-import DropDown from '@/components/DropDown.vue';
-import { interval_date, interval_visits } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
-import { ref } from 'vue';
-import Datepicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+import { useFormatter } from '@/utils/formatter';
+import { computed, onMounted, ref } from 'vue';
+import { useStore } from 'vuex';
 
-// yearPicker, monthPicker, disabled ,yearRange, autoApply
+const { handleDate } = useFormatter()
 
-const activeDayInterval = ref(0)
-const activeVisit = ref(0)
-const date = ref(new Date())
-const isYear = ref(false)
-const isMonth = ref(false)
-const isDays = ref(false)
+const getUtcTime = (date, day) => {
+    let my_date = new Date(date)
+    let getDay = day ? day : my_date.getDate()
+    let dateStr = my_date.getFullYear() + "-" + (my_date.getMonth() + 1) + "-" + getDay + "T" + "00%3A00%3A00%2B05%3A00"
+    return dateStr
+}
+
+const date__gte = ref("2022-12-04")
+const date__lt = ref("")
+date__lt.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
 const picker = ref()
+const store = useStore()
 
-const getDay = (prop) => {
-    console.log(interval_date[prop])
-    activeDayInterval.value = prop
-    isYear.value = false
-    isMonth.value = false
-    if (activeDayInterval.value == 2) {
-        isYear.value = true
+const list = computed(() => {
+    let devices = store.getters["device/devices"]
+    let total = store.getters["device/total"]
+    let s_table = {}
+    let count = 0
+    if (devices.length > 0) {
+        for (const item of devices) {
+            let my_key = `${item.os_type}_${item.device_type}`
+            try {
+                count += item.sessions
+
+                if (my_key in s_table) {
+                    if (item.country === "UZ") {
+                        s_table[my_key].UZ += item.sessions
+                    }
+                    else {
+                        s_table[my_key].other += item.sessions
+                    }
+                }
+                else {
+                    s_table = {
+                        ...s_table,
+                        [my_key]: {
+                            UZ: item.country === "UZ" ? item.sessions : 0,
+                            other: item.country !== "UZ" ? item.sessions : 0
+                        }
+                    }
+                }
+            }
+            catch (e) {
+                console.log('err', e)
+                count = 0
+            }
+        }
     }
 
-    if (activeDayInterval.value == 3) {
-        isMonth.value = true
+    return {
+        devices,
+        s_table,
+        count,
+        total
     }
+})
+
+
+const getData = () => {
+    store.dispatch("device/getDevices", {
+        cb: () => { }
+    })
+
+    store.dispatch("device/getDevicesTotal", {})
 }
 
-const getVisits = (prop) => {
-    activeVisit.value = prop
+const refreshData = () => {
+    let date = null
+    if (date__gte.value <= date__lt.value) {
+        date =
+            new Date(date__gte.value).getFullYear()
+            + "-" + (new Date(date__gte.value).getMonth() + 1) + "-" +
+            (new Date(date__lt.value).getDate() < 10 ? "0" + Number(new Date(date__gte.value).getDate() + 1) : new Date(date__gte.value).getDate() + 1)
+    }
+    else {
+        date = date__lt.value
+    }
+
+    console.log(date__gte.value)
+
+    store.commit("device/flushDevices")
+    store.dispatch("device/getDevices", {
+        created_at__gte: getUtcTime(date__gte.value),
+        created_at__lt: getUtcTime(date)
+    })
+
 }
 
-// Table
-const fakeList = [
-    {
-        country: 'Узбекистан',
-        region: 'Ташкентская обл.',
-        city: 'Ташкент',
-        sessions: '100 000 000 ',
-        Accounts: '100 000 000',
-        devices: 'Ios',
-    },
-    {
-        country: 'Узбекистан',
-        region: 'Ташкентская обл.',
-        city: 'Ташкент',
-        sessions: '100 000 000 ',
-        Accounts: '100 000 000',
-        devices: 'Ios',
-    },
-    {
-        country: 'Узбекистан',
-        region: 'Ташкентская обл.',
-        city: 'Ташкент',
-        sessions: '100 000 000 ',
-        Accounts: '100 000 000',
-        devices: 'Ios',
-    },
-    {
-        country: 'Узбекистан',
-        region: 'Ташкентская обл.',
-        city: 'Ташкент',
-        sessions: '100 000 000 ',
-        Accounts: '100 000 000',
-        devices: 'Ios',
-    },
-    {
-        country: 'Узбекистан',
-        region: 'Ташкентская обл.',
-        city: 'Ташкент',
-        sessions: '100 000 000 ',
-        Accounts: '100 000 000',
-        devices: 'Ios',
-    },
-    {
-        country: 'Узбекистан',
-        region: 'Ташкентская обл.',
-        city: 'Ташкент',
-        sessions: '100 000 000 ',
-        Accounts: '100 000 000',
-        devices: 'Ios',
-    },
-    {
-        country: 'Узбекистан',
-        region: 'Ташкентская обл.',
-        city: 'Ташкент',
-        sessions: '100 000 000 ',
-        Accounts: '100 000 000',
-        devices: 'Ios',
-    },
-]
+onMounted(() => {
+    getData()
+})
 </script>
-
-<style lang="scss">
-.dp__icon {
-    display: none;
-}
-
-.dp__input {
-    // padding: 0 !important;
-    border: none;
-    width: 182px;
-    font-size: 20px !important;
-    line-height: 38px !important;
-    border-radius: 7px;
-    padding-left: 23px !important;
-    padding-right: 11px !important;
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-.dp__input_icon_pad {
-    height: 56px;
-
-}
-</style>
 
 <style lang="scss" scoped>
 .ico-size {
@@ -273,8 +194,6 @@ const fakeList = [
 }
 
 .stats-countries {
-    padding-top: 31px;
-    padding-bottom: 31px;
 
     svg {
         position: absolute;
@@ -312,6 +231,7 @@ const fakeList = [
                 color: var(--darkness-opacity-07);
 
             }
+
 
             .interval-days-drop {
                 width: 182px;
@@ -363,6 +283,11 @@ const fakeList = [
         align-items: flex-start;
         gap: 17px;
 
+        span {
+            margin-top: 6px;
+            display: block;
+        }
+
         .count {
             display: flex;
             align-items: center;
@@ -379,65 +304,5 @@ const fakeList = [
             }
         }
     }
-}
-
-
-table {
-    width: 100%;
-    border: none;
-    border-collapse: separate;
-    border-spacing: 0 20px;
-
-    th,
-    td {
-        // border: 1px solid var(--darkness);
-        color: var(--darkness);
-
-    }
-
-    th {
-        opacity: 0.7;
-        text-align: left;
-    }
-
-    td {
-        padding: 28px 18px;
-        background: var(--basic-light);
-
-        &:first-child {
-            border-radius: 14px 0 0 14px;
-        }
-
-        &:last-child {
-            border-radius: 0 14px 14px 0;
-        }
-
-    }
-
-    tr {
-        width: 100%;
-    }
-
-    .total {
-        text-align: left;
-        border-radius: 14px;
-
-        td {
-            vertical-align: middle;
-            color: var(--basic-light);
-            background: var(--highlight);
-            font-weight: 600;
-
-            &:first-child {
-                border-radius: 14px 0 0 14px;
-            }
-
-            &:last-child {
-                border-radius: 0 14px 14px 0;
-            }
-
-        }
-    }
-
 }
 </style>

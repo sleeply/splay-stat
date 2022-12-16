@@ -1,17 +1,17 @@
 import { createStore } from "vuex";
-import * as getters from "./getters";
-import * as actions from "./actions";
-import mutations from "./mutations";
 
-const state = {
-  categories: null
-};
+import authed from "./modules/authed";
+import subs from "./modules/subs";
+import content from "./modules/content";
+import device from "./modules/device";
 
 export default function () {
   return createStore({
-    state,
-    getters,
-    actions,
-    mutations
+    modules: {
+      authed,
+      subs,
+      content,
+      device,
+    },
   });
 }

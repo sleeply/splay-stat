@@ -23,7 +23,7 @@
                         </Icon>
                     </template>
                     <template #list="{ item }">
-                        <span class=" semi-bold"> {{ $t(`interval_date.${item}`) }}</span>
+                        <span class=" semi-bold text20"> {{ $t(`interval_date.${item}`) }}</span>
                         <Icon class="ico-size">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -34,19 +34,15 @@
                         </Icon>
                     </template>
                 </DropDown>
-                <div class="date-at" style="position: relative;">
+                <!-- <div class="date-at" style="position: relative;">
                     <Datepicker ref="picker" v-model="date" :year-picker="isYear" :month-picker="isMonth"
                         :enableTimePicker="false" autoApply locale="ru-Ru">
-                        <!-- <template #action-select>
-
-                            <p class="custom-select" @click="selectDate">awdawd</p>
-                        </template> -->
                     </Datepicker>
                 </div>
                 <div class="date-at" style="position: relative;" v-if="interval_date[activeDayInterval] !== 'day'">
                     <Datepicker v-model="date" :year-picker="isYear" :month-picker="isMonth" :enableTimePicker="false"
                         autoApply locale="ru-Ru" :clearable="false" />
-                </div>
+                </div> -->
                 <DropDown class="interval-visits-drop" :items="interval_visits" @setActive="getVisits"
                     :active="activeVisit">
                     <template #active="{ active }">
@@ -60,7 +56,7 @@
                         </Icon>
                     </template>
                     <template #list="{ item }">
-                        <span class="semi-bold">{{ $t(`interval_visits.${item}`) }}</span>
+                        <span class="semi-bold text20">{{ $t(`interval_visits.${item}`) }}</span>
                         <Icon class="ico-size" :style="{
                         
                         }">
@@ -142,8 +138,8 @@ import DropDown from '@/components/DropDown.vue';
 import { interval_date, interval_visits } from '@/utils/constants'
 import Icon from '@/components/Icon.vue';
 import { ref } from 'vue';
-import Datepicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+// import Datepicker from '@vuepic/vue-datepicker';
+// import '@vuepic/vue-datepicker/dist/main.css'
 
 // yearPicker, monthPicker, disabled ,yearRange, autoApply
 
@@ -235,27 +231,27 @@ const fakeList = [
 </script>
 
 <style lang="scss">
-.dp__icon {
-    display: none;
-}
+// .dp__icon {
+//     display: none;
+// }
 
-.dp__input {
-    // padding: 0 !important;
-    border: none;
-    width: 182px;
-    font-size: 20px !important;
-    line-height: 38px !important;
-    border-radius: 7px;
-    padding-left: 23px !important;
-    padding-right: 11px !important;
-    padding-top: 0;
-    padding-bottom: 0;
-}
+// .dp__input {
+//     // padding: 0 !important;
+//     border: none;
+//     width: 182px;
+//     font-size: 20px !important;
+//     line-height: 38px !important;
+//     border-radius: 7px;
+//     padding-left: 23px !important;
+//     padding-right: 11px !important;
+//     padding-top: 0;
+//     padding-bottom: 0;
+// }
 
-.dp__input_icon_pad {
-    height: 56px;
+// .dp__input_icon_pad {
+//     height: 56px;
 
-}
+// }
 </style>
 
 <style lang="scss" scoped>
@@ -273,8 +269,6 @@ const fakeList = [
 }
 
 .stats-countries {
-    padding-top: 31px;
-    padding-bottom: 31px;
 
     svg {
         position: absolute;
@@ -312,6 +306,7 @@ const fakeList = [
                 color: var(--darkness-opacity-07);
 
             }
+
 
             .interval-days-drop {
                 width: 182px;
@@ -363,6 +358,11 @@ const fakeList = [
         align-items: flex-start;
         gap: 17px;
 
+        span {
+            margin-top: 6px;
+            display: block;
+        }
+
         .count {
             display: flex;
             align-items: center;
@@ -405,11 +405,13 @@ table {
         background: var(--basic-light);
 
         &:first-child {
-            border-radius: 14px 0 0 14px;
+            border-radius: 0.625rem 0 0 0.625rem;
+            padding-left: 18px;
         }
 
         &:last-child {
-            border-radius: 0 14px 14px 0;
+            padding-right: 18px;
+            border-radius: 0 0.625rem 0.625rem 0;
         }
 
     }

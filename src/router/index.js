@@ -15,14 +15,14 @@ import { SUPPORT_LOCALES } from "@/utils/constants";
 const routes = [];
 
 const childRoutes = [
-  {
-    path: "",
-    name: "MainWrapper",
-    component: () => import("@/views/MainWrapper.vue"),
-    meta: {
-      isMenu: true,
-    },
-  },
+  // {
+  //   path: "",
+  //   name: "MainWrapper",
+  //   component: () => import("@/views/MainWrapper.vue"),
+  //   meta: {
+  //     isMenu: true,
+  //   },
+  // },
   {
     path: "auth",
     name: "Auth",
@@ -43,6 +43,46 @@ const childRoutes = [
     path: "device",
     name: "Device",
     component: () => import("@/views/Device.vue"),
+    meta: {
+      isMenu: true,
+    },
+  },
+  {
+    path: "",
+    name: "Authed",
+    component: () => import("@/views/Authed.vue"),
+    meta: {
+      isMenu: true,
+    },
+  },
+  {
+    path: "subs",
+    name: "Subs",
+    component: () => import("@/views/Subs.vue"),
+    meta: {
+      isMenu: true,
+    },
+  },
+  {
+    path: "live",
+    name: "Live",
+    component: () => import("@/views/Live.vue"),
+    meta: {
+      isMenu: true,
+    },
+  },
+  {
+    path: "watches",
+    name: "Watches",
+    component: () => import("@/views/Watches.vue"),
+    meta: {
+      isMenu: true,
+    },
+  },
+  {
+    path: "regions",
+    name: "Regions",
+    component: () => import("@/views/Regions.vue"),
     meta: {
       isMenu: true,
     },
@@ -126,7 +166,7 @@ const beforeEach = async (to, from, next) => {
   // use locale if paramsLocale is not in SUPPORT_LOCALES
 
   if (!SUPPORT_LOCALES.includes(paramsLocale)) {
-    return next({ name: `${newLocale}_MainWrapper` });
+    return next({ name: `${newLocale}_Authed` });
   }
 
   // load locale messages

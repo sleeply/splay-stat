@@ -5,7 +5,9 @@
         </div>
         <div class="mid">
             <div class="top">
-                <router-link to="">
+                <!-- <router-link :to="$i18nRoute({
+                    name: 'MainWrapper'
+                })">
                     <Icon class="ico-size">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -13,8 +15,8 @@
                                 fill="#605BFF" />
                         </svg>
                     </Icon>
-                </router-link>
-                <router-link to="">
+                </router-link> -->
+                <!-- <router-link to="">
                     <Icon class="ico-size">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -22,17 +24,11 @@
                                 fill="#9A9AA9" />
                         </svg>
                     </Icon>
-                </router-link>
-                <router-link to="">
-                    <Icon class="ico-size">
-                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M3.5 6.00005V15H1.5V18C1.5 19.1046 2.39543 20 3.5 20H16.5H21.5C22.6046 20 23.5 19.1046 23.5 18V9.00005C23.5 7.89548 22.6046 7.00005 21.5 7.00005V6.00005C21.5 4.89548 20.6046 4.00005 19.5 4.00005H5.5C4.39543 4.00005 3.5 4.89548 3.5 6.00005ZM19.5 7.00005V6.00005H5.5V15H14.5V9.00005C14.5 7.89548 15.3954 7.00005 16.5 7.00005H19.5ZM3.5 17H14.5V18H3.5V17ZM21.5 18H16.5V9.00005H21.5V18Z"
-                                fill="#9A9AA9" />
-                        </svg>
-                    </Icon>
-                </router-link>
-                <router-link to="">
+                </router-link> -->
+
+                <router-link :to="$i18nRoute({
+                    name: 'Authed'
+                })">
                     <Icon class="ico-size">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -41,7 +37,28 @@
                         </svg>
                     </Icon>
                 </router-link>
-                <router-link to="">
+                <router-link :to="$i18nRoute({
+                    name: 'Subs'
+                })" class="subs">
+                    <Icon class="ico-size">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            data-v-2bc134a4="">
+                            <path d="M13.8497 4.25049V6.67049" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" data-v-2bc134a4=""></path>
+                            <path d="M13.8497 17.7603V19.7843" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" data-v-2bc134a4=""></path>
+                            <path d="M13.8497 14.3249V9.50391" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" data-v-2bc134a4=""></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M18.7021 20C20.5242 20 22 18.5426 22 16.7431V14.1506C20.7943 14.1506 19.8233 13.1917 19.8233 12.001C19.8233 10.8104 20.7943 9.85039 22 9.85039L21.999 7.25686C21.999 5.45745 20.5221 4 18.7011 4H5.29892C3.47789 4 2.00104 5.45745 2.00104 7.25686L2 9.93485C3.20567 9.93485 4.17668 10.8104 4.17668 12.001C4.17668 13.1917 3.20567 14.1506 2 14.1506V16.7431C2 18.5426 3.4758 20 5.29787 20H18.7021Z"
+                                stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                data-v-2bc134a4=""></path>
+                        </svg>
+                    </Icon>
+                </router-link>
+                <router-link :to="$i18nRoute({
+                    name: 'Watches'
+                })">
                     <Icon class="ico-size">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -50,17 +67,31 @@
                         </svg>
                     </Icon>
                 </router-link>
-                <router-link to="">
+                <router-link :to="$i18nRoute({
+                    name: 'Live'
+                })">
+                    <Icon class="ico-size">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M10.596 0.164C10.7514 0.0398926 10.9498 -0.0173973 11.1474 0.00473152C11.3451 0.0268603 11.5259 0.126595 11.65 0.282C13.1743 2.19061 14.0031 4.56141 14 7.00398C13.9969 9.44655 13.1621 11.8152 11.633 13.72C11.5083 13.8752 11.3272 13.9744 11.1293 13.996C10.9315 14.0176 10.7332 13.9597 10.578 13.835C10.4228 13.7103 10.3236 13.5292 10.302 13.3313C10.2804 13.1335 10.3383 12.9352 10.463 12.78C11.7785 11.1411 12.4968 9.10317 12.4995 7.00163C12.5022 4.90009 11.7893 2.86026 10.478 1.218C10.3539 1.06258 10.2966 0.864223 10.3187 0.666564C10.3409 0.468905 10.4406 0.28813 10.596 0.164V0.164ZM6.756 3.134C6.8357 3.07605 6.92604 3.03437 7.02185 3.01135C7.11766 2.98833 7.21707 2.98442 7.3144 2.99983C7.41173 3.01525 7.50506 3.0497 7.58907 3.1012C7.67308 3.1527 7.74611 3.22026 7.804 3.3C8.58301 4.37283 9.00256 5.66467 9.00256 6.9905C9.00256 8.31633 8.58301 9.60817 7.804 10.681C7.74634 10.7612 7.67341 10.8292 7.58939 10.8811C7.50538 10.9331 7.41194 10.9679 7.31443 10.9836C7.21692 10.9993 7.11727 10.9956 7.02119 10.9727C6.92511 10.9498 6.83451 10.9082 6.75457 10.8502C6.67463 10.7921 6.60694 10.7189 6.55538 10.6347C6.50382 10.5504 6.46941 10.4568 6.45412 10.3593C6.43883 10.2617 6.44296 10.1621 6.46628 10.0661C6.4896 9.97011 6.53164 9.87968 6.59 9.8C7.18313 8.98331 7.50258 7.99985 7.50258 6.9905C7.50258 5.98115 7.18313 4.99769 6.59 4.181C6.47338 4.01999 6.42547 3.81926 6.45678 3.62293C6.4881 3.42661 6.59608 3.25075 6.757 3.134H6.756ZM2 9C2.53043 9 3.03914 8.78929 3.41421 8.41421C3.78929 8.03914 4 7.53043 4 7C4 6.46957 3.78929 5.96086 3.41421 5.58579C3.03914 5.21071 2.53043 5 2 5C1.46957 5 0.960859 5.21071 0.585786 5.58579C0.210714 5.96086 0 6.46957 0 7C0 7.53043 0.210714 8.03914 0.585786 8.41421C0.960859 8.78929 1.46957 9 2 9V9Z"
+                                fill="black" />
+                        </svg>
+
+                    </Icon>
+                </router-link>
+                <router-link :to="$i18nRoute({
+                    name: 'Device'
+                })">
                     <Icon class="ico-size">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M13.5962 18.2555L12.5 19.2127L11.4038 18.2555C7.48842 14.8366 5.5 11.8113 5.5 9.00005C5.5 5.02146 8.60349 2.00005 12.5 2.00005C16.3965 2.00005 19.5 5.02146 19.5 9.00005C19.5 11.8113 17.5116 14.8366 13.5962 18.2555ZM6.18555 14.8035C6.59614 15.3656 7.05352 15.9374 7.55748 16.519C5.69525 16.9385 4.5 17.5337 4.5 18C4.5 18.807 8.07914 20 12.5 20C16.9209 20 20.5 18.807 20.5 18C20.5 17.5337 19.3047 16.9385 17.4425 16.519C17.9465 15.9374 18.4039 15.3656 18.8144 14.8035C21.0633 15.4858 22.5 16.5804 22.5 18C22.5 20.5068 18.0203 22 12.5 22C6.97973 22 2.5 20.5068 2.5 18C2.5 16.5804 3.93674 15.4858 6.18555 14.8035ZM12.5 4.00005C15.3038 4.00005 17.5 6.1382 17.5 9.00005C17.5 11.047 15.8727 13.5659 12.5 16.5561C9.12733 13.5659 7.5 11.047 7.5 9.00005C7.5 6.1382 9.69624 4.00005 12.5 4.00005ZM12.5 6.00005C14.1569 6.00005 15.5 7.34319 15.5 9.00005C15.5 10.6569 14.1569 12 12.5 12C10.8431 12 9.5 10.6569 9.5 9.00005C9.5 7.34319 10.8431 6.00005 12.5 6.00005ZM11.5 9.00005C11.5 8.44776 11.9477 8.00005 12.5 8.00005C13.0523 8.00005 13.5 8.44776 13.5 9.00005C13.5 9.55233 13.0523 10 12.5 10C11.9477 10 11.5 9.55233 11.5 9.00005Z"
+                                d="M3.5 6.00005V15H1.5V18C1.5 19.1046 2.39543 20 3.5 20H16.5H21.5C22.6046 20 23.5 19.1046 23.5 18V9.00005C23.5 7.89548 22.6046 7.00005 21.5 7.00005V6.00005C21.5 4.89548 20.6046 4.00005 19.5 4.00005H5.5C4.39543 4.00005 3.5 4.89548 3.5 6.00005ZM19.5 7.00005V6.00005H5.5V15H14.5V9.00005C14.5 7.89548 15.3954 7.00005 16.5 7.00005H19.5ZM3.5 17H14.5V18H3.5V17ZM21.5 18H16.5V9.00005H21.5V18Z"
                                 fill="#9A9AA9" />
                         </svg>
                     </Icon>
                 </router-link>
             </div>
-            <div class="bottom">
+            <!-- <div class="bottom">
                 <div class="avatar">
                     <img :src="require('@/assets/kurumi.jpg')" alt="">
                 </div>
@@ -73,7 +104,7 @@
                         </g>
                     </svg>
                 </Icon>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -107,10 +138,11 @@ import Icon from '@/components/Icon.vue';
         // height: 24px;
         width: 30px;
         height: 30px;
+
+
     }
 
     .logo {
-        // width: 2.63rem;
         width: 60px;
 
     }
@@ -126,11 +158,55 @@ import Icon from '@/components/Icon.vue';
             display: flex;
             flex-direction: column;
             align-items: center;
-            // gap: 1.94rem;
             gap: 47px;
+
+            .subs {
+                .ico-size {
+                    svg {
+                        path {
+                            fill: none;
+                            stroke: var(--basic-grey);
+                        }
+                    }
+                }
+            }
 
             a {
                 display: block;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+
+                .ico-size {
+
+                    svg {
+                        path {
+                            fill: var(--basic-grey);
+                        }
+                    }
+                }
+
+                &.router-link-exact-active {
+                    .ico-size {
+                        svg {
+                            path {
+                                fill: var(--highlight);
+                            }
+                        }
+                    }
+
+                    &.subs {
+                        .ico-size {
+                            svg {
+                                path {
+                                    fill: none;
+                                    stroke: var(--highlight);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 

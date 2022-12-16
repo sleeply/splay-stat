@@ -20,7 +20,7 @@
         background: transparent;
         justify-content: center;
         outline: none;
-
+        cursor: pointer;
         width: 100%;
         height: 100%;
 

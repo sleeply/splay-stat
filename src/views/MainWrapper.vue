@@ -114,7 +114,7 @@ th {
 
 td {
   // font-size: 0.875rem;
-  padding: 28px 18px;
+  padding: 28px 0;
   // line-height:  1.1875rem;
 }
 
@@ -134,9 +134,11 @@ tr {
 
     &:first-child {
       border-radius: 0.625rem 0 0 0.625rem;
+      padding-left: 18px;
     }
 
     &:last-child {
+      padding-right: 18px;
       border-radius: 0 0.625rem 0.625rem 0;
     }
 

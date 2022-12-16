@@ -23,6 +23,8 @@
 
   color: var(--basic-dark);
 
+  --background: #fafafa;
+
   --index: calc(1vw + 1vh);
   font-size: calc(max(var(--index) * 0.545, 16px));
   line-height: 1.375rem;
@@ -31,16 +33,9 @@
 .s-container {
   // max-width: 64rem;
   margin: 0 auto;
-  max-width: 1440px;
-
-}
-
-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  // max-width: 1440px;
+  max-width: 94%;
+  padding: 31px 0;
 }
 
 .page-title {
@@ -50,13 +45,222 @@ svg {
   line-height: 38px;
   font-weight: 700;
   color: var(--darkness);
+  margin-bottom: 42px;
 }
 
 html {
   font-family: "Nunito", sans-serif;
-  background: #fafafa;
+  background: var(--background);
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
 }
 
 body {
-  background: #fafafa;
+  background: var(--background);
+}
+
+.footer {
+  display: flex;
+  align-items: flex-start;
+  gap: 17px;
+
+  .count-icon {
+    width: 70px;
+    height: 70px;
+    flex: 0 0 70px;
+  }
+
+  span {
+    margin-top: 6px;
+    display: block;
+  }
+
+  .count {
+    display: flex;
+    align-items: center;
+    max-width: 402px;
+    height: 100%;
+    background: var(--basic-light);
+    padding: 27px 11px 27px 35px;
+    border-radius: 14px;
+    margin-top: 19px;
+
+    .content {
+      margin-left: 12px;
+    }
+  }
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 21px;
+  margin-bottom: 35px;
+
+  .filters-title {
+    color: var(--darkness-opacity-07);
+  }
+
+  .ico-size {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+  }
+
+  .drop-ico {
+    width: 10px;
+    height: 10px;
+  }
+
+  .interval-days-drop {
+    width: 182px;
+    background: var(--basic-light);
+
+    P {
+      color: var(--darkness-opacity-07);
+    }
+
+    span {
+      color: var(--darkness-opacity-07);
+    }
+
+    .choice {
+      &:hover,
+      &.selected,
+      &:focus {
+        span {
+          color: var(--basic-light);
+        }
+      }
+    }
+  }
+}
+
+table {
+  width: 100%;
+  // border: none;
+  // border-collapse: separate;
+  // border-spacing: 0 20px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    .icon-size {
+      width: 10px;
+      height: 10px;
+      transition: all 0.4s ease;
+
+      &.ordered {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .type {
+    width: 22px;
+    height: 22px;
+    background-color: var(--secondary-highlight);
+    border-radius: 7px;
+    margin: auto;
+  }
+
+  th,
+  td {
+    // border: 1px solid var(--darkness);
+    color: var(--darkness);
+
+    span {
+      text-align: center;
+    }
+  }
+
+  th {
+    opacity: 0.7;
+    text-align: left;
+
+    span {
+      text-align: left;
+    }
+  }
+
+  td {
+    // padding: 28px 18px;
+    padding: 28px 0;
+    vertical-align: middle;
+    text-align: center;
+    background: var(--basic-light);
+
+    span {
+      margin-left: 16px;
+    }
+
+    &:first-child {
+      border-radius: 14px 0 0 14px;
+      padding-left: 18px;
+    }
+
+    &:last-child {
+      padding-right: 18px;
+      border-radius: 0 14px 14px 0;
+    }
+  }
+
+  tr {
+    width: 100%;
+  }
+
+  .total {
+    text-align: left;
+    border-radius: 14px;
+
+    td {
+      vertical-align: middle;
+      color: var(--basic-light);
+      background: var(--highlight);
+      font-weight: 600;
+
+      &:first-child {
+        border-radius: 14px 0 0 14px;
+      }
+
+      &:last-child {
+        border-radius: 0 14px 14px 0;
+      }
+    }
+  }
+}
+
+// datepicker
+.dp__input {
+  border: none !important;
+  width: 182px !important;
+  font-size: 20px !important;
+  line-height: 38px !important;
+  border-radius: 7px !important;
+  padding-left: 23px !important;
+  padding-right: 11px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.dp__input_icon_pad {
+  height: 56px !important;
+}
+
+.date-at {
+  width: 182px;
+  height: 56px;
+  input {
+    width: 100%;
+    height: 100%;
+    padding-left: 23px;
+    padding-right: 11px;
+    border-radius: 7px;
+    outline: none;
+  }
 }
