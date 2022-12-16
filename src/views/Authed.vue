@@ -125,9 +125,9 @@ const view_period = ref("hours")
 const filteredDays = ref([])
 
 const date__gte = ref(new Date())
-const date__lt = ref()
-// date__gte.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
-// date__lt.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+const date__lt = ref("")
+date__gte.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate() - 1}`
+date__lt.value = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate() + 1}`
 
 
 const getUtcTime = (date, day) => {
@@ -229,7 +229,7 @@ const updateModelValue = (date) => {
     let year = new Date(date__gte.value).getFullYear()
     let day = 1
     if (view_period.value === "days") {
-        date__lt.value = new Date(year, month + 1, 0)
+        date__lt.value = new Date(year, month + 1, 1)
     }
     else if (view_period.value === 'days_period') {
         pageSize.value = 1000
@@ -238,9 +238,12 @@ const updateModelValue = (date) => {
         return
     }
     else if (view_period.value === 'months') {
+        console.log(date__lt.value)
         let endMonth = new Date(date__lt.value).getMonth() + 1
         let newDate = new Date(year, endMonth, 0)
+        console.log(newDate)
         getData(getUtcTime(date__gte.value), getUtcTime(newDate))
+        return
     }
     else if (view_period.value === "hours") {
         date__lt.value = ''
